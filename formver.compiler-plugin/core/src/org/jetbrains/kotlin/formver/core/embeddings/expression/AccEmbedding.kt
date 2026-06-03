@@ -13,12 +13,26 @@ import org.jetbrains.kotlin.formver.viper.ast.PermExp
 
 data class AccEmbedding(
     val field: FieldEmbedding,
-    val access: ExpEmbedding,
+    val receiver: ExpEmbedding,
     val perm: PermExp,
 ) : ExpEmbedding {
     override val type: TypeEmbedding
         get() = buildType { boolean() }
 
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitAccEmbedding(this)
-    override fun children(): Sequence<ExpEmbedding> = sequenceOf(access)
+    override fun children(): Sequence<ExpEmbedding> = sequenceOf(receiver)
+}
+
+/**
+ * Marker produced by the `read`/`write` builtins to carry a [PermExp] into an enclosing `acc` call.
+ *
+ * It is always consumed by the `acc` special function during conversion and never reaches
+ * linearization.
+ */
+data class PermissionLit(val perm: PermExp) : ExpEmbedding {
+    override val type: TypeEmbedding
+        get() = buildType { boolean() }
+
+    override fun <R> accept(v: ExpVisitor<R>): R = v.visitDefault(this)
+    override fun children(): Sequence<ExpEmbedding> = emptySequence()
 }

@@ -15,15 +15,26 @@ import org.jetbrains.kotlin.formver.viper.ast.Exp
 import org.jetbrains.kotlin.formver.viper.ast.PermExp
 import org.jetbrains.kotlin.formver.viper.ast.Predicate
 
+
+interface ClassTypeEmbedding : PretypeEmbedding {
+    val isManual: Boolean
+    val uniquePredicateName: ScopedName
+
+    context(ctx: TypeResolver)
+    fun uniquePredicate(): Predicate
+
+    override fun uniquePredicateAccessInvariant(): TypeInvariantEmbedding
+}
+
 // TODO: incorporate generic parameters.
-data class ClassTypeEmbedding(override val name: ScopedName, val isManual: Boolean) : PretypeEmbedding {
+data class ClassTypeEmbeddingImpl(override val name: ScopedName, override val isManual: Boolean) : ClassTypeEmbedding {
 
     override val runtimeType: Exp = this.embedClassTypeFunc()()
 
-    val uniquePredicateName = ScopedName(name.asScope(), PredicateName("unique"))
+    override val uniquePredicateName = ScopedName(name.asScope(), PredicateName("unique"))
 
     context(ctx: TypeResolver)
-    fun uniquePredicate(): Predicate = ClassPredicateBuilder.build(name, uniquePredicateName) {
+    override fun uniquePredicate(): Predicate = ClassPredicateBuilder.build(name, uniquePredicateName) {
         includeSubTypeInvariants()
         forEachPropertyField {
             forBackingField {
@@ -51,10 +62,19 @@ data class ClassTypeEmbedding(override val name: ScopedName, val isManual: Boole
             field.accessInvariantsForParameter()
         }
 
-    override fun uniquePredicateAccessInvariant(ctx: TypeResolver) =
+    override fun uniquePredicateAccessInvariant() =
         PredicateAccessTypeInvariantEmbedding(uniquePredicateName, PermExp.FullPerm())
 
 }
 
 
 fun ClassTypeEmbedding.embedClassTypeFunc(): DomainFunc = RuntimeTypeDomain.classTypeFunc(name)
+
+fun ClassTypeEmbedding.predicateAccess(
+    receiver: ExpEmbedding, ctx: TypeResolver, source: KtSourceElement?
+): Exp.PredicateAccess {
+    val access = (uniquePredicateAccessInvariant().fillHole(receiver)
+        .pureToViper(toBuiltin = true, ctx, source) as? Exp.PredicateAccess
+        ?: error("Translating shared predicate of ${name.debugMangled} yielded no predicate access."))
+    return access
+}

@@ -607,6 +607,114 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
         override val type = left.type
     }
 
+    data class SeqDrop(
+        val seq: Exp,
+        val idx: Exp,
+        val pos: Position = Position.NoPosition,
+        val info: Info = Info.NoInfo,
+    ) : Exp {
+        context(nameResolver: NameResolver)
+        override fun toSilver(): viper.silver.ast.SeqDrop =
+            viper.silver.ast.SeqDrop.apply(
+                seq.toSilver(),
+                idx.toSilver(),
+                pos.toSilver(),
+                info.toSilver(),
+                silverNoTrafos,
+            )
+
+        override val type = seq.type
+
+        context(nameResolver: NameResolver)
+        override fun registerNames() {
+            seq.registerNames()
+            idx.registerNames()
+        }
+    }
+
+    data class EmptyMultiset(
+        val elementType: Type,
+        val pos: Position = Position.NoPosition,
+        val info: Info = Info.NoInfo,
+    ) : Exp {
+        context(nameResolver: NameResolver)
+        override fun toSilver(): viper.silver.ast.EmptyMultiset =
+            viper.silver.ast.EmptyMultiset.apply(
+                elementType.toSilver(),
+                pos.toSilver(),
+                info.toSilver(),
+                silverNoTrafos,
+            )
+
+        override val type = Type.Multiset(elementType)
+
+        context(nameResolver: NameResolver)
+        override fun registerNames() {}
+    }
+
+    data class ExplicitMultiset(
+        val args: List<Exp>,
+        val pos: Position = Position.NoPosition,
+        val info: Info = Info.NoInfo,
+    ) : Exp {
+        context(nameResolver: NameResolver)
+        override fun toSilver(): viper.silver.ast.ExplicitMultiset =
+            viper.silver.ast.ExplicitMultiset.apply(
+                args.toSilver().toScalaSeq(),
+                pos.toSilver(),
+                info.toSilver(),
+                silverNoTrafos,
+            )
+
+        override val type = Type.Multiset(args.first().type)
+
+        context(nameResolver: NameResolver)
+        override fun registerNames() {
+            args.forEach { it.registerNames() }
+        }
+    }
+
+    data class AnySetCardinality(
+        val s: Exp,
+        val pos: Position = Position.NoPosition,
+        val info: Info = Info.NoInfo,
+    ) : Exp {
+        context(nameResolver: NameResolver)
+        override fun toSilver(): viper.silver.ast.AnySetCardinality =
+            viper.silver.ast.AnySetCardinality.apply(
+                s.toSilver(),
+                pos.toSilver(),
+                info.toSilver(),
+                silverNoTrafos,
+            )
+
+        override val type = Type.Int
+
+        context(nameResolver: NameResolver)
+        override fun registerNames() {
+            s.registerNames()
+        }
+    }
+
+    data class AnySetUnion(
+        override val left: Exp,
+        override val right: Exp,
+        val pos: Position = Position.NoPosition,
+        val info: Info = Info.NoInfo,
+    ) : BinaryExp {
+        context(nameResolver: NameResolver)
+        override fun toSilver(): viper.silver.ast.AnySetUnion =
+            viper.silver.ast.AnySetUnion.apply(
+                left.toSilver(),
+                right.toSilver(),
+                pos.toSilver(),
+                info.toSilver(),
+                silverNoTrafos,
+            )
+
+        override val type = left.type
+    }
+
     data class Old(
         val exp: Exp,
         override val pos: Position = Position.NoPosition,

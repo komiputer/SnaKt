@@ -51,8 +51,3 @@ fun <!VIPER_TEXT!>combine<!>(@Unique left: Tree, @Unique right: Tree) : Tree {
     val res = Tree(left, right, data)
     return res
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 01fac6f9 (add tests)

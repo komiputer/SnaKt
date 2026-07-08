@@ -192,7 +192,7 @@ object SpecialKotlinFunctions {
             args.map { Assert(it) }.toBlock()
         }
 
-        val forAllCallableType = buildFunctionPretype {
+        val quantifierCallableType = buildFunctionPretype {
             withParam {
                 function {
                     withDispatchReceiver {
@@ -213,7 +213,7 @@ object SpecialKotlinFunctions {
             }
         }
 
-        addFunction(forAllCallableType, SpecialPackages.formver, name = "forAll") { args, ctx ->
+        addFunction(quantifierCallableType, SpecialPackages.formver, name = "forAll") { args, ctx ->
             val arg = args.first()
             val lambda = arg.ignoringMetaNodes() as? LambdaExp ?: throw SnaktInternalException(
                 null,
@@ -227,7 +227,7 @@ object SpecialKotlinFunctions {
             ctx.insertForAllFunctionCall(param.symbol, body)
         }
 
-        addFunction(forAllCallableType, SpecialPackages.formver, name = "exists") { args, ctx ->
+        addFunction(quantifierCallableType, SpecialPackages.formver, name = "exists") { args, ctx ->
             val arg = args.first()
             val lambda = arg.ignoringMetaNodes() as? LambdaExp ?: throw SnaktInternalException(
                 null,

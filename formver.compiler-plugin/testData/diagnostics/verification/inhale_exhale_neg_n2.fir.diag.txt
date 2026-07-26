@@ -1,0 +1,16 @@
+/inhale_exhale_neg_n2.kt: info: Generated Viper text for postExhaleReuse:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method postExhaleReuse(c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(c), boolType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale boolFromRef(c)
+  exhale boolFromRef(c)
+  assert boolFromRef(c)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

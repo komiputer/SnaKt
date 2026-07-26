@@ -50,19 +50,28 @@ data class InhaleDirect(val exp: ExpEmbedding) : ExpEmbedding {
 
     override fun children(): Sequence<ExpEmbedding> = sequenceOf(exp)
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitInhaleDirect(this)
+    override fun isValid(ctx: PurityContext): Boolean = exp.isPure().also {
+        if (!it) ctx.addPurityError(exp, "Inhale condition is impure")
+    }
 }
 
 /**
  * Immediately performs an unconditional exhale of the statement.
  *
  * Mirrors [InhaleDirect]. Translates to Viper's `exhale`, which asserts [exp] and then transfers
- * (removes) it from the proof state.
+ * it from the proof state. For pure boolean conditions (the only input class this feature supports),
+ * Viper's `exhale` checks the condition but does not remove it from the path condition — only
+ * permission-typed resources (`acc(...)`) are consumed by exhale. The translation is correct;
+ * the consumption semantics are not observable for boolean-only inputs.
  */
 data class ExhaleDirect(val exp: ExpEmbedding) : ExpEmbedding {
     override val type: TypeEmbedding = buildType { unit() }
 
     override fun children(): Sequence<ExpEmbedding> = sequenceOf(exp)
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitExhaleDirect(this)
+    override fun isValid(ctx: PurityContext): Boolean = exp.isPure().also {
+        if (!it) ctx.addPurityError(exp, "Exhale condition is impure")
+    }
 }
 
 

@@ -1,29 +1,7 @@
-/inhale_exhale_neg_n5.kt: info: Generated Viper text for impureInhale:
-method impureInhale() returns (v_ret_0: Ref)
-  ensures isSubtype(typeOf(v_ret_0), unitType())
-{
-  var x: Ref
-  var anon: Ref
-  x := intToRef(42)
-  x := plusInts(x, intToRef(1))
-  anon := x
-  inhale intFromRef(anon) < 43
-  label lbl_ret_0
-  inhale isSubtype(typeOf(v_ret_0), unitType())
-}
+/inhale_exhale_neg_n5.kt: error: Function 'impureInhale' was not verified because of errors in its declaration
 
-/inhale_exhale_neg_n5.kt: info: Generated Viper text for impureExhale:
-method impureExhale() returns (v_ret_0: Ref)
-  ensures isSubtype(typeOf(v_ret_0), unitType())
-{
-  var x: Ref
-  var anon_1: Ref
-  var anon_0: Ref
-  x := intToRef(42)
-  anon_0 := x
-  x := plusInts(anon_0, intToRef(1))
-  anon_1 := anon_0
-  exhale intFromRef(anon_1) < 43
-  label lbl_ret_0
-  inhale isSubtype(typeOf(v_ret_0), unitType())
-}
+/inhale_exhale_neg_n5.kt: error: Inhale condition is impure
+
+/inhale_exhale_neg_n5.kt: error: Function 'impureExhale' was not verified because of errors in its declaration
+
+/inhale_exhale_neg_n5.kt: error: Exhale condition is impure

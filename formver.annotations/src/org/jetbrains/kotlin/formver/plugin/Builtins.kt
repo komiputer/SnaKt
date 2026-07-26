@@ -24,11 +24,13 @@ fun verify(@Suppress("UNUSED_PARAMETER") vararg predicates: Boolean) = Unit
 fun inhale(@Suppress("UNUSED_PARAMETER") condition: Boolean) = Unit
 
 /**
- * Statement-level directive that asserts [condition] holds and then transfers (gives up) the
- * corresponding proof state.
+ * Statement-level directive that asserts [condition] holds and emits a Viper `exhale` statement.
  *
- * Translates to Viper's `exhale` statement. Unlike [verify]/`assert`, `exhale` removes the fact
- * from the proof state after checking it. This function hooks into the `formver` plugin; its
+ * Translates to Viper's `exhale` statement, which is distinct from [verify]/`assert`. Viper's
+ * `exhale` is designed to transfer (consume) permission-typed resources (`acc(...)`); for plain
+ * boolean conditions — the only input class this feature supports — the condition is checked but
+ * the boolean fact is not removed from the path condition (pure booleans are not consumable
+ * resources in Viper's permission model). This function hooks into the `formver` plugin; its
  * invocation in a Kotlin program does not do anything at runtime.
  */
 fun exhale(@Suppress("UNUSED_PARAMETER") condition: Boolean) = Unit

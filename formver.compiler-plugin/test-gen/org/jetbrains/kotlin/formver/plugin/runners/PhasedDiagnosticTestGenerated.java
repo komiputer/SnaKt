@@ -313,6 +313,36 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("inhale_exhale_neg_n1.kt")
+    public void testInhale_exhale_neg_n1() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/inhale_exhale_neg_n1.kt");
+    }
+
+    @Test
+    @TestMetadata("inhale_exhale_neg_n2.kt")
+    public void testInhale_exhale_neg_n2() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/inhale_exhale_neg_n2.kt");
+    }
+
+    @Test
+    @TestMetadata("inhale_exhale_neg_n3.kt")
+    public void testInhale_exhale_neg_n3() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/inhale_exhale_neg_n3.kt");
+    }
+
+    @Test
+    @TestMetadata("inhale_exhale_neg_n4.kt")
+    public void testInhale_exhale_neg_n4() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/inhale_exhale_neg_n4.kt");
+    }
+
+    @Test
+    @TestMetadata("inhale_exhale_neg_n5.kt")
+    public void testInhale_exhale_neg_n5() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/inhale_exhale_neg_n5.kt");
+    }
+
+    @Test
     @TestMetadata("manualFolding.kt")
     public void testManualFolding() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/manualFolding.kt");

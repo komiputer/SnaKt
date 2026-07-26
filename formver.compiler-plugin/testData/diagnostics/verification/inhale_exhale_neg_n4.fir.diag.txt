@@ -1,0 +1,10 @@
+/inhale_exhale_neg_n4.kt: info: Generated Viper text for insufficientBasis:
+method insufficientBasis(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 0
+  exhale intFromRef(x) > 5
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

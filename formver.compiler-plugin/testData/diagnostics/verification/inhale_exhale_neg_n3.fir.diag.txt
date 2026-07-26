@@ -1,0 +1,32 @@
+/inhale_exhale_neg_n3.kt: info: Generated Viper text for inhaleFalseVacuous:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method inhaleFalseVacuous() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale false
+  assert 1 == 2
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_neg_n3.kt: info: Generated Viper text for inhaleFalseEscapeHatch:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method inhaleFalseEscapeHatch(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale false
+  assert intFromRef(x) > 0
+  assert intFromRef(x) < 0
+  assert intFromRef(x) == 0
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

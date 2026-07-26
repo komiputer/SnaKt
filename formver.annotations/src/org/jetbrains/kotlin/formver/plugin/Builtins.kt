@@ -15,6 +15,24 @@ private class FormverFunctionCalledInRuntimeException(offendingFunction: String)
  */
 fun verify(@Suppress("UNUSED_PARAMETER") vararg predicates: Boolean) = Unit
 
+/**
+ * Statement-level directive that assumes [condition] holds from this point on, without proving it.
+ *
+ * Translates to Viper's `inhale` statement. This function hooks into the `formver` plugin; its
+ * invocation in a Kotlin program does not do anything at runtime.
+ */
+fun inhale(@Suppress("UNUSED_PARAMETER") condition: Boolean) = Unit
+
+/**
+ * Statement-level directive that asserts [condition] holds and then transfers (gives up) the
+ * corresponding proof state.
+ *
+ * Translates to Viper's `exhale` statement. Unlike [verify]/`assert`, `exhale` removes the fact
+ * from the proof state after checking it. This function hooks into the `formver` plugin; its
+ * invocation in a Kotlin program does not do anything at runtime.
+ */
+fun exhale(@Suppress("UNUSED_PARAMETER") condition: Boolean) = Unit
+
 infix fun Boolean.implies(other: Boolean) = !this || other
 
 fun loopInvariants(@Suppress("UNUSED_PARAMETER") body: () -> Unit) = Unit

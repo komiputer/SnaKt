@@ -52,6 +52,19 @@ data class InhaleDirect(val exp: ExpEmbedding) : ExpEmbedding {
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitInhaleDirect(this)
 }
 
+/**
+ * Immediately performs an unconditional exhale of the statement.
+ *
+ * Mirrors [InhaleDirect]. Translates to Viper's `exhale`, which asserts [exp] and then transfers
+ * (removes) it from the proof state.
+ */
+data class ExhaleDirect(val exp: ExpEmbedding) : ExpEmbedding {
+    override val type: TypeEmbedding = buildType { unit() }
+
+    override fun children(): Sequence<ExpEmbedding> = sequenceOf(exp)
+    override fun <R> accept(v: ExpVisitor<R>): R = v.visitExhaleDirect(this)
+}
+
 
 data class Unfold(val pred: PredicateAccessPermissions) : ExpEmbedding {
     override val type: TypeEmbedding = buildType { unit() }

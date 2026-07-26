@@ -191,6 +191,17 @@ object SpecialKotlinFunctions {
             args.map { Assert(it) }.toBlock()
         }
 
+        val booleanToUnitType = buildFunctionPretype {
+            withParam { boolean() }
+            withReturnType { unit() }
+        }
+        addFunction(booleanToUnitType, SpecialPackages.formver, name = "inhale") { args, _ ->
+            InhaleDirect(args[0])
+        }
+        addFunction(booleanToUnitType, SpecialPackages.formver, name = "exhale") { args, _ ->
+            ExhaleDirect(args[0])
+        }
+
         val forAllCallableType = buildFunctionPretype {
             withParam {
                 function {

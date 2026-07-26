@@ -301,6 +301,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("inhale_exhale.kt")
+    public void testInhale_exhale() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/inhale_exhale.kt");
+    }
+
+    @Test
     @TestMetadata("manualFolding.kt")
     public void testManualFolding() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/manualFolding.kt");

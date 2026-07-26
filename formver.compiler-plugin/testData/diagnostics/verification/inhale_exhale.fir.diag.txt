@@ -1,0 +1,27 @@
+/inhale_exhale.kt: info: Generated Viper text for inhaleThenRely:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method inhaleThenRely(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 0
+  assert intFromRef(x) > 0
+  assert intFromRef(x) >= 1
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale.kt: info: Generated Viper text for establishThenExhale:
+method establishThenExhale(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 5
+  exhale intFromRef(x) > 0
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

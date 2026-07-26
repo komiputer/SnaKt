@@ -214,6 +214,12 @@ data class LinearizationVisitor(
         }
     }
 
+    override fun visitExhaleDirect(e: ExhaleDirect): Linearizable = object : UnitResultLinearizable(e) {
+        override fun toViperUnusedResult(ctx: LinearizationContext) {
+            ctx.addStatement { Stmt.Exhale(e.exp.linearize().toViperBuiltinType(ctx), ctx.source.asPosition) }
+        }
+    }
+
     // endregion
 
     // region Type Operations

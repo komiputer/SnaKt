@@ -15,6 +15,26 @@ private class FormverFunctionCalledInRuntimeException(offendingFunction: String)
  */
 fun verify(@Suppress("UNUSED_PARAMETER") vararg predicates: Boolean) = Unit
 
+/**
+ * Statement-level directive that assumes [condition] holds from this point on, without proving it.
+ *
+ * Translates to Viper's `inhale` statement. This function hooks into the `formver` plugin; its
+ * invocation in a Kotlin program does not do anything at runtime.
+ */
+fun inhale(@Suppress("UNUSED_PARAMETER") condition: Boolean) = Unit
+
+/**
+ * Statement-level directive that asserts [condition] holds and emits a Viper `exhale` statement.
+ *
+ * Translates to Viper's `exhale` statement, which is distinct from [verify]/`assert`. Viper's
+ * `exhale` is designed to transfer (consume) permission-typed resources (`acc(...)`); for plain
+ * boolean conditions — the only input class this feature supports — the condition is checked but
+ * the boolean fact is not removed from the path condition (pure booleans are not consumable
+ * resources in Viper's permission model). This function hooks into the `formver` plugin; its
+ * invocation in a Kotlin program does not do anything at runtime.
+ */
+fun exhale(@Suppress("UNUSED_PARAMETER") condition: Boolean) = Unit
+
 infix fun Boolean.implies(other: Boolean) = !this || other
 
 fun loopInvariants(@Suppress("UNUSED_PARAMETER") body: () -> Unit) = Unit
@@ -39,20 +59,59 @@ fun <T> old(@Suppress("UNUSED_PARAMETER") body: T): T =
  * permission is requested; use [write] for full (the default) or [read] for a read-only
  * (wildcard) fraction.
  */
-fun acc(@Suppress("UNUSED_PARAMETER") path: Any?, @Suppress("UNUSED_PARAMETER") permission: Any? = null): Boolean =
+fun acc(
+    @Suppress("UNUSED_PARAMETER") path: Any?,
+    @Suppress("UNUSED_PARAMETER") permission: Permission? = null
+): Boolean =
     throw FormverFunctionCalledInRuntimeException("acc")
+
+/**
+ * An amount of permission to a location, such as full ([write]) or read-only ([read]).
+ */
+interface Permission
+
+/**
+ * A verification predicate over [exp].
+ */
+abstract class Predicate(val exp: Any)
 
 /**
  * Denotes a read-only (wildcard) permission amount. Only meaningful as the second argument of [acc].
  */
-fun read(): Any? =
+fun read(): Permission =
     throw FormverFunctionCalledInRuntimeException("read")
 
 /**
  * Denotes a full (write) permission amount. Only meaningful as the second argument of [acc].
  */
-fun write(): Any? =
+fun write(): Permission =
     throw FormverFunctionCalledInRuntimeException("write")
+
+/**
+ * The uniqueness predicate of [data]: exclusive access to [data] and its fields.
+ */
+data class UniquePred(val data: Any) : Predicate(data)
+
+/**
+ * Exchanges [exp] for access to its body, exposing the underlying fields. The inverse of [fold].
+ *
+ * [permission] is the amount of the predicate to unfold, defaulting to full ([write]).
+ */
+fun unfold(
+    @Suppress("UNUSED_PARAMETER") exp: Predicate,
+    @Suppress("UNUSED_PARAMETER") permission: Permission? = null
+): Unit =
+    throw FormverFunctionCalledInRuntimeException("unfold")
+
+/**
+ * Exchanges access to [exp]'s body for the predicate itself. The inverse of [unfold].
+ *
+ * [permission] is the amount of the predicate to fold, defaulting to full ([write]).
+ */
+fun fold(
+    @Suppress("UNUSED_PARAMETER") exp: Predicate,
+    @Suppress("UNUSED_PARAMETER") permission: Permission? = null
+): Unit = throw FormverFunctionCalledInRuntimeException("fold")
 
 class InvariantBuilder {
     /**

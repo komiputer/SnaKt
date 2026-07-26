@@ -1,0 +1,7 @@
+/inhale_exhale_neg_n5.kt: error: Function 'impureInhale' was not verified because of errors in its declaration
+
+/inhale_exhale_neg_n5.kt: error: Inhale condition is impure
+
+/inhale_exhale_neg_n5.kt: error: Function 'impureExhale' was not verified because of errors in its declaration
+
+/inhale_exhale_neg_n5.kt: error: Exhale condition is impure

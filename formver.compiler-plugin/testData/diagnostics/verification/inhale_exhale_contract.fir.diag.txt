@@ -1,0 +1,157 @@
+/inhale_exhale_contract.kt: info: Generated Viper text for a1InhaleVariedShapes:
+method a1InhaleVariedShapes(x: Ref, y: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  requires isSubtype(typeOf(y), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  inhale intFromRef(x) > 0
+  inhale intFromRef(y) <= 100
+  inhale !(intFromRef(x) == intFromRef(y))
+  if (intFromRef(x) > 0) {
+    anon_0 := gtInts(y, intToRef(0))
+  } else {
+    anon_0 := boolToRef(false)}
+  inhale boolFromRef(anon_0)
+  if (intFromRef(x) < 0) {
+    anon_1 := boolToRef(true)
+  } else {
+    anon_1 := gtInts(x, intToRef(0))}
+  inhale boolFromRef(anon_1)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a2ExhaleIsNotAssert:
+method a2ExhaleIsNotAssert(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 10
+  exhale intFromRef(x) > 5
+  inhale intFromRef(x) > 10
+  exhale !(intFromRef(x) == 0)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a3InhaleEnablesVerify:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method a3InhaleEnablesVerify(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 10
+  assert intFromRef(x) > 5
+  assert !(intFromRef(x) == 0)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a4ExhaleProvableSucceeds:
+method a4ExhaleProvableSucceeds(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) >= 1
+  exhale intFromRef(x) >= 1
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a5SequentialChain:
+method a5SequentialChain(a: Ref, b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), intType())
+  requires isSubtype(typeOf(b), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon: Ref
+  inhale intFromRef(a) > 0
+  inhale intFromRef(b) > 0
+  if (intFromRef(a) > 0) {
+    anon := gtInts(b, intToRef(0))
+  } else {
+    anon := boolToRef(false)}
+  exhale boolFromRef(anon)
+  inhale intFromRef(a) > -1
+  exhale intFromRef(a) > -1
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a5Interleaved:
+method a5Interleaved(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 0
+  exhale intFromRef(x) > 0
+  inhale intFromRef(x) > -1
+  exhale intFromRef(x) > -1
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a6VerifyAssertVsExhale:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method a6VerifyAssertVsExhale(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 3
+  assert intFromRef(x) > 0
+  exhale intFromRef(x) > 0
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a7PureArgumentsAccepted:
+method a7PureArgumentsAccepted(x: Ref, y: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  requires isSubtype(typeOf(y), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  inhale intFromRef(x) + 1 > intFromRef(x)
+  inhale intFromRef(x) * 2 - intFromRef(x) == intFromRef(x)
+  if (intFromRef(x) > intFromRef(y)) {
+    anon_0 := boolToRef(true)
+  } else {
+    anon_0 := geInts(y, x)}
+  inhale boolFromRef(anon_0)
+  exhale intFromRef(x) + 1 > intFromRef(x)
+  if (intFromRef(x) > intFromRef(y)) {
+    anon_1 := boolToRef(true)
+  } else {
+    anon_1 := geInts(y, x)}
+  exhale boolFromRef(anon_1)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/inhale_exhale_contract.kt: info: Generated Viper text for a8FactLiveBeforeExhale:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method a8FactLiveBeforeExhale(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  inhale intFromRef(x) > 7
+  assert intFromRef(x) > 7
+  exhale intFromRef(x) > 7
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

@@ -1,0 +1,1 @@
+/inhale_exhale_neg_n4.kt: warning: Viper verification error: Exhale might fail. Assertion intFromRef(x) > 5 might not hold.

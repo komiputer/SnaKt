@@ -1,0 +1,16 @@
+/exists_forall_demorgan_contradiction.kt: info: Generated Viper text for deMorganContradiction:
+method deMorganContradiction(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires |stringFromRef(s)| > 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_0: Int :: 0 <= anon_builtin_0 &&
+      anon_builtin_0 < |stringFromRef(s)| &&
+      stringFromRef(s)[anon_builtin_0] == stringFromRef(s)[0]) &&
+    (forall anon_builtin_1: Int ::!(0 <= anon_builtin_1 &&
+      anon_builtin_1 < |stringFromRef(s)| &&
+      stringFromRef(s)[anon_builtin_1] == stringFromRef(s)[0]))
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

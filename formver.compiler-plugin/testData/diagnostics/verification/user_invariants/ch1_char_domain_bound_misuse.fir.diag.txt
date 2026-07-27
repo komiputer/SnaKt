@@ -1,0 +1,9 @@
+/ch1_char_domain_bound_misuse.kt: info: Generated Viper text for charNegativeCodePointExists:
+method charNegativeCodePointExists() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon - 32 < 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

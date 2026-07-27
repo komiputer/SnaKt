@@ -8,6 +8,15 @@ import org.jetbrains.kotlin.formver.plugin.*
 // domain, P(0) is trivially true, so exists P holds -- but forAll !P demands
 // !P(0), a direct contradiction. The postcondition is unsatisfiable and the
 // verifier should reject it.
+//
+// Actual observed outcome: this fails, but the diagnostic ("Postcondition ...
+// Assertion (exists anon_builtin_0 ...) might not hold") names only the exists
+// conjunct, in the same generic shape a bare postcondition existential
+// produces with no contradiction at all (see ch1_char_domain_bound_misuse.kt,
+// di1_double_index_bounded.kt). Without a should-verify control of the same
+// shape (same exists conjunct alone, no forAll dual), this failure cannot be
+// credited to the intended contradiction rather than the systemic
+// bare-existential limitation -- inconclusive for QT-1 as tested here.
 <!VIPER_VERIFICATION_ERROR!>@AlwaysVerify
 fun <!VIPER_TEXT!>deMorganContradiction<!>(s: String): Int {
     preconditions {

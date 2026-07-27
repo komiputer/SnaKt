@@ -1,0 +1,1 @@
+/exists_forall_demorgan_contradiction.kt: warning: Viper verification error: Postcondition of deMorganContradiction might not hold. Assertion (exists anon_builtin_0: Int :: { stringFromRef(s)[anon_builtin_0] } 0 <= anon_builtin_0 && anon_builtin_0 < |stringFromRef(s)| && stringFromRef(s)[anon_builtin_0] == stringFromRef(s)[0]) might not hold.

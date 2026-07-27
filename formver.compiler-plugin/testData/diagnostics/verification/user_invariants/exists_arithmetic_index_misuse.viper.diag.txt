@@ -1,0 +1,1 @@
+/exists_arithmetic_index_misuse.kt: warning: Viper verification error: Contract might not be well-formed. Index anon + 1 into stringFromRef(s) might exceed sequence length.

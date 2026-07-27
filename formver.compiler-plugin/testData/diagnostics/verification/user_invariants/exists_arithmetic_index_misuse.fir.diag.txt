@@ -1,0 +1,11 @@
+/exists_arithmetic_index_misuse.kt: info: Generated Viper text for arithmeticShiftIndexExists:
+method arithmeticShiftIndexExists(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: 0 <= anon && anon < |stringFromRef(s)| &&
+      stringFromRef(s)[anon + 1] == stringFromRef(s)[anon])
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -52,6 +52,18 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("contains_character.kt")
+      public void testContains_character() {
+        runTest("formver.compiler-plugin/testData/diagnostics/expensive_verification/algorithms/contains_character.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_search_flag.kt")
+      public void testExists_search_flag() {
+        runTest("formver.compiler-plugin/testData/diagnostics/expensive_verification/algorithms/exists_search_flag.kt");
+      }
+
+      @Test
       @TestMetadata("max_character.kt")
       public void testMax_character() {
         runTest("formver.compiler-plugin/testData/diagnostics/expensive_verification/algorithms/max_character.kt");
@@ -831,6 +843,30 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("exists.kt")
       public void testExists() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_char_domain.kt")
+      public void testExists_char_domain() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_char_domain.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_contract_basic.kt")
+      public void testExists_contract_basic() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_contract_basic.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_nested.kt")
+      public void testExists_nested() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_nested.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_ref_domain.kt")
+      public void testExists_ref_domain() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_ref_domain.kt");
       }
 
       @Test

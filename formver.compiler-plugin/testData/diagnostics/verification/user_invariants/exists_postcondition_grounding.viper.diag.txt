@@ -1,0 +1,5 @@
+/exists_postcondition_grounding.kt: warning: Viper verification error: Postcondition of existsZeroWitnessBarePostcondition might not hold. Assertion (exists anon: Int :: anon == 0) might not hold.
+
+/exists_postcondition_grounding.kt: warning: Viper verification error: Postcondition of existsZeroWitnessGroundAtReturn might not hold. Assertion (exists anon: Int :: anon == intFromRef(v_ret_0)) might not hold.
+
+/exists_postcondition_grounding.kt: warning: Viper verification error: Postcondition of existsZeroWitnessGroundViaLoop might not hold. Assertion (exists anon_builtin: Int :: anon_builtin == 0) might not hold.

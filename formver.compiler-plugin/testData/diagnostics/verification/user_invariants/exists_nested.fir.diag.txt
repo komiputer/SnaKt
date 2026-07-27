@@ -1,0 +1,28 @@
+/exists_nested.kt: info: Generated Viper text for existsNestedIntWitnessProvable:
+method existsNestedIntWitnessProvable() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (forall anon_builtin_0: Int ::(exists anon_builtin_1: Int :: anon_builtin_0 +
+        anon_builtin_1 ==
+        4))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_nested.kt: info: Generated Viper text for existsNestedStringDuplicateUnprovable:
+method existsNestedStringDuplicateUnprovable(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (exists anon_builtin_0: Int :: 0 <= anon_builtin_0 &&
+      anon_builtin_0 < |stringFromRef(s)| &&
+      (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+        anon_builtin_1 < |stringFromRef(s)| &&
+        !(anon_builtin_0 == anon_builtin_1) &&
+        stringFromRef(s)[anon_builtin_0] ==
+        stringFromRef(s)[anon_builtin_1]))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -1,0 +1,1 @@
+/exists_reference_type.kt: warning: Viper verification error: Postcondition of existsNullableRefWitnessIsNull might not hold. Assertion (exists anon: Ref :: { isSubtype(typeOf(anon), nullable(RefWitness())) } isSubtype(typeOf(anon), nullable(RefWitness())) && anon == nullValue()) might not hold.

@@ -1,0 +1,3 @@
+/exists_with_triggers.kt: warning: Viper verification error: Postcondition of existsWithoutTriggerBarePostcondition might not hold. Assertion (exists anon: Int :: anon * anon == 4) might not hold.
+
+/exists_with_triggers.kt: warning: Viper verification error: Postcondition of existsWithSimpleTriggerBarePostcondition might not hold. Assertion (exists anon: Int :: { anon * anon } anon * anon == 4) might not hold.

@@ -1,0 +1,39 @@
+/exists_satisfiability.kt: info: Generated Viper text for existsIntEqualsZero:
+method existsIntEqualsZero() returns (v_ret_0: Ref)
+  requires (exists anon: Int :: anon == 0)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_satisfiability.kt: info: Generated Viper text for existsSquareEqualsFour:
+method existsSquareEqualsFour() returns (v_ret_0: Ref)
+  requires (exists anon: Int :: anon * anon == 4)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_satisfiability.kt: info: Generated Viper text for existsIntInOpenRange:
+method existsIntInOpenRange() returns (v_ret_0: Ref)
+  requires (exists anon: Int :: anon > 0 && anon < 2)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_satisfiability.kt: info: Generated Viper text for existsEmptyWitnessSetPostcondition:
+method existsEmptyWitnessSetPostcondition() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon > 0 && anon < 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

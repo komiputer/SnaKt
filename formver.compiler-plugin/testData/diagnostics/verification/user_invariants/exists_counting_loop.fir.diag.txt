@@ -1,0 +1,53 @@
+/exists_counting_loop.kt: info: Generated Viper text for countOfAsPositiveImpliesWitnessExists:
+method countOfAsPositiveImpliesWitnessExists(s: Ref, target: Ref)
+  returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(target), charType())
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures boolFromRef(v_ret_0) ==>
+    (exists anon_builtin_0: Int :: 0 <= anon_builtin_0 &&
+      anon_builtin_0 < |stringFromRef(s)| &&
+      stringFromRef(s)[anon_builtin_0] == charFromRef(target))
+{
+  var count: Ref
+  var i: Ref
+  var positive: Ref
+  var anon_0: Ref
+  count := intToRef(0)
+  i := intToRef(0)
+  positive := boolToRef(false)
+  label cont
+    invariant isSubtype(typeOf(count), intType())
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(positive), boolType())
+    invariant isSubtype(typeOf(s), stringType())
+    invariant isSubtype(typeOf(target), charType())
+    invariant 0 <= intFromRef(i) && intFromRef(i) <= |stringFromRef(s)|
+    invariant boolFromRef(positive) ==>
+      (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+        anon_builtin_1 < intFromRef(i) &&
+        stringFromRef(s)[anon_builtin_1] == charFromRef(target))
+  anon_0 := ltInts(i, stringLength(s))
+  if (boolFromRef(anon_0)) {
+    if (stringFromRef(s)[intFromRef(i)] == charFromRef(target)) {
+      count := plusInts(count, intToRef(1))
+      positive := boolToRef(true)
+    }
+    i := plusInts(i, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(count), intType())
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(positive), boolType())
+  assert isSubtype(typeOf(s), stringType())
+  assert isSubtype(typeOf(target), charType())
+  assert 0 <= intFromRef(i) && intFromRef(i) <= |stringFromRef(s)|
+  assert boolFromRef(positive) ==>
+    (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+      anon_builtin_1 < intFromRef(i) &&
+      stringFromRef(s)[anon_builtin_1] == charFromRef(target))
+  v_ret_0 := gtInts(count, intToRef(0))
+  goto lbl_ret_0
+  label lbl_ret_0
+}

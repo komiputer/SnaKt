@@ -1,0 +1,11 @@
+/exists_reference_type.kt: info: Generated Viper text for existsNullableRefWitnessIsNull:
+method existsNullableRefWitnessIsNull(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(RefWitness()))
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (exists anon: Ref :: isSubtype(typeOf(anon), nullable(RefWitness())) &&
+      anon == nullValue())
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

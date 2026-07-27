@@ -1,0 +1,3 @@
+/exists_nested.kt: warning: Viper verification error: Postcondition of existsNestedIntWitnessProvable might not hold. Assertion (forall anon_builtin_0: Int ::(exists anon_builtin_1: Int :: anon_builtin_0 + anon_builtin_1 == 4)) might not hold.
+
+/exists_nested.kt: warning: Viper verification error: Postcondition of existsNestedStringDuplicateUnprovable might not hold. Assertion (exists anon_builtin_0: Int :: { stringFromRef(s)[anon_builtin_0] } 0 <= anon_builtin_0 && anon_builtin_0 < |stringFromRef(s)| && (exists anon_builtin_1: Int :: { stringFromRef(s)[anon_builtin_1] } 0 <= anon_builtin_1 && anon_builtin_1 < |stringFromRef(s)| && !(anon_builtin_0 == anon_builtin_1) && stringFromRef(s)[anon_builtin_0] == stringFromRef(s)[anon_builtin_1])) might not hold.

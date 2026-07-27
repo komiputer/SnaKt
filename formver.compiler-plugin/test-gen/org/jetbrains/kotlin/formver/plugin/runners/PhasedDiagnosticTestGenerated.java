@@ -834,6 +834,54 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exists_char_domain.kt")
+      public void testExists_char_domain() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_char_domain.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_counting_loop.kt")
+      public void testExists_counting_loop() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_counting_loop.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_forall_combined.kt")
+      public void testExists_forall_combined() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_forall_combined.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_nested.kt")
+      public void testExists_nested() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_nested.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_postcondition_grounding.kt")
+      public void testExists_postcondition_grounding() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_postcondition_grounding.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_reference_type.kt")
+      public void testExists_reference_type() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_reference_type.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_satisfiability.kt")
+      public void testExists_satisfiability() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_satisfiability.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_with_triggers.kt")
+      public void testExists_with_triggers() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_with_triggers.kt");
+      }
+
+      @Test
       @TestMetadata("factorial.kt")
       public void testFactorial() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/factorial.kt");

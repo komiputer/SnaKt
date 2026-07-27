@@ -29,7 +29,15 @@ fun <!VIPER_TEXT!>existsWithoutTriggerBarePostcondition<!>(): Int {
     return 0
 }<!>
 
-@AlwaysVerify
+// RESULT (confirmed by running the compiler): still fails, even though the
+// trigger is correctly emitted in the Viper text
+// (`exists anon: Int :: { anon * anon } anon * anon == 4`). This settles
+// the question against the more forgiving verdict: triggers are wired and
+// syntactically correct for `exists`, but do not make Silicon able to
+// discharge a bare postcondition existential. The gap is not merely
+// "undocumented" — it is "plumbing present, non-functional for this
+// purpose," which a documentation fix alone would not resolve.
+<!VIPER_VERIFICATION_ERROR!>@AlwaysVerify
 fun <!VIPER_TEXT!>existsWithSimpleTriggerBarePostcondition<!>(): Int {
     postconditions<Int> {
         exists<Int> {
@@ -38,4 +46,4 @@ fun <!VIPER_TEXT!>existsWithSimpleTriggerBarePostcondition<!>(): Int {
         }
     }
     return 0
-}
+}<!>

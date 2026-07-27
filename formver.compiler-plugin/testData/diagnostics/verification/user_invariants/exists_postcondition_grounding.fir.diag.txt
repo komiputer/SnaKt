@@ -1,0 +1,53 @@
+/exists_postcondition_grounding.kt: info: Generated Viper text for existsZeroWitnessBarePostcondition:
+method existsZeroWitnessBarePostcondition() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon == 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_postcondition_grounding.kt: info: Generated Viper text for existsZeroWitnessBarePrecondition:
+method existsZeroWitnessBarePrecondition() returns (v_ret_0: Ref)
+  requires (exists anon: Int :: anon == 0)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_postcondition_grounding.kt: info: Generated Viper text for existsZeroWitnessGroundAtReturn:
+method existsZeroWitnessGroundAtReturn() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon == intFromRef(v_ret_0))
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_postcondition_grounding.kt: info: Generated Viper text for existsZeroWitnessGroundViaLoop:
+method existsZeroWitnessGroundViaLoop() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin: Int :: anon_builtin == 0)
+{
+  var i: Ref
+  var anon_0: Ref
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(i), intType())
+  anon_0 := ltInts(i, intToRef(1))
+  if (boolFromRef(anon_0)) {
+    var atEnd: Ref
+    atEnd := boolToRef(intFromRef(i) == 1)
+    i := plusInts(i, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

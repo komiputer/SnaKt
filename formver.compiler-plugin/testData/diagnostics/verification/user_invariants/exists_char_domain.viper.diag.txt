@@ -1,0 +1,5 @@
+/exists_char_domain.kt: warning: Viper verification error: Postcondition of everyCharCodePointNonNegative might not hold. Assertion (forall anon: Int ::anon >= 0) might not hold.
+
+/exists_char_domain.kt: warning: Viper verification error: Postcondition of everyCharCodePointBelowUpperBound might not hold. Assertion (forall anon: Int ::anon <= 65535) might not hold.
+
+/exists_char_domain.kt: warning: Viper verification error: Postcondition of noCharCodePointNegativeExists might not hold. Assertion !(exists anon: Int :: anon < 0) might not hold.

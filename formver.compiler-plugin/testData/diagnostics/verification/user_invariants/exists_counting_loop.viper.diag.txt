@@ -1,0 +1,1 @@
+/exists_counting_loop.kt: warning: Viper verification error: Postcondition of countOfAsPositiveImpliesWitnessExists might not hold. Assertion boolFromRef(v_ret_0) ==> (exists anon_builtin_0: Int :: { stringFromRef(s)[anon_builtin_0] } 0 <= anon_builtin_0 && anon_builtin_0 < |stringFromRef(s)| && stringFromRef(s)[anon_builtin_0] == charFromRef(target)) might not hold.

@@ -1,0 +1,55 @@
+/exists_negative_n2.kt: info: Generated Viper text for charNegativeWitness:
+method charNegativeWitness() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), charType())
+  ensures (exists anon: Int :: anon + 1 == charFromRef(v_ret_0))
+{
+  v_ret_0 := charToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_negative_n2.kt: info: Generated Viper text for arithmeticIndexExists:
+method arithmeticIndexExists(s: Ref, res: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(res), intType())
+  requires 0 <= intFromRef(res) && intFromRef(res) < |stringFromRef(s)|
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: 0 <= anon && anon < |stringFromRef(s)| &&
+      stringFromRef(s)[anon - 1] == stringFromRef(s)[intFromRef(res)])
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_negative_n2.kt: info: Generated Viper text for doubleIndexBothBounded:
+method doubleIndexBothBounded(s: Ref, res: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(res), intType())
+  requires 0 <= intFromRef(res) && intFromRef(res) < |stringFromRef(s)|
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: 0 <= anon && anon < |stringFromRef(s)| &&
+      stringFromRef(s)[anon] == stringFromRef(s)[intFromRef(res)])
+{
+  v_ret_0 := res
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_negative_n2.kt: info: Generated Viper text for existsForAllContradiction:
+method existsForAllContradiction(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires |stringFromRef(s)| > 0
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures boolFromRef(v_ret_0) ==
+    ((exists anon_builtin_0: Int :: 0 <= anon_builtin_0 &&
+      anon_builtin_0 < |stringFromRef(s)| &&
+      stringFromRef(s)[anon_builtin_0] == stringFromRef(s)[0]) &&
+    (forall anon_builtin_1: Int ::0 <= anon_builtin_1 &&
+      anon_builtin_1 < |stringFromRef(s)| ==>
+      !(stringFromRef(s)[anon_builtin_1] == stringFromRef(s)[0])))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

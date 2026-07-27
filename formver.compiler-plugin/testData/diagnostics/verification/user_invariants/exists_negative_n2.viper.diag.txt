@@ -1,0 +1,7 @@
+/exists_negative_n2.kt: warning: Viper verification error: Postcondition of charNegativeWitness might not hold. Assertion (exists anon: Int :: anon + 1 == charFromRef(v_ret_0)) might not hold.
+
+/exists_negative_n2.kt: warning: Viper verification error: Contract might not be well-formed. Index __rw_anon1 into stringFromRef(s) might be negative.
+
+/exists_negative_n2.kt: warning: Viper verification error: Postcondition of doubleIndexBothBounded might not hold. Assertion (exists anon: Int :: { stringFromRef(s)[anon] } 0 <= anon && anon < |stringFromRef(s)| && stringFromRef(s)[anon] == stringFromRef(s)[intFromRef(res)]) might not hold.
+
+/exists_negative_n2.kt: warning: Viper verification error: Postcondition of existsForAllContradiction might not hold. Assertion boolFromRef(v_ret_0) == ((exists anon_builtin_0: Int :: { stringFromRef(s)[anon_builtin_0] } 0 <= anon_builtin_0 && anon_builtin_0 < |stringFromRef(s)| && stringFromRef(s)[anon_builtin_0] == stringFromRef(s)[0]) && (forall anon_builtin_1: Int :: { stringFromRef(s)[anon_builtin_1] } 0 <= anon_builtin_1 && anon_builtin_1 < |stringFromRef(s)| ==> !(stringFromRef(s)[anon_builtin_1] == stringFromRef(s)[0]))) might not hold.

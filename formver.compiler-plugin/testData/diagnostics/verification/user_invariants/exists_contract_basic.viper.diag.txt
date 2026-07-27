@@ -1,0 +1,7 @@
+/exists_contract_basic.kt: warning: Viper verification error: Postcondition of existsZeroPost might not hold. Assertion (exists anon: Int :: anon == 0) might not hold.
+
+/exists_contract_basic.kt: warning: Viper verification error: Postcondition of existsSquareIsFour might not hold. Assertion (exists anon: Int :: anon * anon == 4) might not hold.
+
+/exists_contract_basic.kt: warning: Viper verification error: Postcondition of existsStrictlyBetween might not hold. Assertion (exists anon: Int :: anon > 0 && anon < 2) might not hold.
+
+/exists_contract_basic.kt: warning: Viper verification error: Postcondition of existsEmptyIntRange might not hold. Assertion (exists anon: Int :: anon > 0 && anon < 0) might not hold.

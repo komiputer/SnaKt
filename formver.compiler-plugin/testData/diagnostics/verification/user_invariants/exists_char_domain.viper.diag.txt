@@ -1,0 +1,3 @@
+/exists_char_domain.kt: warning: Viper verification error: Postcondition of leastCharExists might not hold. Assertion (exists anon_builtin_0: Int :: (forall anon_builtin_1: Int ::anon_builtin_0 <= anon_builtin_1)) might not hold.
+
+/exists_char_domain.kt: warning: Viper verification error: Postcondition of greatestCharExists might not hold. Assertion (exists anon_builtin_0: Int :: (forall anon_builtin_1: Int ::anon_builtin_1 <= anon_builtin_0)) might not hold.

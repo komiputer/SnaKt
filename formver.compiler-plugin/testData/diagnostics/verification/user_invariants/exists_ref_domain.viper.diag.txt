@@ -1,0 +1,5 @@
+/exists_ref_domain.kt: warning: Viper verification error: Postcondition of refExistsNullWitness might not hold. Assertion (exists anon: Ref :: { isSubtype(typeOf(anon), nullable(intType())) } isSubtype(typeOf(anon), nullable(intType())) && anon == nullValue()) might not hold.
+
+/exists_ref_domain.kt: warning: Viper verification error: Postcondition of refExistsNoWitnessInDomain might not hold. Assertion (exists anon: Ref :: { isSubtype(typeOf(anon), nullable(intType())) } { intFromRef(anon) } isSubtype(typeOf(anon), nullable(intType())) && (anon == intToRef(1) && intFromRef(anon) == 2)) might not hold.
+
+/exists_ref_domain.kt: warning: Viper verification error: Postcondition of refForAllOverSameDomain might not hold. Assertion (forall anon: Ref :: { isSubtype(typeOf(anon), nullable(intType())) } isSubtype(typeOf(anon), nullable(intType())) ==> anon == intToRef(1) ==> !(anon == intToRef(2))) might not hold.

@@ -1,0 +1,5 @@
+/exists_nested.kt: warning: Viper verification error: Postcondition of nestedExistsExists might not hold. Assertion (exists anon_builtin_0: Int :: (exists anon_builtin_1: Int :: anon_builtin_0 > 0 && anon_builtin_1 > 0 && anon_builtin_0 + anon_builtin_1 == 5)) might not hold.
+
+/exists_nested.kt: warning: Viper verification error: Postcondition of forAllHasLargerWitness might not hold. Assertion (forall anon_builtin_0: Int ::(exists anon_builtin_1: Int :: anon_builtin_1 > anon_builtin_0)) might not hold.
+
+/exists_nested.kt: warning: Viper verification error: Postcondition of existsUpperBoundOfNegatives might not hold. Assertion (exists anon_builtin_0: Int :: (forall anon_builtin_1: Int ::anon_builtin_1 < 0 ==> anon_builtin_1 < anon_builtin_0)) might not hold.

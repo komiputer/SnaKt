@@ -834,6 +834,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exists_negative_n2.kt")
+      public void testExists_negative_n2() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_negative_n2.kt");
+      }
+
+      @Test
       @TestMetadata("factorial.kt")
       public void testFactorial() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/factorial.kt");

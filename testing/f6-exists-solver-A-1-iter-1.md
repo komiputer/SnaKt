@@ -75,8 +75,15 @@ Silicon twice, at two different versions.** `buildSrc/src/main/kotlin/ViperVersi
 instead of `ViperVersions.silicon`. Both jars are present in the Gradle cache; Gradle's
 conflict resolution picks the dated coordinate, which is why that is the resolved one. I
 verified this does not affect the finding: `z3config.smt2` is byte-identical between the two
-jars (`diff` reports no differences), so MBQI is off either way. Worth someone tidying the
-duplicate declaration regardless, since the two could drift.
+jars (`diff` reports no differences), so MBQI is off either way.
+
+The duplicate declaration is out of scope for this feature — neither `ViperVersions.kt` nor
+`formver.compiler-plugin/build.gradle.kts` appears in the 16-file diff behind PR #207
+("Feature/f6 exists") — and should not be touched here. Its natural home is the open
+[PR #203, "Consolidate build versions into a version catalog and convention
+plugin"](https://github.com/JetBrains/SnaKt/pull/203), which is already doing exactly this kind
+of tidying. Worth folding in there, since two independently-pinned versions of the same
+dependency can drift and the next reader may not find identical configs.
 
 The observed behaviour is independently reproduced across four files. The reference-typed cases
 show the trigger machinery explicitly in the error text:

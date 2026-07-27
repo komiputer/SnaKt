@@ -39,8 +39,13 @@ E-matching rather than model-based quantifier instantiation, the negated goal
 `forall anon :: !(anon == 0)` never gets instantiated and the proof fails.
 
 **MBQI is confirmed off.** Silicon ships a Z3 configuration file, `z3config.smt2`, at the root
-of `viper:silicon_2.13:1.2-SNAPSHOT` (resolved jar:
-`~/.gradle/caches/modules-2/files-2.1/viper/silicon_2.13/1.2-SNAPSHOT/381311f8b38d989038793c248b316c6e09a40ec2/silicon_2.13-1.2-SNAPSHOT.jar`).
+of its jar. Resolved coordinate on this host,
+`viper:silicon_2.13:2026-04-10_b005beb`:
+
+```
+~/.gradle/caches/modules-2/files-2.1/viper/silicon_2.13/2026-04-10_b005beb/f236e26f3067e1bf43fd4b386ca175371a00283/silicon_2.13-2026-04-10_b005beb.jar
+```
+
 It contains, verbatim:
 
 ```
@@ -60,8 +65,18 @@ sites pass `emptyList()` —
 `test-fixtures/.../services/VerificationFacade.kt:73` and
 `plugin/src/.../compiler/ViperPoweredDeclarationChecker.kt:112`. The only argument ever added is
 `--numberOfParallelVerifiers`, from the `SILICON_PARALLEL_VERIFIERS` environment variable. So
-the quantifier-instantiation behaviour is Silicon's default, inherited wholesale, and is not a
-SnaKt configuration choice that could be adjusted from this repo without passing new args.
+the quantifier-instantiation behaviour is Silicon's shipped default, inherited wholesale, not
+pinned or chosen by this repo, and not adjustable from here without passing new args.
+
+Incidental to this feature but noticed while confirming the coordinate: **the build declares
+Silicon twice, at two different versions.** `buildSrc/src/main/kotlin/ViperVersions.kt:2` has
+`viper:silicon_2.13:2026-04-10_b005beb`, used by the `core`, `viper` and `plugin` modules, while
+`formver.compiler-plugin/build.gradle.kts:46` hardcodes `testFixturesApi("viper:silicon_2.13:1.2-SNAPSHOT")`
+instead of `ViperVersions.silicon`. Both jars are present in the Gradle cache; Gradle's
+conflict resolution picks the dated coordinate, which is why that is the resolved one. I
+verified this does not affect the finding: `z3config.smt2` is byte-identical between the two
+jars (`diff` reports no differences), so MBQI is off either way. Worth someone tidying the
+duplicate declaration regardless, since the two could drift.
 
 The observed behaviour is independently reproduced across four files. The reference-typed cases
 show the trigger machinery explicitly in the error text:

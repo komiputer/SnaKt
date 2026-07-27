@@ -822,6 +822,18 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("ch1_char_domain_bound_misuse.kt")
+      public void testCh1_char_domain_bound_misuse() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/ch1_char_domain_bound_misuse.kt");
+      }
+
+      @Test
+      @TestMetadata("di1_double_index_bounded.kt")
+      public void testDi1_double_index_bounded() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/di1_double_index_bounded.kt");
+      }
+
+      @Test
       @TestMetadata("empty.kt")
       public void testEmpty() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/empty.kt");
@@ -831,6 +843,18 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("exists.kt")
       public void testExists() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_arithmetic_index_misuse.kt")
+      public void testExists_arithmetic_index_misuse() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_arithmetic_index_misuse.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_forall_demorgan_contradiction.kt")
+      public void testExists_forall_demorgan_contradiction() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_forall_demorgan_contradiction.kt");
       }
 
       @Test

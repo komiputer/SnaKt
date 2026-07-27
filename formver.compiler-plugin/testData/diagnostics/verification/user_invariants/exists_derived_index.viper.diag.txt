@@ -1,0 +1,3 @@
+/exists_derived_index.kt: warning: Viper verification error: Contract might not be well-formed. Index anon - 1 into stringFromRef(s) might be negative.
+
+/exists_derived_index.kt: warning: Viper verification error: Contract might not be well-formed. Index anon + 1 into stringFromRef(s) might exceed sequence length.

@@ -1,0 +1,1 @@
+/exists_forall_contradiction.kt: warning: Viper verification error: Postcondition of existsAndForAllNegation might not hold. Assertion (exists anon_builtin_0: Int :: anon_builtin_0 == 0) might not hold.

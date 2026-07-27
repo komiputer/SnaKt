@@ -1,0 +1,10 @@
+/exists_forall_contradiction.kt: info: Generated Viper text for existsAndForAllNegation:
+method existsAndForAllNegation() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_0: Int :: anon_builtin_0 == 0) &&
+    (forall anon_builtin_1: Int ::!(anon_builtin_1 == 0))
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

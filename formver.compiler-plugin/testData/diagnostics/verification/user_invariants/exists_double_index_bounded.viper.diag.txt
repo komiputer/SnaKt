@@ -1,0 +1,1 @@
+/exists_double_index_bounded.kt: warning: Viper verification error: Postcondition of doubleIndexExistsBounded might not hold. Assertion (exists anon: Int :: { stringFromRef(s)[anon] } 0 <= anon && anon < |stringFromRef(s)| && stringFromRef(s)[anon] == stringFromRef(s)[intFromRef(res)]) might not hold.

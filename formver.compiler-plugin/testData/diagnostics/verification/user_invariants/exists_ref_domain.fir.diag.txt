@@ -1,0 +1,15 @@
+/exists_ref_domain.kt: info: Generated Viper text for existsBoxWitness:
+function g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Box())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method existsBoxWitness(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), Box())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Ref :: isSubtype(typeOf(anon), Box()) && true)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

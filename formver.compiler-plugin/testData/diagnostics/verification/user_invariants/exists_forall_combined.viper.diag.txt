@@ -1,0 +1,1 @@
+/exists_forall_combined.kt: warning: Viper verification error: Postcondition of rangeBoundedAndNonEmpty might not hold. Assertion (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 && anon_builtin_1 < intFromRef(n)) might not hold.

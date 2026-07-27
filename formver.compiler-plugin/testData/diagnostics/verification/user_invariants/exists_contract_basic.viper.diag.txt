@@ -1,0 +1,1 @@
+/exists_contract_basic.kt: warning: Viper verification error: Postcondition of existsEmptyDomain might not hold. Assertion (exists anon: Int :: anon > 0 && anon < 0) might not hold.

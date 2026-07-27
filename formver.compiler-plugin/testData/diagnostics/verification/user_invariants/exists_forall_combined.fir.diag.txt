@@ -1,0 +1,15 @@
+/exists_forall_combined.kt: info: Generated Viper text for rangeBoundedAndNonEmpty:
+method rangeBoundedAndNonEmpty(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) > 0
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (forall anon_builtin_0: Int ::0 <= anon_builtin_0 &&
+      anon_builtin_0 < intFromRef(n) ==>
+      anon_builtin_0 < intFromRef(n)) &&
+    (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+      anon_builtin_1 < intFromRef(n))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

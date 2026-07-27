@@ -1,0 +1,1 @@
+/exists_nested.kt: warning: Viper verification error: Postcondition of nestedExistsWitness might not hold. Assertion (exists anon_builtin_0: Int :: 0 <= anon_builtin_0 && anon_builtin_0 < |stringFromRef(s)| && (exists anon_builtin_1: Int :: anon_builtin_1 == anon_builtin_0)) might not hold.

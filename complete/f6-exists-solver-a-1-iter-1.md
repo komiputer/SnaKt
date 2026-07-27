@@ -27,7 +27,10 @@ contract expectation recorded in each file's comments where the two diverge.
    `exists<Int> { it == 0 }` fails to verify as a postcondition. Twelve of thirteen standalone
    postcondition existentials fail; the two that verify are the ones whose witness comes from a
    loop invariant or from program state at the proof site — the `max_character.kt` shape. The
-   shipped corpus is systematically blind to this.
+   shipped corpus is systematically blind to this. Cause confirmed, not inferred: Silicon's
+   bundled `z3config.smt2` sets `smt.mbqi false` and `auto_config false`, leaving E-matching as
+   the only instantiation strategy, and SnaKt passes `emptyList()` for Silicon's args at both
+   construction sites, so it inherits that default wholesale.
 2. **CH-1 confirmed**, on textual evidence: `exists<Char>` emits a bare `Int` with no
    `0 <= x && x < 65536` guard. The verification failure alone proves nothing, given finding 1.
 3. **QT-1 resolved in the feature's favour** and now pinned by a test: `exists` uses `&&`,

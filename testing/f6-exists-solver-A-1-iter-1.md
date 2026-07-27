@@ -28,7 +28,7 @@ known-issues catalogue. It also invalidates a test design the strategist's brief
 any case whose expected outcome is "a postcondition existential fails to verify" will pass for
 the wrong reason. See "Consequences for other solvers" below.
 
-### Mechanism (inference, not verified)
+### Mechanism (confirmed)
 
 The two cases that verify tell us Viper *can* prove an existential goal. In
 `containsCharacter` the existential is discharged at an early return where `i` is in scope and
@@ -38,9 +38,33 @@ contains no function application from which a trigger can be inferred. Since Sil
 E-matching rather than model-based quantifier instantiation, the negated goal
 `forall anon :: !(anon == 0)` never gets instantiated and the proof fails.
 
-I did not inspect Silicon's Z3 configuration, so treat the mechanism as a hypothesis. The
-behaviour itself is directly observed and reproduced across four files. The reference-typed
-cases show the trigger machinery explicitly in the error text:
+**MBQI is confirmed off.** Silicon ships a Z3 configuration file, `z3config.smt2`, at the root
+of `viper:silicon_2.13:1.2-SNAPSHOT` (resolved jar:
+`~/.gradle/caches/modules-2/files-2.1/viper/silicon_2.13/1.2-SNAPSHOT/381311f8b38d989038793c248b316c6e09a40ec2/silicon_2.13-1.2-SNAPSHOT.jar`).
+It contains, verbatim:
+
+```
+(set-option :auto_config false)
+(set-option :smt.mbqi false)
+(set-option :smt.qi.eager_threshold 100)
+(set-option :smt.qi.max_multi_patterns 1000)
+```
+
+`smt.mbqi false` with `auto_config false` leaves E-matching as the only instantiation strategy,
+which is exactly the condition under which a trigger-less existential goal is unprovable. The
+file's own comment attributes the settings to Dafny 4.0.0.
+
+SnaKt does not override any of this: `SiliconFrontend` takes a `commandLineArgs` list
+(`formver.compiler-plugin/viper/src/.../viper/SiliconFrontend.kt:13`) and both construction
+sites pass `emptyList()` —
+`test-fixtures/.../services/VerificationFacade.kt:73` and
+`plugin/src/.../compiler/ViperPoweredDeclarationChecker.kt:112`. The only argument ever added is
+`--numberOfParallelVerifiers`, from the `SILICON_PARALLEL_VERIFIERS` environment variable. So
+the quantifier-instantiation behaviour is Silicon's default, inherited wholesale, and is not a
+SnaKt configuration choice that could be adjusted from this repo without passing new args.
+
+The observed behaviour is independently reproduced across four files. The reference-typed cases
+show the trigger machinery explicitly in the error text:
 `{ isSubtype(typeOf(anon), nullable(intType())) }`.
 
 ## Case-by-case

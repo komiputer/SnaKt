@@ -1,0 +1,21 @@
+/exists_char_domain.kt: info: Generated Viper text for leastCharExists:
+method leastCharExists() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (exists anon_builtin_0: Int :: (forall anon_builtin_1: Int ::anon_builtin_0 <=
+        anon_builtin_1))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_char_domain.kt: info: Generated Viper text for greatestCharExists:
+method greatestCharExists() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (exists anon_builtin_0: Int :: (forall anon_builtin_1: Int ::anon_builtin_1 <=
+        anon_builtin_0))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -1,0 +1,32 @@
+/exists_ref_domain.kt: info: Generated Viper text for refExistsNullWitness:
+method refExistsNullWitness() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (exists anon: Ref :: isSubtype(typeOf(anon), nullable(intType())) &&
+      anon == nullValue())
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_ref_domain.kt: info: Generated Viper text for refExistsNoWitnessInDomain:
+method refExistsNoWitnessInDomain() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (exists anon: Ref :: isSubtype(typeOf(anon), nullable(intType())) &&
+      (anon == intToRef(1) && intFromRef(anon) == 2))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_ref_domain.kt: info: Generated Viper text for refForAllOverSameDomain:
+method refForAllOverSameDomain() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures (forall anon: Ref ::isSubtype(typeOf(anon), nullable(intType())) ==>
+      anon == intToRef(1) ==> !(anon == intToRef(2)))
+{
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

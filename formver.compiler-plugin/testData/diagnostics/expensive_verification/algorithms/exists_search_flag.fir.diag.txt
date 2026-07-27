@@ -1,0 +1,47 @@
+/exists_search_flag.kt: info: Generated Viper text for anyCharacterMatches:
+method anyCharacterMatches(s: Ref, c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(c), charType())
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+  ensures boolFromRef(v_ret_0) ==>
+    (exists anon_builtin_0: Int :: 0 <= anon_builtin_0 &&
+      anon_builtin_0 < |stringFromRef(s)| &&
+      stringFromRef(s)[anon_builtin_0] == charFromRef(c))
+{
+  var found: Ref
+  var i: Ref
+  var anon_0: Ref
+  found := boolToRef(false)
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(found), boolType())
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(s), stringType())
+    invariant isSubtype(typeOf(c), charType())
+    invariant 0 <= intFromRef(i) && intFromRef(i) <= |stringFromRef(s)|
+    invariant boolFromRef(found) ==>
+      (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+        anon_builtin_1 < intFromRef(i) &&
+        stringFromRef(s)[anon_builtin_1] == charFromRef(c))
+  anon_0 := ltInts(i, stringLength(s))
+  if (boolFromRef(anon_0)) {
+    if (stringFromRef(s)[intFromRef(i)] == charFromRef(c)) {
+      found := boolToRef(true)
+    }
+    i := plusInts(i, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(found), boolType())
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(s), stringType())
+  assert isSubtype(typeOf(c), charType())
+  assert 0 <= intFromRef(i) && intFromRef(i) <= |stringFromRef(s)|
+  assert boolFromRef(found) ==>
+    (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+      anon_builtin_1 < intFromRef(i) &&
+      stringFromRef(s)[anon_builtin_1] == charFromRef(c))
+  v_ret_0 := found
+  goto lbl_ret_0
+  label lbl_ret_0
+}

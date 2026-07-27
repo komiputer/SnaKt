@@ -1,0 +1,39 @@
+/exists_contract_basic.kt: info: Generated Viper text for existsZeroPost:
+method existsZeroPost() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon == 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_contract_basic.kt: info: Generated Viper text for existsSquareIsFour:
+method existsSquareIsFour() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon * anon == 4)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_contract_basic.kt: info: Generated Viper text for existsStrictlyBetween:
+method existsStrictlyBetween() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon > 0 && anon < 2)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_contract_basic.kt: info: Generated Viper text for existsEmptyIntRange:
+method existsEmptyIntRange() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon > 0 && anon < 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

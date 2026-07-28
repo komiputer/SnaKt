@@ -1,0 +1,28 @@
+/exhaustive_when_non_exhaustive.kt: info: Generated Viper text for eval:
+function operand(this: Ref): Ref
+  requires isSubtype(typeOf(this), Neg())
+  ensures isSubtype(typeOf(result), Const())
+
+
+function value(this: Ref): Ref
+  requires isSubtype(typeOf(this), Const())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method eval(e: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(e), Expr())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := e
+  if (isSubtype(typeOf(anon), Const())) {
+    v_ret_0 := value(e)
+  } elseif (isSubtype(typeOf(anon), Neg())) {
+    v_ret_0 := negInt(value(operand(e)))
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_non_exhaustive.kt: error: 'when' expression must be exhaustive. Add the 'is Add' branch or an 'else' branch.

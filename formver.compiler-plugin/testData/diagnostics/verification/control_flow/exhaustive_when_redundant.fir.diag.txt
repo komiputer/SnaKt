@@ -1,0 +1,32 @@
+/exhaustive_when_redundant.kt: info: Generated Viper text for pick:
+function A_g_value(this: Ref): Ref
+  requires isSubtype(typeOf(this), A())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function B_g_value(this: Ref): Ref
+  requires isSubtype(typeOf(this), B())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method pick(c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(c), Choice())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := c
+  if (isSubtype(typeOf(anon), A())) {
+    v_ret_0 := A_g_value(c)
+  } elseif (isSubtype(typeOf(anon), A())) {
+    v_ret_0 := negInt(A_g_value(c))
+  } elseif (isSubtype(typeOf(anon), B())) {
+    v_ret_0 := B_g_value(c)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_redundant.kt: warning: Duplicate branch condition in 'when'.

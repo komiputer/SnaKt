@@ -560,6 +560,36 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exhaustive_when_boolean_non_exhaustive.kt")
+      public void testExhaustive_when_boolean_non_exhaustive() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_boolean_non_exhaustive.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_branch_violation.kt")
+      public void testExhaustive_when_branch_violation() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_branch_violation.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_non_exhaustive.kt")
+      public void testExhaustive_when_non_exhaustive() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_non_exhaustive.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nothing.kt")
+      public void testExhaustive_when_nothing() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nothing.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_redundant.kt")
+      public void testExhaustive_when_redundant() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_redundant.kt");
+      }
+
+      @Test
       @TestMetadata("exp_side_effects.kt")
       public void testExp_side_effects() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exp_side_effects.kt");

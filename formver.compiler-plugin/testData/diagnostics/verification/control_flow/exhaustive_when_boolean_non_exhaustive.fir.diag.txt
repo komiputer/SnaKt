@@ -1,0 +1,16 @@
+/exhaustive_when_boolean_non_exhaustive.kt: info: Generated Viper text for describe:
+method describe(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), stringType())
+{
+  var anon: Ref
+  anon := b
+  if (boolFromRef(anon) == true) {
+    v_ret_0 := stringToRef(Seq(121, 101, 115))
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_boolean_non_exhaustive.kt: error: 'when' expression must be exhaustive. Add the 'false' branch or an 'else' branch.

@@ -1,0 +1,20 @@
+/exhaustive_when_nothing.kt: info: Generated Viper text for uninhabited:
+method TODO() returns (ret_1: Ref)
+  ensures false
+  ensures isSubtype(typeOf(ret_1), nothingType())
+
+
+method uninhabited() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var x: Ref
+  var anon_1: Ref
+  var anon_0: Ref
+  x := TODO()
+  anon_0 := x
+  v_ret_0 := anon_1
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nothing.kt: error: Return type mismatch: expected 'Int', actual 'Unit'.

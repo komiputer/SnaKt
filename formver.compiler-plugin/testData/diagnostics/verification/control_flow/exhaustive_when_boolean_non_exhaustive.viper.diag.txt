@@ -1,0 +1,1 @@
+/exhaustive_when_boolean_non_exhaustive.kt: warning: Viper verification error: Postcondition of describe might not hold. Assertion isSubtype(typeOf(v_ret_0), stringType()) might not hold.

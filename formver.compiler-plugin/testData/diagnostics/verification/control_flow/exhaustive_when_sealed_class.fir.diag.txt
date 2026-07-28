@@ -1,0 +1,33 @@
+/exhaustive_when_sealed_class.kt: info: Generated Viper text for weight:
+function left(this: Ref): Ref
+  requires isSubtype(typeOf(this), Branch())
+  ensures isSubtype(typeOf(result), Leaf())
+
+
+function payload(this: Ref): Ref
+  requires isSubtype(typeOf(this), Leaf())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function tag(this: Ref): Ref
+  requires isSubtype(typeOf(this), Node())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method weight(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), Node())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := n
+  if (isSubtype(typeOf(anon), Leaf())) {
+    v_ret_0 := payload(n)
+  } elseif (isSubtype(typeOf(anon), Branch())) {
+    v_ret_0 := payload(left(n))
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -1,0 +1,49 @@
+/exhaustive_when_nested.kt: info: Generated Viper text for nested:
+function IA_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), IA())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function IB_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), IB())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function OA_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), OA())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function inner(this: Ref): Ref
+  requires isSubtype(typeOf(this), OB())
+  ensures isSubtype(typeOf(result), Inner())
+
+
+method nested(o: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(o), Outer())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon_0: Ref
+  anon_0 := o
+  if (isSubtype(typeOf(anon_0), OA())) {
+    v_ret_0 := OA_g_v(o)
+  } elseif (isSubtype(typeOf(anon_0), OB())) {
+    var i: Ref
+    var anon_1: Ref
+    i := inner(o)
+    anon_1 := i
+    if (isSubtype(typeOf(anon_1), IA())) {
+      v_ret_0 := IA_g_v(i)
+    } elseif (isSubtype(typeOf(anon_1), IB())) {
+      v_ret_0 := IB_g_v(i)
+    } else {
+      inhale false
+      v_ret_0 := unitValue()
+    }
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}

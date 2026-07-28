@@ -560,6 +560,72 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exhaustive_when_boolean.kt")
+      public void testExhaustive_when_boolean() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_boolean.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_enum.kt")
+      public void testExhaustive_when_enum() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_enum.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_local_scope.kt")
+      public void testExhaustive_when_local_scope() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_local_scope.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nested.kt")
+      public void testExhaustive_when_nested() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nested.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_non_exhaustive.kt")
+      public void testExhaustive_when_non_exhaustive() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_non_exhaustive.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nothing.kt")
+      public void testExhaustive_when_nothing() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nothing.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nothing_throw.kt")
+      public void testExhaustive_when_nothing_throw() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nothing_throw.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nullable.kt")
+      public void testExhaustive_when_nullable() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nullable.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_redundant.kt")
+      public void testExhaustive_when_redundant() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_redundant.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_sealed_class.kt")
+      public void testExhaustive_when_sealed_class() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_sealed_class.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_status_probe.kt")
+      public void testExhaustive_when_status_probe() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_status_probe.kt");
+      }
+
+      @Test
       @TestMetadata("exp_side_effects.kt")
       public void testExp_side_effects() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exp_side_effects.kt");

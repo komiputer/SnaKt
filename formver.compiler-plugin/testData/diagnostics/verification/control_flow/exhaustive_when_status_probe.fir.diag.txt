@@ -1,0 +1,72 @@
+/exhaustive_when_status_probe.kt: info: Generated Viper text for redundantElse:
+function VInt_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), VInt())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function VStr_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), VStr())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method redundantElse(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), Val())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := x
+  if (isSubtype(typeOf(anon), VInt())) {
+    v_ret_0 := VInt_g_v(x)
+  } elseif (isSubtype(typeOf(anon), VStr())) {
+    v_ret_0 := VStr_g_v(x)
+  } else {
+    v_ret_0 := intToRef(0)}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_status_probe.kt: warning: 'when' is exhaustive so 'else' is redundant here.
+
+/exhaustive_when_status_probe.kt: info: Generated Viper text for nothingWithBranch:
+method nothingWithBranch(n: Ref) returns (v_ret_0: Ref)
+  requires false
+  requires isSubtype(typeOf(n), nothingType())
+  ensures false
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := n
+  if (isSubtype(typeOf(anon), Val())) {
+    v_ret_0 := intToRef(1)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_status_probe.kt: warning: Check for instance is always 'true'.
+
+/exhaustive_when_status_probe.kt: info: Generated Viper text for boolDuplicated:
+method boolDuplicated(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := b
+  if (boolFromRef(anon) == true) {
+    v_ret_0 := intToRef(1)
+  } elseif (boolFromRef(anon) == true) {
+    v_ret_0 := intToRef(2)
+  } elseif (boolFromRef(anon) == false) {
+    v_ret_0 := intToRef(0)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_status_probe.kt: warning: Duplicate branch condition in 'when'.

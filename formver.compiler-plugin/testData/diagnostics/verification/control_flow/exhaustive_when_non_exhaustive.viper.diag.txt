@@ -1,0 +1,1 @@
+/exhaustive_when_non_exhaustive.kt: warning: Viper verification error: Postcondition of run might not hold. Assertion isSubtype(typeOf(v_ret_0), intType()) might not hold.

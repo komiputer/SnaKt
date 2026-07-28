@@ -1,0 +1,1 @@
+/exhaustive_when_enum.kt: warning: Viper verification error: Postcondition of values might not hold. Assertion isSubtype(typeOf(v_ret_0), Array()) might not hold.

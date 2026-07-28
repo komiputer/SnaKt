@@ -1,0 +1,28 @@
+/exhaustive_when_non_exhaustive.kt: info: Generated Viper text for run:
+function Pop_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Pop())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function Push_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Push())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method run(c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(c), Cmd())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := c
+  if (isSubtype(typeOf(anon), Push())) {
+    v_ret_0 := Push_g_v(c)
+  } elseif (isSubtype(typeOf(anon), Pop())) {
+    v_ret_0 := Pop_g_v(c)
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_non_exhaustive.kt: error: 'when' expression must be exhaustive. Add the 'is Peek' branch or an 'else' branch.

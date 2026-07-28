@@ -1,0 +1,48 @@
+/exhaustive_when_nothing.kt: info: Generated Viper text for fromNothingExprBody:
+method fromNothingExprBody(n: Ref) returns (v_ret_0: Ref)
+  requires false
+  requires isSubtype(typeOf(n), nothingType())
+  ensures false
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon_1: Ref
+  var anon_0: Ref
+  anon_0 := n
+  v_ret_0 := anon_1
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nothing.kt: error: Return type mismatch: expected 'Int', actual 'Unit'.
+
+/exhaustive_when_nothing.kt: info: Generated Viper text for fromNothingIntVal:
+method fromNothingIntVal(n: Ref) returns (v_ret_0: Ref)
+  requires false
+  requires isSubtype(typeOf(n), nothingType())
+  ensures false
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var l0_r: Ref
+  var anon_1: Ref
+  var anon_0: Ref
+  anon_0 := n
+  l0_r := anon_1
+  v_ret_0 := l0_r
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nothing.kt: error: Initializer type mismatch: expected 'Int', actual 'Unit'.
+
+/exhaustive_when_nothing.kt: info: Generated Viper text for fromNothingUnit:
+method fromNothingUnit(n: Ref) returns (v_ret_0: Ref)
+  requires false
+  requires isSubtype(typeOf(n), nothingType())
+  ensures false
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon: Ref
+  anon := n
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

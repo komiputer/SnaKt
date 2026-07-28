@@ -1,0 +1,20 @@
+/exhaustive_when_platform_type.kt: info: Generated Viper text for describe:
+method describe() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := get(unitValue())
+  if (isSubtype(typeOf(anon), Bar())) {
+    v_ret_0 := intToRef(1)
+  } elseif (isSubtype(typeOf(anon), Baz())) {
+    v_ret_0 := intToRef(2)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method get() returns (ret_1: Ref)
+  ensures isSubtype(typeOf(ret_1), nullable(Foo()))

@@ -1,0 +1,57 @@
+/exhaustive_when_explicit_null.kt: info: Generated Viper text for explicitNull:
+function Absent_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Absent())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function Present_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Present())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method explicitNull(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(Opt()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := x
+  if (anon == nullValue()) {
+    v_ret_0 := intToRef(0)
+  } elseif (isSubtype(typeOf(anon), Present())) {
+    v_ret_0 := Present_g_v(x)
+  } elseif (isSubtype(typeOf(anon), Absent())) {
+    v_ret_0 := Absent_g_v(x)
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_explicit_null.kt: info: Generated Viper text for explicitNullSubjectVal:
+function Absent_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Absent())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function Present_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Present())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method explicitNullSubjectVal(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(Opt()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var y: Ref
+  y := x
+  if (y == nullValue()) {
+    v_ret_0 := intToRef(0)
+  } elseif (isSubtype(typeOf(y), Present())) {
+    v_ret_0 := Present_g_v(y)
+  } elseif (isSubtype(typeOf(y), Absent())) {
+    v_ret_0 := Absent_g_v(y)
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}

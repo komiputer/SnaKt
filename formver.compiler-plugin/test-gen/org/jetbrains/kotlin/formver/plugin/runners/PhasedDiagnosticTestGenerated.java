@@ -560,6 +560,18 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exhaustive_when_explicit_null.kt")
+      public void testExhaustive_when_explicit_null() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_explicit_null.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nullable.kt")
+      public void testExhaustive_when_nullable() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nullable.kt");
+      }
+
+      @Test
       @TestMetadata("exhaustive_when_platform_type.kt")
       public void testExhaustive_when_platform_type() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_platform_type.kt");

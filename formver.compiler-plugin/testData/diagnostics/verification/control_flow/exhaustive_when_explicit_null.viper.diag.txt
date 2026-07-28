@@ -1,0 +1,3 @@
+/exhaustive_when_explicit_null.kt: warning: Viper verification error: Postcondition of explicitNull might not hold. Assertion isSubtype(typeOf(v_ret_0), intType()) might not hold.
+
+/exhaustive_when_explicit_null.kt: warning: Viper verification error: Postcondition of explicitNullSubjectVal might not hold. Assertion isSubtype(typeOf(v_ret_0), intType()) might not hold.

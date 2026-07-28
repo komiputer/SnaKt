@@ -1,0 +1,33 @@
+/exhaustive_when_non_exhaustive.kt: info: Generated Viper text for area:
+function height(this: Ref): Ref
+  requires isSubtype(typeOf(this), Rect())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function side(this: Ref): Ref
+  requires isSubtype(typeOf(this), Sq())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function width(this: Ref): Ref
+  requires isSubtype(typeOf(this), Rect())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method area(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), Shape())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := s
+  if (isSubtype(typeOf(anon), Sq())) {
+    v_ret_0 := timesInts(side(s), side(s))
+  } elseif (isSubtype(typeOf(anon), Rect())) {
+    v_ret_0 := timesInts(width(s), height(s))
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_non_exhaustive.kt: error: 'when' expression must be exhaustive. Add the 'is Circ' branch or an 'else' branch.

@@ -1,0 +1,3 @@
+/exhaustive_when_branch_violation.kt: warning: Viper verification error: Assert might fail. Assertion intFromRef(n(par_v)) > 0 might not hold.
+
+/exhaustive_when_branch_violation.kt: warning: Viper verification error: Assert might fail. Assertion intFromRef(l0_r) >= 0 might not hold.

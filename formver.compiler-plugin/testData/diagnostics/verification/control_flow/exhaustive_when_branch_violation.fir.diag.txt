@@ -1,0 +1,71 @@
+/exhaustive_when_branch_violation.kt: info: Generated Viper text for checkInBranch:
+function inner(this: Ref): Ref
+  requires isSubtype(typeOf(this), Wrapped())
+  ensures isSubtype(typeOf(result), Pos())
+
+
+function n(this: Ref): Ref
+  requires isSubtype(typeOf(this), Pos())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method checkInBranch(par_v: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_v), Val())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := par_v
+  if (isSubtype(typeOf(anon), Pos())) {
+    assert intFromRef(n(par_v)) > 0
+    v_ret_0 := n(par_v)
+  } elseif (isSubtype(typeOf(anon), Wrapped())) {
+    v_ret_0 := n(inner(par_v))
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_branch_violation.kt: info: Generated Viper text for magnitude:
+function inner(this: Ref): Ref
+  requires isSubtype(typeOf(this), Wrapped())
+  ensures isSubtype(typeOf(result), Pos())
+
+
+function n(this: Ref): Ref
+  requires isSubtype(typeOf(this), Pos())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method magnitude(par_v: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_v), Val())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var l0_r: Ref
+  var anon: Ref
+  anon := par_v
+  if (isSubtype(typeOf(anon), Pos())) {
+    l0_r := n(par_v)
+  } elseif (isSubtype(typeOf(anon), Wrapped())) {
+    l0_r := negInt(n(inner(par_v)))
+  } else {
+    inhale false
+    l0_r := unitValue()
+  }
+  assert intFromRef(l0_r) >= 0
+  v_ret_0 := l0_r
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -1,0 +1,52 @@
+/exhaustive_when_nothing_subject.kt: info: Generated Viper text for fromNothing:
+method fromNothing(n: Ref) returns (v_ret_0: Ref)
+  requires false
+  requires isSubtype(typeOf(n), nothingType())
+  ensures false
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon_1: Ref
+  var anon_0: Ref
+  anon_0 := n
+  v_ret_0 := anon_1
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nothing_subject.kt: error: Return type mismatch: expected 'Int', actual 'Unit'.
+
+/exhaustive_when_nothing_subject.kt: info: Generated Viper text for fromNothingBranch:
+method fromNothingBranch(n: Ref) returns (v_ret_0: Ref)
+  requires false
+  requires isSubtype(typeOf(n), nothingType())
+  ensures false
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := n
+  if (isSubtype(typeOf(anon), Number())) {
+    v_ret_0 := intToRef(1)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nothing_subject.kt: warning: Check for instance is always 'true'.
+
+/exhaustive_when_nothing_subject.kt: info: Generated Viper text for fromEmpty:
+method fromEmpty(e: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(e), Empty())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon_1: Ref
+  var anon_0: Ref
+  anon_0 := e
+  v_ret_0 := anon_1
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nothing_subject.kt: error: 'when' expression must be exhaustive. Add an 'else' branch.

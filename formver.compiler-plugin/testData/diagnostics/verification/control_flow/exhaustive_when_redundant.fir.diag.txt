@@ -1,0 +1,61 @@
+/exhaustive_when_redundant.kt: info: Generated Viper text for weightWithElse:
+function value(this: Ref): Ref
+  requires isSubtype(typeOf(this), Leaf())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function weight(this: Ref): Ref
+  requires isSubtype(typeOf(this), Branch())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method weightWithElse(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), Node())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := n
+  if (isSubtype(typeOf(anon), Leaf())) {
+    v_ret_0 := value(n)
+  } elseif (isSubtype(typeOf(anon), Branch())) {
+    v_ret_0 := weight(n)
+  } else {
+    v_ret_0 := intToRef(0)}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_redundant.kt: warning: 'when' is exhaustive so 'else' is redundant here.
+
+/exhaustive_when_redundant.kt: info: Generated Viper text for weightOf:
+function value(this: Ref): Ref
+  requires isSubtype(typeOf(this), Leaf())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function weight(this: Ref): Ref
+  requires isSubtype(typeOf(this), Branch())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method weightOf(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), Node())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := n
+  if (isSubtype(typeOf(anon), Leaf())) {
+    v_ret_0 := value(n)
+  } elseif (isSubtype(typeOf(anon), Leaf())) {
+    v_ret_0 := intToRef(0)
+  } elseif (isSubtype(typeOf(anon), Branch())) {
+    v_ret_0 := weight(n)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_redundant.kt: warning: Duplicate branch condition in 'when'.

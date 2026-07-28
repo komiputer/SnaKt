@@ -1,0 +1,38 @@
+/exhaustive_when_enum_subject.kt: error: An internal error has occurred.
+Details: Properties dispatch receiver is not a regular class
+Please report this at https://github.com/jesyspa/kotlin
+
+/exhaustive_when_enum_subject.kt: error: An internal error has occurred.
+Details: Properties dispatch receiver is not a regular class
+Please report this at https://github.com/jesyspa/kotlin
+
+/exhaustive_when_enum_subject.kt: info: Generated Viper text for values:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), Array())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method values() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), Array())
+{
+  label lbl_ret_0
+}
+
+/exhaustive_when_enum_subject.kt: info: Generated Viper text for toInt:
+method toInt(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := b
+  if (boolFromRef(anon) == true) {
+    v_ret_0 := intToRef(1)
+  } elseif (boolFromRef(anon) == false) {
+    v_ret_0 := intToRef(0)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -1,0 +1,1 @@
+/exhaustive_when_nullable.kt: warning: Viper verification error: Postcondition of narrowedSubjectVal might not hold. Assertion isSubtype(typeOf(v_ret_0), intType()) might not hold.

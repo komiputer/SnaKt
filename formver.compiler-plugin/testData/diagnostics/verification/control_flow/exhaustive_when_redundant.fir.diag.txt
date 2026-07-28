@@ -1,0 +1,32 @@
+/exhaustive_when_redundant.kt: info: Generated Viper text for redundant:
+function Left_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Left())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function Right_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Right())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method redundant(p: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(p), Pair2())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := p
+  if (isSubtype(typeOf(anon), Left())) {
+    v_ret_0 := Left_g_v(p)
+  } elseif (isSubtype(typeOf(anon), Left())) {
+    v_ret_0 := Left_g_v(p)
+  } elseif (isSubtype(typeOf(anon), Right())) {
+    v_ret_0 := Right_g_v(p)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_redundant.kt: warning: Duplicate branch condition in 'when'.

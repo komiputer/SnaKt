@@ -1,0 +1,45 @@
+/exhaustive_when_boolean.kt: info: Generated Viper text for boolValue:
+method boolValue(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := b
+  if (boolFromRef(anon) == true) {
+    v_ret_0 := intToRef(1)
+  } elseif (boolFromRef(anon) == false) {
+    v_ret_0 := intToRef(0)
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_boolean.kt: info: Generated Viper text for boolValuePositive:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method boolValuePositive(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var l0_r: Ref
+  var anon: Ref
+  anon := b
+  if (boolFromRef(anon) == true) {
+    l0_r := intToRef(1)
+  } elseif (boolFromRef(anon) == false) {
+    l0_r := intToRef(0)
+  } else {
+    inhale false
+    l0_r := unitValue()
+  }
+  assert intFromRef(l0_r) > 0
+  v_ret_0 := l0_r
+  goto lbl_ret_0
+  label lbl_ret_0
+}

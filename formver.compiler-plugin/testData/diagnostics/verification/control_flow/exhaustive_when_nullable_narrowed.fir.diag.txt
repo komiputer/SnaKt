@@ -1,0 +1,22 @@
+/exhaustive_when_nullable_narrowed.kt: info: Generated Viper text for viaNullCheck:
+method viaNullCheck(par_t: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_t), nullable(Tri()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (par_t == nullValue()) {
+    v_ret_0 := intToRef(0)
+  } else {
+    var anon: Ref
+    anon := par_t
+    if (isSubtype(typeOf(anon), T1())) {
+      v_ret_0 := intToRef(1)
+    } elseif (isSubtype(typeOf(anon), T2())) {
+      v_ret_0 := intToRef(2)
+    } else {
+      inhale false
+      v_ret_0 := unitValue()
+    }
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}

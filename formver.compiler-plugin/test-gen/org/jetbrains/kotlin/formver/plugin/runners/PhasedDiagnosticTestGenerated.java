@@ -560,6 +560,48 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exhaustive_when_boolean.kt")
+      public void testExhaustive_when_boolean() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_boolean.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_enum.kt")
+      public void testExhaustive_when_enum() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_enum.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nested.kt")
+      public void testExhaustive_when_nested() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nested.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nothing_subject.kt")
+      public void testExhaustive_when_nothing_subject() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nothing_subject.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_nullable_narrowed.kt")
+      public void testExhaustive_when_nullable_narrowed() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nullable_narrowed.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_redundant.kt")
+      public void testExhaustive_when_redundant() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_redundant.kt");
+      }
+
+      @Test
+      @TestMetadata("exhaustive_when_sealed_class.kt")
+      public void testExhaustive_when_sealed_class() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_sealed_class.kt");
+      }
+
+      @Test
       @TestMetadata("exp_side_effects.kt")
       public void testExp_side_effects() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exp_side_effects.kt");

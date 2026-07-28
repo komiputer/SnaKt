@@ -1,0 +1,65 @@
+/exhaustive_when_sealed_class.kt: info: Generated Viper text for eval2:
+function operand(this: Ref): Ref
+  requires isSubtype(typeOf(this), Neg2())
+  ensures isSubtype(typeOf(result), Const2())
+
+
+function value(this: Ref): Ref
+  requires isSubtype(typeOf(this), Const2())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method eval2(e: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(e), Expr2())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := e
+  if (isSubtype(typeOf(anon), Const2())) {
+    v_ret_0 := value(e)
+  } elseif (isSubtype(typeOf(anon), Neg2())) {
+    v_ret_0 := negInt(value(operand(e)))
+  } else {
+    inhale false
+    v_ret_0 := unitValue()
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_sealed_class.kt: info: Generated Viper text for eval2NonNeg:
+function operand(this: Ref): Ref
+  requires isSubtype(typeOf(this), Neg2())
+  ensures isSubtype(typeOf(result), Const2())
+
+
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function value(this: Ref): Ref
+  requires isSubtype(typeOf(this), Const2())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method eval2NonNeg(e: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(e), Expr2())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var l0_r: Ref
+  var anon: Ref
+  anon := e
+  if (isSubtype(typeOf(anon), Const2())) {
+    l0_r := value(e)
+  } elseif (isSubtype(typeOf(anon), Neg2())) {
+    l0_r := negInt(value(operand(e)))
+  } else {
+    inhale false
+    l0_r := unitValue()
+  }
+  assert intFromRef(l0_r) >= 0
+  v_ret_0 := l0_r
+  goto lbl_ret_0
+  label lbl_ret_0
+}

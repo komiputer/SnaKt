@@ -572,12 +572,6 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
-      @TestMetadata("exhaustive_when_local_scope.kt")
-      public void testExhaustive_when_local_scope() {
-        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_local_scope.kt");
-      }
-
-      @Test
       @TestMetadata("exhaustive_when_nested.kt")
       public void testExhaustive_when_nested() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nested.kt");
@@ -593,12 +587,6 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("exhaustive_when_nothing.kt")
       public void testExhaustive_when_nothing() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nothing.kt");
-      }
-
-      @Test
-      @TestMetadata("exhaustive_when_nothing_throw.kt")
-      public void testExhaustive_when_nothing_throw() {
-        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exhaustive_when_nothing_throw.kt");
       }
 
       @Test

@@ -174,7 +174,7 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
             // checking only for `ProperlyExhaustive` misses two of them. FIR's exhaustiveness check
             // also treats platform types (Java interop, `Foo!`) as non-null, so trusting any
             // exhaustive verdict is not sound for a nullable subject: the runtime value can still be
-            // null and hit no branch (KT-7341456). Trust FIR's verdict only when SnaKt's own derived
+            // null and hit no branch (KT-84106). Trust FIR's verdict only when SnaKt's own derived
             // type for the subject agrees that it can't be null.
             val subjectIsNullable = subj?.variable?.type?.isNullable == true
             val fallthroughUnreachable =

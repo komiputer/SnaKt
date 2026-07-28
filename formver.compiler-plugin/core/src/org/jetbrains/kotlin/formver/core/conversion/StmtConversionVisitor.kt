@@ -169,7 +169,16 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
                 else
                     declareLocalVariable(firSubjVar.symbol, subjExp)
             }
-            val fallthroughUnreachable = whenExpression.exhaustivenessStatus is ExhaustivenessStatus.ProperlyExhaustive
+            // `ExhaustivenessStatus` has four members (`ProperlyExhaustive`, `RedundantlyExhaustive`,
+            // `ExhaustiveAsNothing`, `NotExhaustive`); the first three all mean "no fallthrough", so
+            // checking only for `ProperlyExhaustive` misses two of them. FIR's exhaustiveness check
+            // also treats platform types (Java interop, `Foo!`) as non-null, so trusting any
+            // exhaustive verdict is not sound for a nullable subject: the runtime value can still be
+            // null and hit no branch (KT-7341456). Trust FIR's verdict only when SnaKt's own derived
+            // type for the subject agrees that it can't be null.
+            val subjectIsNullable = subj?.variable?.type?.isNullable == true
+            val fallthroughUnreachable =
+                whenExpression.exhaustivenessStatus !is ExhaustivenessStatus.NotExhaustive && !subjectIsNullable
             val body = withWhenSubject(subj?.variable) {
                 convertWhenBranches(whenExpression.branches.iterator(), type, fallthroughUnreachable, this)
             }

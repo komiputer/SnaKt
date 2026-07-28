@@ -9,9 +9,7 @@ method describe() returns (v_ret_0: Ref)
   } elseif (isSubtype(typeOf(anon), Baz())) {
     v_ret_0 := intToRef(2)
   } else {
-    inhale false
-    v_ret_0 := unitValue()
-  }
+    v_ret_0 := unitValue()}
   goto lbl_ret_0
   label lbl_ret_0
 }

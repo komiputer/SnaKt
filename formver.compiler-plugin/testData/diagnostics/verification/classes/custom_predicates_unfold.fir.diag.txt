@@ -11,6 +11,7 @@ predicate Interval_unique(v_this: Ref) {
 }
 
 predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
   acc(Interval_unique(v_this_extension), write) &&
   intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
     v_this_extension.lo)) <=

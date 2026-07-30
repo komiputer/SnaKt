@@ -8,6 +8,6 @@ fun Interval.ordered(): Boolean = predicate {
     lo <= hi
 }
 
-fun checkAtRuntime(i: Interval): Boolean {
-    return i.ordered()
+fun <!VERIFICATION_SKIPPED!>checkAtRuntime<!>(i: Interval): Boolean {
+    return <!PREDICATE_OUTSIDE_SPECIFICATION!>i<!>.ordered()
 }

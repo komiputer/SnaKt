@@ -1,0 +1,1 @@
+/custom_predicates.kt: warning: Viper verification error: Assert might fail. Assertion intFromRef(anon_0) <= intFromRef(anon_1) might not hold.

@@ -307,15 +307,17 @@ private fun FirBlock.isEmptyLambdaBody(): Boolean {
     return (statements.size == 1 && (statements.first() as? FirReturnExpression)?.result?.resolvedType?.isUnit ?: false)
 }
 
-fun StmtConversionContext.collectInvariants(block: FirBlock) = buildList {
-    if (block.isEmptyLambdaBody()) {
-        return@buildList
-    }
-    block.statements.forEach { stmt ->
-        check(stmt is FirExpression && stmt.resolvedType.isBoolean) {
-            INVALID_STATEMENT_MSG
+fun StmtConversionContext.collectInvariants(block: FirBlock) = withinSpecification {
+    buildList {
+        if (block.isEmptyLambdaBody()) {
+            return@buildList
         }
-        add(stmt.accept(StmtConversionVisitor, this@collectInvariants))
+        block.statements.forEach { stmt ->
+            check(stmt is FirExpression && stmt.resolvedType.isBoolean) {
+                INVALID_STATEMENT_MSG
+            }
+            add(stmt.accept(StmtConversionVisitor, this@collectInvariants))
+        }
     }
 }
 
@@ -338,7 +340,10 @@ private fun StmtConversionContext.tryExtractTriggers(stmt: FirStatement): List<E
     }
 }
 
-fun StmtConversionContext.collectInvariantsAndTriggers(block: FirBlock): InvariantsAndTriggers {
+fun StmtConversionContext.collectInvariantsAndTriggers(block: FirBlock): InvariantsAndTriggers =
+    withinSpecification { collectInvariantsAndTriggersImpl(block) }
+
+private fun StmtConversionContext.collectInvariantsAndTriggersImpl(block: FirBlock): InvariantsAndTriggers {
     val invariants = mutableListOf<ExpEmbedding>()
     val triggers = mutableListOf<ExpEmbedding>()
 

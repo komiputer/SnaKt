@@ -77,6 +77,23 @@ class ProgramConverter(
     override fun reportPurityViolation(source: KtSourceElement?, msg: String) =
         emit(source, ConversionErrors.PURITY_VIOLATION, msg)
 
+    override fun reportPredicateOutsideSpecification(source: KtSourceElement?, msg: String) =
+        emit(source, ConversionErrors.PREDICATE_OUTSIDE_SPECIFICATION, msg)
+
+    private var specificationDepth: Int = 0
+
+    override val inSpecification: Boolean
+        get() = specificationDepth > 0
+
+    override fun <R> withinSpecification(action: () -> R): R {
+        specificationDepth++
+        try {
+            return action()
+        } finally {
+            specificationDepth--
+        }
+    }
+
     override fun reportMinorInternalError(msg: String) =
         emit(currentDeclarationSource, ConversionErrors.MINOR_INTERNAL_ERROR, msg)
 

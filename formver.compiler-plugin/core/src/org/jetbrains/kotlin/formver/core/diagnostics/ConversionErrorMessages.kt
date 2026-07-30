@@ -36,5 +36,10 @@ object ConversionErrorMessages : BaseDiagnosticRendererFactory() {
             "{0}",
             CommonRenderers.STRING,
         )
+        map.put(
+            ConversionErrors.PREDICATE_OUTSIDE_SPECIFICATION,
+            "{0}",
+            CommonRenderers.STRING,
+        )
     }
 }

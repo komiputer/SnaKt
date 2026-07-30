@@ -1,0 +1,7 @@
+/predicate_without_class.kt: error: A predicate must be declared on a class; 'noReceiver' has no class receiver.
+
+/predicate_without_class.kt: error: A predicate must be declared on a class; 'positive' has no class receiver.
+
+/predicate_without_class.kt: error: Function 'useNoReceiver' was not verified because of errors in its declaration
+
+/predicate_without_class.kt: error: Function 'usePositive' was not verified because of errors in its declaration

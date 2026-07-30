@@ -1,0 +1,7 @@
+/predicate_malformed.kt: error: A `predicate { }` block must be the entire body of a function returning Boolean.
+
+/predicate_malformed.kt: error: Function 'notBoolean' was not verified because of errors in its declaration
+
+/predicate_malformed.kt: error: A `predicate { }` block must be the entire body of a function returning Boolean.
+
+/predicate_malformed.kt: error: Function 'extraStatements' was not verified because of errors in its declaration

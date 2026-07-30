@@ -247,6 +247,64 @@ tip `458cb00f`, so **nothing any solver committed is at risk.** It declined `mur
 reconstruct rev2, having read all 675 lines itself — the better-positioned reader, correctly
 chosen.
 
+## Launcher ruling on the merge gate — recorded, not actioned
+
+Hers to give. Relayed from `sacharissa` at ~197k and would otherwise have died with that seat.
+
+**1. No golden may be assumed to have been authored by the solver who owns its case.** `briar`'s
+update pass rewrote goldens for `saskia`'s and `zara`'s files —
+`b2_case3_linked_properties`, `b2_case4_structural_invariant`, `a2_name_collision`. **Every golden
+that pass touched is UNRATIFIED until its owner reads it.** This extends the merge gate: **the
+runner equality N/N is necessary and no longer sufficient.** Aggregation must also show, per
+golden, that its owner has read it. *A golden nobody has read is indistinguishable from a golden
+nobody could have judged.*
+
+**2. An update pass must run on a tree containing only the running solver's new files, or its
+output is unattributable.** The contaminated baseline was recorded as a **read** hazard — a gate
+counting someone else's files. **In update mode it is a write hazard**, and the
+extraction-method rule does not touch it. The asymmetry makes the write case worse: **a
+contaminated read produces a wrong number someone can check; a contaminated write produces a
+plausible artefact with no signature of who made it.**
+
+**3. The crash is a separate finding and must not be folded into the 20.**
+`testCustom_predicates_n2_n1_subexpr` fails with `FileAnalysisException` caused by
+`kotlin.NotImplementedError` — an unimplemented `TODO` reached during analysis. Not a diagnostic,
+not a verification failure, **a crash**, and the first this run has surfaced. Drafted as its own
+PR #30 section in `pr30-headline-section.md`, held unpasted.
+
+**4. ZERO verified gates, unchanged.** `briar`'s run was an update pass and it failed: *157 tests
+completed, 20 failed, BUILD FAILED in 12m31s* is not a gate.
+
+**5. But 157 is now EMPIRICALLY CONFIRMED — 157 tests actually executed.** That closes the number
+retracted this morning, **by a run rather than an argument.**
+
+**The shape of that is the run's clearest lesson and it is worth more than the number.** Three
+seats reached 136 independently — `sacharissa`, the Launcher via my own briefing, and `remo` — and
+**`zara` held the correct figure against all three**, on the grounds that `dependsOn
+generateTests` regenerates against disk. **The committed runner's staleness is invisible to a
+gate.** So the error was upstream and the correction came from the bottom, and that is the
+**second time today**: `barr` pre-qualified its own green before any seat above it did. **A
+pipeline where corrections only flow downward would have shipped 136 as truth.**
+
+**6. OPERATIONAL TRAP: the artifact root is live again**, because `briar`'s `mkdir -p` silently
+recreated it. **It is no safer than before.** Anything written there will **look** durable and is
+not. **Nobody writes to it.** Non-branch refs on `origin` remain the only durable destination.
+This is a nastier state than the deletion was: an absent directory fails loudly, a recreated one
+accepts writes and discards them.
+
+## `rune` parked — what its own turn added
+
+Beyond the stop-states above: **`saskia` and `zara` have reported and both match the `/proc`
+prediction.** Two errors `rune` caught in-turn and disclosed: it briefed the new N-2 seat as
+though it would queue a gate, **which would have added a seventh waiter to a saturated lock**,
+corrected within minutes; and it told me it was re-arming the OOM monitor when the command had
+been **refused in full**, so nothing ran. It also withdrew a false finding before it travelled —
+that `briar` had overtaken `saskia` in the queue, demonstrating `flock` unfairness; `saskia`'s own
+`LOCK-ACQUIRED` timestamp showed it had acquired first.
+
+Its `run-state/custom-predicates-run-state-recovery.md` at **`39efb622`** (branch and
+`refs/pipeline/dispatcher-recovery-rune`, confirmed remote-side) is the dispatcher-side record.
+
 ## State of my three jobs at the pause
 
 1. **Headline finding → PR #30.** Text ready and cleared on the evidence

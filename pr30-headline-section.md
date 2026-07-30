@@ -86,6 +86,26 @@ could have delivered under that instruction.
 
 ---
 
+# Second, separate PR #30 item — the plugin crashes on a predicate in a subexpression
+
+**A distinct section, not part of the one above.** Launcher ruling: this is a finding about the
+feature and belongs in PR #30, and it **must not be folded into the 20 failures** of `briar`'s
+update pass. Held unpasted with the rest while the run is paused.
+
+`testCustom_predicates_n2_n1_subexpr` fails with a **`FileAnalysisException` caused by
+`kotlin.NotImplementedError`** — an unimplemented `TODO` in the plugin reached during analysis.
+
+That is **not a diagnostic and not a verification failure. It is a crash**, and it is the first
+crash this run has surfaced. The distinction is the point: a diagnostic is the plugin
+successfully declining a program, whereas this is the plugin failing to analyse one. A user
+writing a predicate call in a subexpression position gets an internal compiler error rather than
+a message about their code.
+
+Found by `briar`'s N1 subexpression case, which is the class of case that exists to probe
+where the embedding stops rather than to demonstrate the feature working.
+
+---
+
 ## Minute of the corrections — not part of the PR text
 
 `nova` (sonnet, own worktree, `git grep` at `bf32366c`) checked the four claims as the

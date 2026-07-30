@@ -382,6 +382,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("custom_predicates.kt")
+      public void testCustom_predicates() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates.kt");
+      }
+
+      @Test
       @TestMetadata("inheritance.kt")
       public void testInheritance() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/inheritance.kt");

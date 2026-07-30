@@ -133,7 +133,7 @@ fun useOrdered(i: Interval) {
 The `Boolean` return type is what lets a predicate refer to itself recursively:
 
 ```kotlin
-class Node(var value: Int, val next: Node?)
+class Node(val value: Int, val next: Node?)
 
 fun Node.sorted(): Boolean = predicate {
     next == null || (value <= next.value && next.sorted())
@@ -151,6 +151,7 @@ fun useSorted(n: Node) {
 
 ```viper
 predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
   acc(Interval_unique(v_this_extension), write) &&
   intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
     v_this_extension.lo)) <=
@@ -163,19 +164,40 @@ and `sorted`, recursively:
 
 ```viper
 predicate sorted(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Node()) &&
   acc(Node_unique(v_this_extension), write) &&
   (next(v_this_extension) == nullValue() ||
-  intFromRef((unfolding acc(Node_unique(v_this_extension), write) in
-    v_this_extension.value)) <=
-  intFromRef((unfolding acc(Node_unique(next(v_this_extension)), write) in
-    next(v_this_extension).value)) &&
+  intFromRef(value(v_this_extension)) <=
+  intFromRef(value(next(v_this_extension))) &&
   acc(sorted(next(v_this_extension)), write))
+}
+```
+
+The subject's type invariant is the first conjunct of every custom predicate, even though the class
+predicate `C$unique` asserts it too. Holding `acc(C$unique(x), write)` does not expose that
+predicate's body, so without the conjunct a `val` read in the body — which embeds as a Viper
+function requiring `isSubtype(typeOf(x), C())` — would have nothing to justify its precondition.
+This is what lets a recursive predicate follow its own link.
+
+A predicate may equally be declared as a member function, in which case its subject is the dispatch
+receiver:
+
+```kotlin
+class Chain(val len: Int, val rest: Chain?) {
+    fun descending(): Boolean = predicate {
+        rest == null || (len > rest.len && rest.descending())
+    }
 }
 ```
 
 A predicate may only be named inside `preconditions { }`, `postconditions { }`, `loopInvariants { }`, a `forAll { }` body or another predicate's body; naming one anywhere else is an error, and calling one at runtime throws.
 
 Reading a field inside a specification needs no annotation: the necessary `unfolding` is inserted automatically, including for a recursive predicate.
+
+**Known limitation:** a recursive predicate may only compare `val` properties across its link, as
+`sorted` compares `value` above. Reaching a `var` field of the next element would need
+`acc(C$unique(next))`, which is held only inside the recursive occurrence of the predicate, and
+unfolding that occurrence inside the predicate's own body does not terminate.
 
 **Known limitation:** the plugin does not support `!!`. A recursive predicate that needs to smart-cast a nullable link must expose it through a `val` (as `next` above), not a `var`, so the compiler can smart-cast it instead of requiring `!!`.
 

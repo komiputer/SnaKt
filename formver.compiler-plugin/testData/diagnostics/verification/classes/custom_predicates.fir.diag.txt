@@ -30,6 +30,7 @@ predicate Serializable_unique(v_this: Ref) {
 }
 
 predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
   acc(Interval_unique(v_this_extension), write) &&
   intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
     v_this_extension.lo)) <=
@@ -52,31 +53,63 @@ method useOrdered(i: Ref) returns (v_ret_0: Ref)
 }
 
 /custom_predicates.kt: info: Generated Viper text for useSorted:
-field value: Ref
-
 function next(v_this: Ref): Ref
   requires isSubtype(typeOf(v_this), Node())
   ensures isSubtype(typeOf(result), nullable(Node()))
 
 
+function value(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Node())
+  ensures isSubtype(typeOf(result), intType())
+
+
 predicate Node_unique(v_this: Ref) {
-  isSubtype(typeOf(v_this), Node()) && acc(v_this.value, write) &&
-  isSubtype(typeOf(v_this.value), intType())
+  isSubtype(typeOf(v_this), Node())
 }
 
 predicate sorted(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Node()) &&
   acc(Node_unique(v_this_extension), write) &&
   (next(v_this_extension) == nullValue() ||
-  intFromRef((unfolding acc(Node_unique(v_this_extension), write) in
-    v_this_extension.value)) <=
-  intFromRef((unfolding acc(Node_unique(next(v_this_extension)), write) in
-    next(v_this_extension).value)) &&
+  intFromRef(value(v_this_extension)) <=
+  intFromRef(value(next(v_this_extension))) &&
   acc(sorted(next(v_this_extension)), write))
 }
 
 method useSorted(n: Ref) returns (v_ret_0: Ref)
   requires isSubtype(typeOf(n), Node())
   requires acc(sorted(n), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates.kt: info: Generated Viper text for useDescending:
+function len(this: Ref): Ref
+  requires isSubtype(typeOf(this), Chain())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function rest(this: Ref): Ref
+  requires isSubtype(typeOf(this), Chain())
+  ensures isSubtype(typeOf(result), nullable(Chain()))
+
+
+predicate Chain_unique(this: Ref) {
+  isSubtype(typeOf(this), Chain())
+}
+
+predicate descending(this: Ref) {
+  isSubtype(typeOf(this), Chain()) && acc(Chain_unique(this), write) &&
+  (rest(this) == nullValue() ||
+  intFromRef(len(this)) > intFromRef(len(rest(this))) &&
+  acc(descending(rest(this)), write))
+}
+
+method useDescending(c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(c), Chain())
+  requires acc(descending(c), write)
   ensures isSubtype(typeOf(v_ret_0), unitType())
 {
   label lbl_ret_0

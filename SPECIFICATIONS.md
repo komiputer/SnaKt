@@ -110,6 +110,73 @@ forAll<Int> { x ->
 
 Each argument to `triggers()` becomes a separate trigger. This differs from Viper syntax where you can group multiple expressions in a single trigger; currently SnaKt only supports simple (single-expression) triggers.
 
+## Custom Predicates
+
+A function whose entire body is `predicate { }` declares a Viper predicate over the state of its receiver. The function's name becomes the predicate's name, and its receiver becomes the predicate's subject. The block body is an implicit conjunction; it holds *in addition* to the permissions the class always carries, so a predicate strengthens the class invariant rather than replacing it.
+
+```kotlin
+class Interval(var lo: Int, var hi: Int)
+
+fun Interval.ordered(): Boolean = predicate {
+    lo <= hi
+}
+
+@AlwaysVerify
+fun useOrdered(i: Interval) {
+    preconditions {
+        i.ordered()
+    }
+    verify(i.lo <= i.hi)
+}
+```
+
+The `Boolean` return type is what lets a predicate refer to itself recursively:
+
+```kotlin
+class Node(var value: Int, val next: Node?)
+
+fun Node.sorted(): Boolean = predicate {
+    next == null || (value <= next.value && next.sorted())
+}
+
+@AlwaysVerify
+fun useSorted(n: Node) {
+    preconditions {
+        n.sorted()
+    }
+}
+```
+
+`ordered` generates the following Viper predicate:
+
+```viper
+predicate ordered(v_this_extension: Ref) {
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.lo)) <=
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.hi))
+}
+```
+
+and `sorted`, recursively:
+
+```viper
+predicate sorted(v_this_extension: Ref) {
+  acc(Node_unique(v_this_extension), write) &&
+  (next(v_this_extension) == nullValue() ||
+  intFromRef((unfolding acc(Node_unique(v_this_extension), write) in
+    v_this_extension.value)) <=
+  intFromRef((unfolding acc(Node_unique(next(v_this_extension)), write) in
+    next(v_this_extension).value)) &&
+  acc(sorted(next(v_this_extension)), write))
+}
+```
+
+A predicate may only be named inside `preconditions { }`, `postconditions { }` or `loopInvariants { }`; calling one at runtime throws.
+
+**Known limitation:** the plugin does not support `!!`. A recursive predicate that needs to smart-cast a nullable link must expose it through a `val` (as `next` above), not a `var`, so the compiler can smart-cast it instead of requiring `!!`.
+
 ## Additional Plugin Options
 
 ```kotlin

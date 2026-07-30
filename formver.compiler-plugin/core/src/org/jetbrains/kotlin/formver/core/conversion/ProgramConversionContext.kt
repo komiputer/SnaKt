@@ -5,6 +5,7 @@
 
 package org.jetbrains.kotlin.formver.core.conversion
 
+import org.jetbrains.kotlin.KtSourceElement
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
@@ -44,6 +45,20 @@ interface ProgramConversionContext : ErrorCollectionContext {
     val typeResolver: TypeResolver
     val convertedBodyResolver: ConvertedBodyResolver
     val linearizedBodyResolver: LinearizedBodyResolver
+
+    /**
+     * Whether conversion is currently inside a specification block: `preconditions { }`,
+     * `postconditions { }`, `loopInvariants { }`, a `forAll { }` body, or a `predicate { }` body.
+     *
+     * Only meaningful for constructs that have no runtime meaning, such as a predicate access.
+     */
+    val inSpecification: Boolean
+
+    /** Run [action] with [inSpecification] set; nests, so an inner block does not clear the flag. */
+    fun <R> withinSpecification(action: () -> R): R
+
+    /** Report a predicate access built where [inSpecification] is false. */
+    fun reportPredicateOutsideSpecification(source: KtSourceElement?, msg: String)
 
     fun embedAnyFunction(symbol: FirFunctionSymbol<*>): CallableEmbedding
     fun embedType(type: ConeKotlinType): TypeEmbedding

@@ -166,6 +166,87 @@ compounds with finding 1: the goldens those passes write are the missing 21.
   byte-identical, in consecutive tool results. Acted on once. Fault 2 in the state file says a
   second sighting raises the threshold to paging.
 
+## The pause — stop states, answered by construction
+
+`rune` propagated the order to all six solvers and then answered the Launcher's mid-write question
+**from `/proc` rather than by waiting for six replies**, which is the better instrument:
+
+    HOLDER  wip9   :formver.compiler-plugin:test -Pkotlin.test.update.test.data=true  RUNNING
+    WAITER  wip10 / wip12 / wip13 / wip11   never acquired the lock
+
+**Only the lock holder can be mid-write, so exactly one run can have damaged anything: `felix`'s,
+a golden-update pass still holding the lock.** The four waiters are safe **by construction rather
+than by report** — they never acquired, so they never wrote. That is also the argument for not
+killing it. **`briar`'s run has ENDED** (held the lock at the start of `rune`'s turn, gone from
+`pgrep -x flock` after), and its output state is the one real unknown; only `briar` can say.
+
+### A correction that removes an item I had recorded as closed
+
+**PID 513609 is not an OOM monitor.** `rune` read its command line: it is `sacharissa`'s
+**queue-drain watcher**, counting `flock` cwds until the count drops. It watches the lock queue,
+not memory. **So no memory monitor is armed** — `rune`'s own attempt was refused by the write
+guard (its log went to the artifact root) and it had reported "re-arming" before confirming.
+
+**My error, and it is the run's signature class:** I relayed `remo`'s "monitor confirmed armed,
+PID 513609, checked rather than assumed" to `rune` **as grounds to drop the item**. The checking
+that was done established that a process existed, not that it was the monitor we wanted. *A
+confirmed PID is not a confirmed function.* I turned a report into a verification in the act of
+passing it on, which is precisely what this run's discipline exists to stop.
+
+`rune` **declined to arm one under the pause** — correctly, that is starting something new — and
+de-escalated instead: memory has recovered on its own to 2121MB available / 659MB free, from
+182MB free when I asked. **De-escalating on a receded risk rather than acting under a pause is the
+right call and is recorded as such**, so a successor does not read the open item as neglect.
+
+### Pre-pause spawns, disclosed rather than discovered
+
+`briar`'s and `zara`'s replacements were **already spawned before the pause order arrived**, and
+both have since parked. `rune` stated this plainly and did not treat it as licence. **Ratified:
+the disclosure is the right handling** — the same shape as `ennio`'s bundle-opening disclosure, and
+the risk was never the act but a later agent citing it as precedent.
+
+Their output, which is why the disclosure matters — it is real work now frozen:
+
+**`muradin`** (N-2, opus), pushed to `origin/run-state/n2-case-analysis` at **`f1625cde`** with
+three source quotes held verbatim. **Closed `n3_lambda`: 7 of 12 sound, nothing open.** The
+local-`val` hop resolves — `visitImplicitInvokeCall` matches `is LambdaExp` and `insertCall`
+inlines the body — and **`inSpecification` is a dynamic `specificationDepth` counter, not
+lexical.** A coverage gap falls out of that: **the diagnostic keys off where a predicate call is
+*invoked*, not where it is *written*,** so a lambda written in ordinary code but invoked inside a
+specification block goes unreported. Recorded as a gap, not a defect.
+
+**`indira`** (A-2, opus), in context and parked. Four of the five A-2 cases are empty-bodied
+`preconditions { p.pred() }` and **would verify with the body replaced by `true`, so they are
+vacuous on semantics** — but they do discriminate **emission well-formedness**, which is what the
+strategist's §0 finding 2 actually was. **A11 is the exception and the most important case in the
+set:** postconditions become `ensures` (`SignatureCreation.kt:159-202`), so `makeOrdered` must
+**establish** a predicate access on a fresh object, which no `fold` permits. If both positives
+fail, the adversarial pair fails **for the no-`fold` reason** — a false negative control reading
+as success. **A11 must be judged on diagnostic text, positive against adversarial.**
+
+Two further items from `indira`, both actionable when the pause lifts:
+
+- **A defect needing no run.** `custom_predicates_a2_val_recursive.kt`'s `buildAndUse()` calls a
+  predicate from a **method body** — the exact shape `predicate_outside_specification.kt:12` pins
+  as a diagnostic — and it is unmarked. **It cannot be a positive case at all.**
+- **The escalation trigger is structurally unable to fire on Method A.** The A-2 adversarial
+  functions vary the predicate's **truth**, not its **presence**, so no predicate-omitting control
+  exists in that set. The standing "stop and escalate if a control omitting the predicate still
+  verifies" instruction has nothing to fire on there.
+
+### `rune`'s own state
+
+    refs/pipeline/dispatcher-recovery-rune           39efb622
+    refs/heads/run-state/custom-predicates-recovery  39efb622
+
+`docs/run-state/custom-predicates-run-state-recovery.md` there holds the gate conditions, the
+136→157 retraction with grounds, the six-ref invariant table, the golden-absence inversion, **and
+`barr`'s `139/3` figures, which now exist nowhere else** — `rune` read them minutes before the
+directory died. It verified `4be0c15a`, `e10bcf18` and `4ead163e` are all ancestors of the feature
+tip `458cb00f`, so **nothing any solver committed is at risk.** It declined `muradin`'s offer to
+reconstruct rev2, having read all 675 lines itself — the better-positioned reader, correctly
+chosen.
+
 ## State of my three jobs at the pause
 
 1. **Headline finding → PR #30.** Text ready and cleared on the evidence

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:06:48.776Z" hostname="jesyspa.dev" time="157.685">
+  <properties/>
+  <testcase name="testFull_viper_dump()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="12.617"/>
+  <testcase name="testOld()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="41.884"/>
+  <testcase name="testUnit_return_type()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="28.679"/>
+  <testcase name="testShadowing()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="15.541"/>
+  <testcase name="testHavoc()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="6.314"/>
+  <testcase name="testMultiple_receivers()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="20.34"/>
+  <testcase name="testDo_not_verify()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="0.282"/>
+  <testcase name="testAllFilesPresentInVerification()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="0.017"/>
+  <testcase name="testBasic()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="33.064"/>
+  <testcase name="testFunction_object()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="11.71"/>
+  <testcase name="testExtension_properties()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="17.088"/>
+  <testcase name="testFunction_overloading()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification" time="46.503"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+]]></system-err>
+</testsuite>

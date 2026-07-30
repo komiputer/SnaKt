@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Types" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:09:07.830Z" hostname="jesyspa.dev" time="68.645">
+  <properties/>
+  <testcase name="testAllFilesPresentInTypes()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Types" time="0.007"/>
+  <testcase name="testNullable()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Types" time="30.732"/>
+  <testcase name="testGenerics()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Types" time="24.252"/>
+  <testcase name="testAny()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Types" time="7.296"/>
+  <testcase name="testCasts()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Types" time="37.894"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip11/compiler/testData/mockJDK/jre/lib/rt.jar
+]]></system-err>
+</testsuite>

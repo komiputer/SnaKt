@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:09:22.357Z" hostname="jesyspa.dev" time="223.738">
+  <properties/>
+  <testcase name="testLocal_variables()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="60.491"/>
+  <testcase name="testHeap_dependent_specifications()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="13.748"/>
+  <testcase name="testAllFilesPresentInPure_functions()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="0.006"/>
+  <testcase name="testBranching()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="50.232"/>
+  <testcase name="testLiteral_returns()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="40.484"/>
+  <testcase name="testOperators()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="35.702"/>
+  <testcase name="testPure_function_with_heap_dependent_expressions()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Pure_functions" time="58.748"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,13 @@
+### 2026-07-30T16:51:26+02:00 starting: :formver.compiler-plugin:generateTests -> /tmp/b1-gen2.log
+### client exit=0  lock_marker=1  verdict=BUILD SUCCESSFUL
+### runner entries for my cases:
+custom_predicates_b1_linked_nullability
+custom_predicates_b1_restricted_type
+custom_predicates_b1_state_invariant
+GOLDEN_START=1785423380
+### 2026-07-30T16:56:20+02:00 starting: :formver.compiler-plugin:test -Pkotlin.test.update.test.data=true -> /tmp/b1-update2.log
+### client exit=1  lock_marker=1  verdict=BUILD FAILED
+### ABORT: no BUILD SUCCESSFUL in /tmp/b1-update2.log
+### golden-update stage finished (non-fatal; failures here are expected while goldens are absent)
+GATE_START=1785424398
+### 2026-07-30T17:13:18+02:00 starting: :formver.compiler-plugin:test -> /tmp/b1-gate2.log

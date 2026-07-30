@@ -1,0 +1,75 @@
+Starting a Gradle Daemon, 4 busy Daemons could not be reused, use --status for details
+Reusing configuration cache.
+> Task :formver.annotations:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:cli:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.common:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:generateBuildConfig SKIPPED
+> Task :formver.compiler-plugin:locality:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:locality:generateBuildConfig SKIPPED
+> Task :formver.compiler-plugin:core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:viper:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:locality:processResources NO-SOURCE
+> Task :formver.compiler-plugin:viper:processResources NO-SOURCE
+> Task :formver.annotations:processResources NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:uniqueness:processResources NO-SOURCE
+> Task :formver.compiler-plugin:core:processResources NO-SOURCE
+> Task :formver.compiler-plugin:plugin:processResources NO-SOURCE
+> Task :formver.compiler-plugin:generateTestFixturesBuildConfig SKIPPED
+> Task :formver.compiler-plugin:processResources NO-SOURCE
+> Task :formver.compiler-plugin:processTestFixturesResources NO-SOURCE
+> Task :formver.compiler-plugin:generateTestBuildConfig SKIPPED
+> Task :formver.common:processResources NO-SOURCE
+> Task :formver.compiler-plugin:cli:processResources UP-TO-DATE
+> Task :formver.annotations:compileKotlin UP-TO-DATE
+> Task :formver.annotations:compileJava NO-SOURCE
+> Task :formver.annotations:classes UP-TO-DATE
+> Task :formver.annotations:jar UP-TO-DATE
+> Task :formver.common:compileKotlin UP-TO-DATE
+> Task :formver.common:compileJava NO-SOURCE
+> Task :formver.common:classes UP-TO-DATE
+> Task :formver.common:jar UP-TO-DATE
+> Task :formver.compiler-plugin:viper:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:viper:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:viper:classes UP-TO-DATE
+> Task :formver.compiler-plugin:viper:jar UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:classes UP-TO-DATE
+> Task :formver.compiler-plugin:locality:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:locality:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:locality:classes UP-TO-DATE
+> Task :formver.compiler-plugin:locality:jar UP-TO-DATE
+> Task :formver.compiler-plugin:processTestResources
+> Task :formver.compiler-plugin:uniqueness:jar UP-TO-DATE
+> Task :formver.compiler-plugin:core:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:core:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:core:classes UP-TO-DATE
+> Task :formver.compiler-plugin:core:jar UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:plugin:classes UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:jar UP-TO-DATE
+> Task :formver.compiler-plugin:cli:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:cli:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:cli:classes UP-TO-DATE
+> Task :formver.compiler-plugin:cli:jar UP-TO-DATE
+> Task :formver.compiler-plugin:compileKotlin NO-SOURCE
+> Task :formver.compiler-plugin:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:classes UP-TO-DATE
+> Task :formver.compiler-plugin:jar UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestFixturesKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestFixturesJava NO-SOURCE
+> Task :formver.compiler-plugin:testFixturesClasses UP-TO-DATE
+> Task :formver.compiler-plugin:testFixturesJar UP-TO-DATE
+> Task :formver.compiler-plugin:generateTests
+> Task :formver.compiler-plugin:compileTestKotlin NO-SOURCE
+> Task :formver.compiler-plugin:compileTestJava FROM-CACHE
+> Task :formver.compiler-plugin:testClasses
+> Task :formver.compiler-plugin:test
+
+BUILD SUCCESSFUL in 11m 39s
+24 actionable tasks: 3 executed, 1 from cache, 20 up-to-date
+Configuration cache entry reused.

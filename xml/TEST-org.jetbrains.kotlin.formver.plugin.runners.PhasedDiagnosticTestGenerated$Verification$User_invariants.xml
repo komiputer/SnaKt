@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:09:00.627Z" hostname="jesyspa.dev" time="159.789">
+  <properties/>
+  <testcase name="testAnd_or_then()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="12.162"/>
+  <testcase name="testForall_with_triggers()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="21.202"/>
+  <testcase name="testSimple_precondition()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="15.103"/>
+  <testcase name="testString_iterations()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="9.542"/>
+  <testcase name="testSimple_forall()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="12.057"/>
+  <testcase name="testFactorial()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="0.675"/>
+  <testcase name="testSum_of_1_to_n()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="6.982"/>
+  <testcase name="testAllFilesPresentInUser_invariants()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="0.005"/>
+  <testcase name="testLoops()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="32.464"/>
+  <testcase name="testEmpty()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="14.475"/>
+  <testcase name="testStrings_in_conditions()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="12.508"/>
+  <testcase name="testSimple_postcondition()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="22.504"/>
+  <system-out><![CDATA[Verifier warning: No triggers provided or inferred for quantifier. (<no position>)
+Verifier warning: No triggers provided or inferred for quantifier. (<wrapped value>)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

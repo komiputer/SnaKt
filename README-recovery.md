@@ -305,6 +305,106 @@ that `briar` had overtaken `saskia` in the queue, demonstrating `flock` unfairne
 Its `run-state/custom-predicates-run-state-recovery.md` at **`39efb622`** (branch and
 `refs/pipeline/dispatcher-recovery-rune`, confirmed remote-side) is the dispatcher-side record.
 
+## The first verified gate RESULT — and it is a failure that failed as predicted
+
+`rune` refused a relay and read the preserved artefacts itself off
+`origin/recovery/dispatcher-state-iter1` (`c9fca7ca`, `recovered-gates/briar-final/`, 21 files):
+
+    solver-n-2-update.log:1    LOCK-ACQUIRED-2026-07-30T17:15:13+02:00
+    solver-n-2-update.log:143  157 tests completed, 20 failed
+    solver-n-2-update.log:156  BUILD FAILED in 12m 31s
+    XML aggregate              tests=157 failures=20 errors=0 skipped=0
+
+**157 confirmed empirically.** The retracted 136 is refuted **by measurement**, not only by
+reading `build.gradle.kts`. An earlier clean **non-update** run reported the same 157/20.
+
+**The arithmetic identifies one case, and it is the predicted one.** 21 golden-less files, 20
+failed, so exactly one passed. By set difference: **`custom_predicates_n2_n1_property`** — the
+case `muradin` predicted **from source alone** would be the sole pass, and pass **vacuously**
+(`val x = predicate { true }` is a `FirProperty`, fails the `as? FirSimpleFunction` cast and the
+`!is FirSimpleFunction` gate at `ProgramConverter:471`, so nothing converts and its empty golden
+is correct).
+
+**A static per-case prediction confirmed dynamically at individual-case granularity.** That single
+result simultaneously confirms 157, confirms the golden-absence inversion, and validates
+`muradin`'s analysis. **So 20 failures is the correct outcome, not a defect** — the failures are
+the pass signal.
+
+**What is not claimed, and `rune` is right to split it:** this is a gate **result**, not a passing
+gate. **Verified passing gates remain ZERO.** But a flat zero now hides a real measurement, so
+both halves get reported: **zero passing gates, one verified 157/20 failure that failed as
+predicted.**
+
+### The discriminating run does not exist
+
+`sacharissa`'s point, and correct. Both runs read 157/20 and **the clean one ran FIRST** (16:56,
+before the 17:15 update pass). An update pass reports the diffs it just wrote, so 20 failures is
+its expected first-time behaviour. **A clean non-update run AFTER the update pass is the run that
+says whether those 20 are resolved.** Cheapest high-value item left in the iteration, unactionable
+under the pause. Left undone, **two identical 157/20 lines will read as "the update accomplished
+nothing".**
+
+### Gate conditions 3, 5 and 7 need rewording, not enforcing
+
+- **7** does not discriminate a **deliberately** stale runner from an accidental one: the tree is
+  116/137 by the corrected ruling's own design, and 157 executed either way.
+- **3** (`BUILD SUCCESSFUL`) and **5** (0 failures) are **wrong for a golden-less tree**, where a
+  correct run *must* fail.
+- Admissible criterion there: **`BUILD FAILED` with exactly (golden-less count − vacuous-pass
+  count) failures, all attributable to golden creation.**
+
+## Also preserved from `sacharissa`'s final push (`acffd666`)
+
+**`felix`'s five committed negative controls are currently INVERTED assertions** — they assert
+that programs Viper **should reject** verify cleanly — because it left error markers for an update
+pass that then died. **Anyone adopting `b0bf797a` adopts those five.** A merge-gate item: this is
+the golden-update trap realised in committed form, and it is exactly the shape that survives a
+`BUILD SUCCESSFUL`.
+
+**`soren`: N5 closed** — the harness stops at `TestPhase.FRONTEND`, so
+`FormverFunctionCalledInRuntimeException` is unreachable. And its **N2 result extends
+`PREDICATE_WITHOUT_CLASS` to an unconstrained type parameter *and* to `String`**, showing the
+diagnostic covers more than primitives.
+
+**`soren`'s correction to a standing hazard note:** the pre-commit hook's "Stashing unstaged files"
+uses **its own patch file under `~/.cache/pre-commit`, not `refs/stash`** — so it is **not** the
+shared-ref hazard. The `git stash` ban stands on its own evidence (`zara`/`saskia`); the hook was
+wrongly swept in.
+
+## The two live safety gaps at the pause
+
+**1. No memory monitor is armed.** `sacharissa`'s queue-drain watcher hit its exit condition at
+17:35 and terminated by design; `ennio`'s expired. Host: 1087MB free, 2790MB available, three
+chains up. **Neither `rune` nor this seat armed one** — both past the warn line, and arming under a
+pause is starting something new. **My assessment, offered rather than acted on: the exposure is
+materially lower than when the gap opened.** What a monitor protected against was *silent
+destruction of uncommitted solver work*, and everything is now pushed — all six slug branches,
+plus recovery refs. An OOM now would kill gradle runs, which the pause already says to let
+complete or time out. **Escalated as owed, deliberately not closed.**
+
+**2. `briar` parked at 161k believing it is finished, holding the per-case N4 rationale in context
+alone.** `remo`'s extraction request either never arrived or was judged discharged — **second
+sighting of the routing gap that lost `sacharissa` the pause order.** Two sightings is where it
+stops being an accident. **If `briar` dies, the N4 ruling survives in the plan file with no
+reasoning attached, which is worse than losing both, because nobody will know it was argued.**
+
+Actioned by this seat, as preservation rather than new work: asked `briar` for a **verbatim dump,
+no re-analysis**, pushed to `refs/pipeline/n4-rationale-briar` and confirmed with `ls-remote`,
+with an explicit instruction to spend its remaining context on the dump and nothing else, and that
+a rough dump pushed beats a clean one lost. It was also told its update pass rewriting others'
+goldens **is not a fault of its own** — no rule then existed requiring an update pass to run on a
+tree holding only its own new files.
+
+## Succession owed
+
+**`rune` is past 165k and needs succession if the run resumes.** Its own framing is the right one:
+**the analysis in the recovery doc does not need the seat that produced it.** Everything of its is
+durable at `refs/pipeline/dispatcher-recovery-rune`, `835cd7c7`, push verified remote-side, with a
+new section 4a carrying the 157/20 verification, the per-case identification, the missing
+discriminating run, and the condition rewording.
+
+**This seat likewise.** See the note at the end.
+
 ## State of my three jobs at the pause
 
 1. **Headline finding → PR #30.** Text ready and cleared on the evidence

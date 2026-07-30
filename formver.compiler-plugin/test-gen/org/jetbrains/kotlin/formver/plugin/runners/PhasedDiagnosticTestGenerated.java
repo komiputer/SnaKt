@@ -376,6 +376,102 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("custom_predicates_b2_case1_restricted_range.kt")
+      public void testCustom_predicates_b2_case1_restricted_range() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_b2_case1_restricted_range.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_b2_case2_internal_guarantee.kt")
+      public void testCustom_predicates_b2_case2_internal_guarantee() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_b2_case2_internal_guarantee.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_b2_case3_linked_properties.kt")
+      public void testCustom_predicates_b2_case3_linked_properties() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_b2_case3_linked_properties.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_b2_case4_structural_invariant.kt")
+      public void testCustom_predicates_b2_case4_structural_invariant() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_b2_case4_structural_invariant.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n1_nonboolean.kt")
+      public void testCustom_predicates_n2_n1_nonboolean() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n1_nonboolean.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n1_property.kt")
+      public void testCustom_predicates_n2_n1_property() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n1_property.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n1_subexpr.kt")
+      public void testCustom_predicates_n2_n1_subexpr() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n1_subexpr.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n2_nullable.kt")
+      public void testCustom_predicates_n2_n2_nullable() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n2_nullable.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n2_typeparam.kt")
+      public void testCustom_predicates_n2_n2_typeparam() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n2_typeparam.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n3_argument.kt")
+      public void testCustom_predicates_n2_n3_argument() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n3_argument.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n3_enclosing.kt")
+      public void testCustom_predicates_n2_n3_enclosing() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n3_enclosing.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n3_ifcond.kt")
+      public void testCustom_predicates_n2_n3_ifcond() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n3_ifcond.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n3_lambda.kt")
+      public void testCustom_predicates_n2_n3_lambda() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n3_lambda.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n4_missing_precondition_at_callsite.kt")
+      public void testCustom_predicates_n2_n4_missing_precondition_at_callsite() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n4_missing_precondition_at_callsite.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n4_mutated_object.kt")
+      public void testCustom_predicates_n2_n4_mutated_object() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n4_mutated_object.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_n2_n4_weak_precondition.kt")
+      public void testCustom_predicates_n2_n4_weak_precondition() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_n2_n4_weak_precondition.kt");
+      }
+
+      @Test
       @TestMetadata("custom_predicates_unfold.kt")
       public void testCustom_predicates_unfold() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_unfold.kt");

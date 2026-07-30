@@ -193,8 +193,46 @@ All four hinge on `insertCall` observing `inSpecification == false`.
 |---|---|---|---|
 | `n3_ifcond` | `if (i.ordered())` in an ordinary body | fires | **sound, HIGH** |
 | `n3_argument` | `accept(i.ordered())` | fires | **sound, HIGH** |
-| `n3_lambda` | `val check = { i.ordered() }; check()` | fires **only if the lambda body is converted.** Lambdas become `LambdaExp(signature, function, data, label)` at `StmtConversionVisitor:491` and are converted at the invocation site (`is LambdaExp ->`, line 308); routing through a local `val` adds a resolution step | **MEDIUM — the one N3 case that may silently produce nothing** |
+| `n3_lambda` | `val check = { i.ordered() }; check()` | fires — the lambda body **is** converted, inlined at the invocation site; see the trace below | **sound, HIGH** |
 | `n3_enclosing` | `Chain.checkOutsideBlock()` calls the sibling predicate `descending()` | fires, but see below | **fires, HIGH; MISALIGNED with the bullet it was written for** |
+
+#### `n3_lambda` — traced, and it closes at HIGH
+
+The chain is complete and every link is in committed source:
+
+1. `val check = { i.ordered() }` → `visitProperty` → `data.declareLocalProperty(symbol,
+   property.initializer?.let { data.convert(it) })`. Converting the initializer hits
+   `visitAnonymousFunctionExpression`, which returns `LambdaExp(signature, function, data, label)` and
+   **does not convert the body**. So far the worry held.
+2. `check()` → `visitImplicitInvokeCall`. The receiver is a `FirPropertyAccessExpression`, and
+   `data.embedLocalSymbol(receiverSymbol).ignoringMetaNodes()` matches `is LambdaExp ->`, calling
+   `exp.insertCall(args, data, returnType)`. **The local-`val` hop resolves.**
+3. `LambdaExp.insertCall` **inlines the body**: `ctx.insertInlineFunctionCall(signature, …, inlineBody,
+   labelName, parentCtx)`. The body is therefore converted, and `i.ordered()` inside it reaches
+   `CustomPredicateCallable.insertCall`.
+4. `inSpecification` is a **dynamic counter on the `ProgramConverter`**, not a per-context or lexical
+   property:
+
+   ```kotlin
+   private var specificationDepth: Int = 0
+   override val inSpecification: Boolean get() = specificationDepth > 0
+   override fun <R> withinSpecification(action: () -> R): R {
+       specificationDepth++
+       try { return action() } finally { specificationDepth-- }
+   }
+   ```
+
+   So it does not matter that `insertCall` carries `parentCtx` from the lambda's *creation* site: at
+   `check()` in an ordinary body the depth is 0 either way, and `PREDICATE_OUTSIDE_SPECIFICATION` fires.
+
+**`n3_lambda` is sound, HIGH.** That moves the tally to **7 sound of 12** and leaves no open case.
+
+Step 4 also exposes a coverage gap that no current case probes: because the flag is a **dynamic** depth
+counter rather than a lexical check, the diagnostic depends on where a predicate call is **invoked**,
+not where it is written. A lambda written in ordinary code but invoked *inside* a specification block
+would **not** be reported, and one written inside a specification but invoked outside it **would**.
+Neither shape is covered by these 12 cases. Recording it as a gap, not a defect — dynamic scoping is a
+defensible choice here, and nothing establishes it is wrong.
 
 Two notes on `n3_enclosing`.
 
@@ -262,9 +300,8 @@ unconstructible.**
 
 | verdict | count | cases |
 |---|---|---|
-| Sound — fails for the stated reason | **6** | `n1_nonboolean`, `n1_subexpr`, `n2_typeparam`, `n3_ifcond`, `n3_argument`, `n4_missing_precondition_at_callsite` |
+| Sound — fails for the stated reason | **7** | `n1_nonboolean`, `n1_subexpr`, `n2_typeparam`, `n3_ifcond`, `n3_argument`, `n3_lambda`, `n4_missing_precondition_at_callsite` |
 | Fires, but tests other than commissioned | 1 | `n3_enclosing` — duplicates covered ground |
-| Uncertain — may produce nothing | 1 | `n3_lambda` |
 | Vacuous — misuse invisible to the plugin | 1 | `n1_property` |
 | Not a negative case; silent acceptance to be recorded | 1 | `n2_nullable` |
 | **False negative control — fails on the wrong ground** | **2** | `n4_weak_precondition`, `n4_mutated_object` |

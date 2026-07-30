@@ -26,5 +26,11 @@ object ConversionErrors : KtDiagnosticsContainer() {
      */
     val VERIFICATION_SKIPPED by error1<PsiElement, String>(SourceElementPositioningStrategies.DECLARATION_NAME)
 
+    /** A `predicate { }` block that does not form a well-shaped predicate declaration. */
+    val MALFORMED_PREDICATE_DECLARATION by error1<PsiElement, String>(SourceElementPositioningStrategies.DECLARATION_NAME)
+
+    /** A predicate declaration whose receiver is not a class the plugin has an embedding for. */
+    val PREDICATE_WITHOUT_CLASS by error1<PsiElement, String>(SourceElementPositioningStrategies.DECLARATION_NAME)
+
     override fun getRendererFactory() = ConversionErrorMessages
 }

@@ -1,0 +1,7 @@
+/custom_predicates_n2_unembeddable.kt: error: A predicate must be declared on a class; 'anything' has no class receiver.
+
+/custom_predicates_n2_unembeddable.kt: error: A predicate must be declared on a class; 'nonEmpty' has no class receiver.
+
+/custom_predicates_n2_unembeddable.kt: error: Function 'useAnything' was not verified because of errors in its declaration
+
+/custom_predicates_n2_unembeddable.kt: error: Function 'useNonEmpty' was not verified because of errors in its declaration

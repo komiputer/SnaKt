@@ -37,3 +37,13 @@ fun strongEnoughForPostcondition(x: Box): Int {
     }
     return x.a
 }
+
+// The negative control for the case above: the same body and postcondition with the predicate
+// precondition omitted. This must be rejected. If it verifies, the predicate contributed nothing and
+// the control proves nothing about predicates.
+fun postconditionWithoutPredicate(x: Box): Int {
+    postconditions<Int> {
+        it > 0
+    }
+    return x.a
+}

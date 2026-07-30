@@ -1,0 +1,159 @@
+LOCK-ACQUIRED-2026-07-30T17:15:13+02:00
+Starting a Gradle Daemon (subsequent builds will be faster)
+Calculating task graph as configuration cache cannot be reused because the set of Gradle properties has changed: 'kotlin.test.update.test.data' was added.
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :formver.common:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:cli:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.annotations:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:locality:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:generateBuildConfig SKIPPED
+> Task :formver.compiler-plugin:locality:generateBuildConfig SKIPPED
+> Task :formver.compiler-plugin:core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:viper:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:locality:processResources NO-SOURCE
+> Task :formver.annotations:processResources NO-SOURCE
+> Task :formver.compiler-plugin:plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:viper:processResources NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:uniqueness:processResources NO-SOURCE
+> Task :formver.compiler-plugin:plugin:processResources NO-SOURCE
+> Task :formver.compiler-plugin:core:processResources NO-SOURCE
+> Task :formver.compiler-plugin:generateTestFixturesBuildConfig SKIPPED
+> Task :formver.compiler-plugin:processTestFixturesResources NO-SOURCE
+> Task :formver.compiler-plugin:processResources NO-SOURCE
+> Task :formver.compiler-plugin:cli:processResources UP-TO-DATE
+> Task :formver.compiler-plugin:generateTestBuildConfig SKIPPED
+> Task :formver.common:processResources NO-SOURCE
+> Task :formver.common:compileKotlin UP-TO-DATE
+> Task :formver.common:compileJava NO-SOURCE
+> Task :formver.common:classes UP-TO-DATE
+> Task :formver.annotations:compileKotlin UP-TO-DATE
+> Task :formver.annotations:compileJava NO-SOURCE
+> Task :formver.annotations:classes UP-TO-DATE
+> Task :formver.common:jar UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:compileKotlin UP-TO-DATE
+> Task :formver.annotations:jar UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:classes UP-TO-DATE
+> Task :formver.compiler-plugin:viper:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:viper:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:viper:classes UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:jar UP-TO-DATE
+> Task :formver.compiler-plugin:viper:jar UP-TO-DATE
+> Task :formver.compiler-plugin:locality:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:locality:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:locality:classes UP-TO-DATE
+> Task :formver.compiler-plugin:locality:jar UP-TO-DATE
+> Task :formver.compiler-plugin:core:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:core:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:core:classes UP-TO-DATE
+> Task :formver.compiler-plugin:processTestResources
+> Task :formver.compiler-plugin:core:jar UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:plugin:classes UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:jar UP-TO-DATE
+> Task :formver.compiler-plugin:cli:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:cli:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:cli:classes UP-TO-DATE
+> Task :formver.compiler-plugin:cli:jar UP-TO-DATE
+> Task :formver.compiler-plugin:compileKotlin NO-SOURCE
+> Task :formver.compiler-plugin:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:classes UP-TO-DATE
+> Task :formver.compiler-plugin:jar UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestFixturesKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestFixturesJava NO-SOURCE
+> Task :formver.compiler-plugin:testFixturesClasses UP-TO-DATE
+> Task :formver.compiler-plugin:testFixturesJar UP-TO-DATE
+> Task :formver.compiler-plugin:generateTests
+> Task :formver.compiler-plugin:compileTestKotlin NO-SOURCE
+> Task :formver.compiler-plugin:compileTestJava UP-TO-DATE
+> Task :formver.compiler-plugin:testClasses
+> Task :formver.compiler-plugin:test
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_a2_composition() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:351
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n3_argument() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:435
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n4_mutated_object() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:465
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_a2_scoping() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:369
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n2_nullable() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:423
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n2_typeparam() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:429
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_a2_postcond_loopinv() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:363
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_b2_case1_restricted_range() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:381
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n4_missing_precondition_at_callsite() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:459
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n1_nonboolean() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:405
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_b2_case2_internal_guarantee() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:387
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_a2_val_recursive() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:375
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n4_weak_precondition() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:471
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_b2_case3_linked_properties() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:393
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n3_enclosing() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:441
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n3_lambda() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:453
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n3_ifcond() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:447
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_b2_case4_structural_invariant() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:399
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_a2_name_collision() FAILED
+    org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:357
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_n2_n1_subexpr() FAILED
+    org.jetbrains.kotlin.util.FileAnalysisException at PhasedDiagnosticTestGenerated.java:417
+        Caused by: kotlin.NotImplementedError at PhasedDiagnosticTestGenerated.java:417
+
+157 tests completed, 20 failed
+
+> Task :formver.compiler-plugin:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':formver.compiler-plugin:test'.
+> There were failing tests. See the report at: file:///home/silverbot/dev/SnaKt-wip14/formver.compiler-plugin/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 12m 31s
+27 actionable tasks: 3 executed, 24 up-to-date
+Configuration cache entry stored.
+flock/gradle exit: 1

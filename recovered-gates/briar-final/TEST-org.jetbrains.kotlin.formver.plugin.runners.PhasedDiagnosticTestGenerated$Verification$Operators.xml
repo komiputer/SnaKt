@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Operators" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:21:38.109Z" hostname="jesyspa.dev" time="144.428">
+  <properties/>
+  <testcase name="testAllFilesPresentInOperators()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Operators" time="0.019"/>
+  <testcase name="testSafe_call()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Operators" time="35.002"/>
+  <testcase name="testElvis()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Operators" time="19.9"/>
+  <testcase name="testBasic()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Operators" time="89.492"/>
+  <system-out><![CDATA[Verifier warning: No triggers provided or inferred for quantifier. (<no position>)
+]]></system-out>
+  <system-err><![CDATA[warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+]]></system-err>
+</testsuite>

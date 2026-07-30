@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:20:55.810Z" hostname="jesyspa.dev" time="178.549">
+  <properties/>
+  <testcase name="testAnd_or_then()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="31.386"/>
+  <testcase name="testForall_with_triggers()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="28.054"/>
+  <testcase name="testSimple_precondition()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="20.596"/>
+  <testcase name="testSimple_postcondition()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="34.261"/>
+  <testcase name="testString_iterations()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="15.202"/>
+  <testcase name="testStrings_in_conditions()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="19.513"/>
+  <testcase name="testSimple_forall()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="17.553"/>
+  <testcase name="testFactorial()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="0.71"/>
+  <testcase name="testSum_of_1_to_n()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="14.282"/>
+  <testcase name="testAllFilesPresentInUser_invariants()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="0.009"/>
+  <testcase name="testEmpty()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="25.395"/>
+  <testcase name="testLoops()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$User_invariants" time="50.673"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

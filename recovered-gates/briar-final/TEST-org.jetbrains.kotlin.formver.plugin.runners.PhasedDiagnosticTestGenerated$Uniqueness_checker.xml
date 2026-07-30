@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:16:59.503Z" hostname="jesyspa.dev" time="27.935">
+  <properties/>
+  <testcase name="testShare_property()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="13.509"/>
+  <testcase name="testAssign_property()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="1.275"/>
+  <testcase name="testAllFilesPresentInUniqueness_checker()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.005"/>
+  <testcase name="testThrow_property()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="1.164"/>
+  <testcase name="testConsume_local()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="1.037"/>
+  <testcase name="testConsume_property()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="2.119"/>
+  <testcase name="testConsume_deeply_nested()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.671"/>
+  <testcase name="testShare_local()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.473"/>
+  <testcase name="testThrow_local()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.336"/>
+  <testcase name="testBorrow_local()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.467"/>
+  <testcase name="testBorrow_property()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="1.169"/>
+  <testcase name="testPass_local_argument()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.516"/>
+  <testcase name="testAssign_local()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="1.797"/>
+  <testcase name="testReturn_property()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.842"/>
+  <testcase name="testDump_cfg()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.606"/>
+  <testcase name="testPass_property_argument()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.945"/>
+  <testcase name="testAnnotations()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.383"/>
+  <testcase name="testReturn_local()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Uniqueness_checker" time="0.456"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+]]></system-err>
+</testsuite>

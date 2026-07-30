@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:23:54.377Z" hostname="jesyspa.dev" time="199.792">
+  <properties/>
+  <testcase name="testRecursion()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="5.276"/>
+  <testcase name="testReturn_break_continue()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="36.724"/>
+  <testcase name="testAllFilesPresentInControl_flow()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="0.015"/>
+  <testcase name="testFunction_call()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="15.348"/>
+  <testcase name="testNon_local_returns()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="28.737"/>
+  <testcase name="testIf()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="23.775"/>
+  <testcase name="testExp_side_effects()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="8.067"/>
+  <testcase name="testWhen()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="73.514"/>
+  <testcase name="testLoops()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Control_flow" time="29.264"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+]]></system-err>
+</testsuite>

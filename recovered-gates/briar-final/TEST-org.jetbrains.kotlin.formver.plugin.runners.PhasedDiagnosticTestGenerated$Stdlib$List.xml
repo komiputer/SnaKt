@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib$List" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:16:59.500Z" hostname="jesyspa.dev" time="187.463">
+  <properties/>
+  <testcase name="testCustom_list()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib$List" time="88.394"/>
+  <testcase name="testAllFilesPresentInList()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib$List" time="0.025"/>
+  <testcase name="testBinary_search()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib$List" time="30.733"/>
+  <testcase name="testList()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib$List" time="68.236"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

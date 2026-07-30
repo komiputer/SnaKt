@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Negative" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:23:13.326Z" hostname="jesyspa.dev" time="62.759">
+  <properties/>
+  <testcase name="testBinary_tree()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Negative" time="17.15"/>
+  <testcase name="testTry_catch()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Negative" time="34.41"/>
+  <testcase name="testAllFilesPresentInNegative()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Negative" time="0.01"/>
+  <testcase name="testLinked_list()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Negative" time="11.155"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

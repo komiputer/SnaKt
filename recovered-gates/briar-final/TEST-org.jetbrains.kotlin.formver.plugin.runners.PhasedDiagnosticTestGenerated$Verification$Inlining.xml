@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:23:36.501Z" hostname="jesyspa.dev" time="204.127">
+  <properties/>
+  <testcase name="testInline_returns()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" time="32.388"/>
+  <testcase name="testCustom_run_functions()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" time="26.631"/>
+  <testcase name="testScoped_receivers()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" time="7.172"/>
+  <testcase name="testViper_casts_while_inlining()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" time="40.799"/>
+  <testcase name="testAllFilesPresentInInlining()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" time="0.015"/>
+  <testcase name="testLambdas()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Inlining" time="97.107"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

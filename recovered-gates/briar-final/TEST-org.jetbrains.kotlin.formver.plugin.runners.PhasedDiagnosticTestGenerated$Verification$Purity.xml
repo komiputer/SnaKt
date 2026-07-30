@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Purity" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:21:12.021Z" hostname="jesyspa.dev" time="19.307">
+  <properties/>
+  <testcase name="testWrongly_annotated()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Purity" time="18.466"/>
+  <testcase name="testAllFilesPresentInPurity()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Purity" time="0.016"/>
+  <testcase name="testAssert_statements()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Purity" time="0.75"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:26:34.758Z" hostname="jesyspa.dev" time="67.747">
+  <properties/>
+  <testcase name="testSimple()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="13.237"/>
+  <testcase name="testContracts_with_receivers()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="19.647"/>
+  <testcase name="testAllFilesPresentInPositive()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="0.018"/>
+  <testcase name="testAs_type_contract()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="19.438"/>
+  <testcase name="testReturns_null()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="26.476"/>
+  <testcase name="testIs_type_contract()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="31.784"/>
+  <testcase name="testReturns_booleans()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Verification$Contracts$Positive" time="30.402"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+warning: classpath entry points to a non-existent location: /home/silverbot/dev/SnaKt-wip14/compiler/testData/mockJDK/jre/lib/rt.jar
+]]></system-err>
+</testsuite>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-30T15:21:04.713Z" hostname="jesyspa.dev" time="49.408">
+  <properties/>
+  <testcase name="testAllFilesPresentInStdlib()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib" time="0.008"/>
+  <testcase name="testStdlib_replacement_tests()" classname="org.jetbrains.kotlin.formver.plugin.runners.PhasedDiagnosticTestGenerated$Stdlib" time="49.39"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

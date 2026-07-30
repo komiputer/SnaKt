@@ -28,3 +28,9 @@ fun consumeBothTwice(p: Pair2) {
     consumeBoth(p)
     consumeBoth(p)
 }
+
+// Negative control for `consumeBothTwice`: the same caller without the precondition. It cannot
+// supply `acc(linked(p))` at the call site, so it must be rejected.
+fun consumeBothUnchecked(p: Pair2) {
+    consumeBoth(p)
+}

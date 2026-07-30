@@ -456,3 +456,92 @@ discriminating run, and the condition rewording.
 3. **Step 5 dispatch.** Correctly still unfired, and now blocked on recovering the briefing from
    `remo` rather than on Step 4. Firing a Synthesizer at a dead artifact root would have it
    invent the shape of results it cannot read.
+
+---
+
+## Closing entries, recorded 2026-07-30T17:46:47Z (appended by `annie`, Planner)
+
+All thirteen `refs/pipeline/*` refs confirmed by `git ls-remote origin 'refs/pipeline/*'` at
+17:46:47Z. The listing is the measurement; push output is a report.
+
+### briar's N4 rationale is preserved, and it did not stay preservation
+
+`refs/pipeline/n4-rationale-briar` = `cca7a9b5273813f92286013eaeb9ae3094db9d77`. This closes the
+routing-gap loss that three seats flagged and none had closed. `briar` was parked believing itself
+finished while holding the only copy of the per-case rationale for the 12 N-class files — the
+justification for an N4 ruling *already written into the plan file*. Had that seat died, the ruling
+would have survived with no reasoning attached.
+
+**The dump was not inert.** Writing it out surfaced a possible **soundness finding**:
+`mutated_object.kt` carries **no `VIPER_VERIFICATION_ERROR` marker anywhere in its current golden**.
+It verifies despite mutating `i.hi` after establishing `ordered(i)` and re-passing to
+`needsOrdered`. `briar` states plainly that it has **not** re-run the gate to rule out a stale
+golden-update artefact, so this is **not established** and must not enter PR #30's text yet.
+
+The discriminator is cheap and named: re-run that one case in a tree whose goldens no update pass
+wrote. If the marker is still absent, the plugin accepts a program that mutates the object a
+predicate was established over. That would be a different *class* of finding from everything else
+in this run — the headline says the feature cannot *establish* a predicate, whereas this would say
+an established one is not *maintained*.
+
+The other two N4 cases (`weak_precondition`, `missing_precondition_at_callsite`) are confirmed
+genuine rejections at the expected locations.
+
+Process point worth keeping: asking a parked seat to dump what it held, as preservation with no new
+work authorised, produced the run's most consequential open question. **A dump is not a null action.**
+
+### rune's death table, and a marker rule that failed at its own boundary
+
+`rune` reported a clean dissociation — 3 daemon deaths on golden-update passes, 0 on plain runs —
+then corrected it in the same turn against `sacharissa`'s independent count. `felix`'s **clean
+baseline also died**, at 109 lines. The miscount has a precise cause: **early baselines predate the
+`LOCK-ACQUIRED` convention, so a markerless log was read as "never acquired the lock" rather than as
+a death.** Absent marker means no lock *only for runs launched after the convention existed*. The
+marker rule is sound; it was applied across its own introduction boundary.
+
+Corrected: update passes 5 runs → **4 deaths**, one survivor at 12m31s. Plain `:test` 4 runs →
+**1 death**, survivors 6m56s / 7m44s / 7m48s.
+
+**Dispose of both halves.** The clean dissociation is **dead**. The correlation **survives weaker**,
+4-of-5 against 1-of-4. The memory-exhaustion hypothesis is **untouched and still untested** — and
+untestable retrospectively, because no monitor was armed at any of the four-to-five death moments.
+The practical ruling is unchanged and better supported: assume an update pass may die, and sequence
+so a death costs **one stage**, not a chain. `barr`'s per-stage abort is the iteration-2 default.
+
+### An unresolved conflict about whether the worst case happened
+
+`sacharissa` reports `saskia`'s pass died *before* writing, so no cross-owner golden write occurred.
+`saskia` reports the opposite: it **modified** `custom_predicates_a2_composition.kt` with inline
+markers and **created** the `.fir.diag.txt`, both left dirty and uncommitted. `saskia` owns that tree
+and is primary for its contents; `sacharissa` was reading a summary. `rune` correctly refused to
+adjudicate without access and named the conflict instead.
+
+This is not a detail. The two readings differ on **whether the worst case happened**. If `saskia` is
+right, cross-owner contamination is **confirmed twice in two trees** rather than narrowly avoided,
+and it is a general property of update passes on this repo. It is settled by *looking* at two paths,
+by someone with access to that tree. Nobody should build on that tree first.
+
+It also bears on the one substantive result that survived the death:
+`testCustom_predicates_a2_composition()` **FAILED**, which conflicts with `indira`'s static reading
+that A12 shows composition working. A golden having been written for it would explain the failure —
+exactly the golden-update trap's shape. **Unresolved; do not settle either way.**
+
+### The positive result about the process, stated plainly
+
+Every daemon death was classified a **non-result** by the marker rule, and **none consumed re-run
+budget** under the ruling that a run producing no result cannot be re-run. `saskia` declined to
+spend 2/2 on an identical command after a second identical death. The host failed; the rule set
+held. That is a result about the process and belongs in the record next to the deliverables.
+
+### State at close of the pause
+
+Host fully quiesced: `pgrep -x flock` returns 0, nothing running or queued in any of the six trees.
+Verified **passing** gates: still **zero**. What exists is three verified 157/20 failure results,
+all failing as the golden-absence inversion predicted, plus four-to-five deaths that produced no
+results at all. The **discriminating run still does not exist**, and no update pass has completed in
+a tree where it could be run.
+
+Owed, none of it closable from this seat: arm a memory monitor before any further update pass;
+re-run `mutated_object.kt` on a clean-golden tree; read `saskia`'s two paths to settle the
+contamination conflict; `felix`'s five **inverted** negative controls at `b0bf797a`; Step 4's
+completion marker, which still has no home; Step 5, still correctly unfired.

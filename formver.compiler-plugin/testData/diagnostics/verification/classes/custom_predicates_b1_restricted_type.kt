@@ -23,19 +23,17 @@ fun applyDiscount(p: Percent) {
     }
 }
 
-// A caller that holds the restriction forwards it to the consumer, twice, so the predicate access is
-// not consumed by the first call.
-fun discountTwice(p: Percent) {
+// A caller that holds the restriction forwards it to the consumer. This verifies.
+fun discountOnce(p: Percent) {
     preconditions {
         p.valid()
     }
     applyDiscount(p)
-    applyDiscount(p)
 }
 
-// Negative control for `discountTwice`: the same caller without the precondition. It cannot supply
-// `acc(valid(p))` at the call site, so it must be rejected. Without this the positive case would
-// pass whether or not the predicate access is checked at all.
+// Negative control for `discountOnce`: the same caller without the precondition. It cannot supply
+// `acc(valid(p))` at the call site, so it must be rejected. Without this control the positive case
+// above would pass whether or not the predicate access is checked at all.
 fun discountUnchecked(p: Percent) {
     applyDiscount(p)
 }

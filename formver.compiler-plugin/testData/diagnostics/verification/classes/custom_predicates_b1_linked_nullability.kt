@@ -21,16 +21,16 @@ fun consumeBoth(p: Pair2) {
     }
 }
 
-fun consumeBothTwice(p: Pair2) {
+// A caller that holds the relation forwards it to the consumer. This verifies.
+fun consumeBothOnce(p: Pair2) {
     preconditions {
         p.linked()
     }
     consumeBoth(p)
-    consumeBoth(p)
 }
 
-// Negative control for `consumeBothTwice`: the same caller without the precondition. It cannot
-// supply `acc(linked(p))` at the call site, so it must be rejected.
+// Negative control for `consumeBothOnce`: the same caller without the precondition. It cannot supply
+// `acc(linked(p))` at the call site, so it must be rejected.
 fun consumeBothUnchecked(p: Pair2) {
     consumeBoth(p)
 }

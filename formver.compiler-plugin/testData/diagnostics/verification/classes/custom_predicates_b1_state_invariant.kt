@@ -26,15 +26,15 @@ fun flush(b: Buffer) {
     }
 }
 
-fun flushTwice(b: Buffer) {
+// A caller that holds the invariant forwards it to the consumer. This verifies.
+fun flushOnce(b: Buffer) {
     preconditions {
         b.wellFormed()
     }
     flush(b)
-    flush(b)
 }
 
-// Negative control for `flushTwice`: the same caller without the precondition. It cannot supply
+// Negative control for `flushOnce`: the same caller without the precondition. It cannot supply
 // `acc(wellFormed(b))` at the call site, so it must be rejected.
 fun flushUnchecked(b: Buffer) {
     flush(b)

@@ -173,9 +173,13 @@ predicate sorted(v_this_extension: Ref) {
 }
 ```
 
-A predicate may only be named inside `preconditions { }`, `postconditions { }` or `loopInvariants { }`; calling one at runtime throws.
+A predicate may only be named inside `preconditions { }`, `postconditions { }`, `loopInvariants { }`, a `forAll { }` body or another predicate's body; naming one anywhere else is an error, and calling one at runtime throws.
+
+Reading a field inside a specification needs no annotation: the necessary `unfolding` is inserted automatically, including for a recursive predicate.
 
 **Known limitation:** the plugin does not support `!!`. A recursive predicate that needs to smart-cast a nullable link must expose it through a `val` (as `next` above), not a `var`, so the compiler can smart-cast it instead of requiring `!!`.
+
+**Known limitation:** a predicate constrains what a *specification* may say, not what a method body may read. Holding `acc(P(x))` in a method does not let that body read `x`'s `var` fields, because the plugin replaces every `var` field read in a method body with `havoc` regardless of the permissions held — the same is true of the class predicate `C$unique`, so this is not specific to custom predicates. `val` properties embed as permission-free functions and can be read normally.
 
 ## Additional Plugin Options
 

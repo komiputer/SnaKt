@@ -335,6 +335,45 @@ gate. **Verified passing gates remain ZERO.** But a flat zero now hides a real m
 both halves get reported: **zero passing gates, one verified 157/20 failure that failed as
 predicted.**
 
+### 157 confirmed in three independent trees — and the trap in the third
+
+`zara` reported a **completed clean non-update** gate: `LOCK-ACQUIRED-2026-07-30T17:30:12`,
+*157 tests completed, 20 failed*, `BUILD FAILED in 7m 44s`. Plain `:test`, no update flag, third
+tree. **157 is beyond argument.** Breakdown reconciles: 5 `a2` + 4 `b2` + 11 of 12 `n2` = 20, with
+one `n2` case producing no failure line — consistent with the set-difference identification of
+`custom_predicates_n2_n1_property` as the sole vacuous pass.
+
+**It is tempting to call this the discriminating run and conclude the update accomplished nothing.
+THAT INFERENCE IS INVALID.** `briar`'s pass wrote goldens into **`briar`'s** worktree; `zara` ran in
+**`zara`'s**, where those goldens never existed. **Different trees, so it is not a before/after
+pair.** Flagged loudly because the number is identical and **will read as a refutation to anyone
+who does not check the tree** — the same "name the tree" defect that produced the 119/119 and
+125/125 confusion, now with a much more consequential wrong conclusion available.
+
+### A misattributed chain, and why two agreeing seats were worth nothing
+
+`rune` inferred from elapsed order that the 19-minute update-flag chain was a stoppable waiter.
+**`soren` then confirmed that inference and self-attributed the chain — and both halves were
+wrong.** Re-reading `/proc`: PID 660730 is in `wip12` at 22:32 elapsed, and `soren`'s tree is
+`wip13`. It is **`saskia`'s**, it waited ~21 minutes, and it is the **holder** (marker
+`17:37:58`). `soren`'s own chain was in `wip13` and had died before the first read.
+
+**`rune` nearly banked the agreement as evidence.** The rule it drew is the sharpest form of
+something this run keeps meeting: **two seats agreeing is worth nothing when both are reasoning
+from elapsed time instead of from a marker.** The `LOCK-ACQUIRED` marker settled it, as designed —
+and the only reason the correction worked is that `rune` had labelled its own elapsed-order
+reasoning **as an inference** when it broadcast it.
+
+What `soren` did establish, and it stands: **all its kills were of waiters** (two 0-line logs, no
+`LOCK-ACQUIRED`), it never killed a holder, every PID it launched is confirmed gone, budget stays
+at 2. Plus a **real narrowing of the contamination hazard**: its tree holds only its own nine `n*`
+files, so its dead pass **could not** have written an `a2` or `b2` golden. **Cross-contamination
+requires a tree holding other owners' files**, which sharpens the Launcher's ruling rather than
+weakening it.
+
+Also from `soren`, and worth stating because the shape invites the wrong reading: **do not read
+"three chains became one" as a holder dying.** `wip11` and `wip10` both **completed**.
+
 ### The discriminating run does not exist
 
 `sacharissa`'s point, and correct. Both runs read 157/20 and **the clean one ran FIRST** (16:56,

@@ -104,6 +104,13 @@ a message about their code.
 Found by `briar`'s N1 subexpression case, which is the class of case that exists to probe
 where the embedding stops rather than to demonstrate the feature working.
 
+**Observed independently in two trees.** `zara` isolated it in its own clean non-update run as the
+one case of twenty that failed *differently* from the rest — `kotlin.NotImplementedError` /
+`FileAnalysisException` rather than the `AssertionFailedError` the nineteen golden-less cases
+produce. **So it survives whatever happens to the goldens**, which is what makes it a finding about
+the feature rather than an artefact of the missing-golden state. `zara` correctly did not attempt to
+diagnose it, the case not being its file.
+
 ---
 
 ## Minute of the corrections — not part of the PR text

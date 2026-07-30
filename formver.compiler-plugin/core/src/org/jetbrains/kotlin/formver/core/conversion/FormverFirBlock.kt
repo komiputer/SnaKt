@@ -6,10 +6,11 @@
 package org.jetbrains.kotlin.formver.core.conversion
 
 import org.jetbrains.kotlin.fir.declarations.FirAnonymousFunction
+import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
 import org.jetbrains.kotlin.fir.expressions.*
 import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirValueParameterSymbol
-import org.jetbrains.kotlin.fir.types.ConeKotlinType
+import org.jetbrains.kotlin.fir.types.*
 import org.jetbrains.kotlin.formver.core.isFormverFunctionNamed
 
 fun FirStatement.extractFormverFirBlock(predicate: FirFunctionSymbol<*>.() -> Boolean): FirAnonymousFunction? {
@@ -26,6 +27,36 @@ fun extractLoopInvariants(parentBlock: FirBlock): FirBlock? {
     val firstStmt = parentBlock.statements.firstOrNull() ?: return null
     return firstStmt.extractFormverFirBlock { isFormverFunctionNamed("loopInvariants") }?.body
 }
+
+/**
+ * The `predicate { }` block of a predicate declaration, or `null` if [statement] is not such a call.
+ */
+fun FirStatement.extractPredicateBlock(): FirBlock? =
+    unwrapReturn().extractFormverFirBlock { isFormverFunctionNamed("predicate") }?.body
+
+/**
+ * The `predicate { }` block of [declaration] if it is a predicate declaration: a `Boolean`-returning
+ * function whose entire body is a single `predicate { }` call.
+ *
+ * The return type is part of the pattern rather than something the caller checks afterwards, so that
+ * a `predicate { }` block in a function returning anything else stays unrecognised and is reported as
+ * a misuse instead.
+ */
+fun FirSimpleFunction.extractPredicateDeclarationBlock(): FirBlock? {
+    if (!symbol.resolvedReturnType.isBoolean) return null
+    val onlyStatement = body?.statements?.singleOrNull() ?: return null
+    return onlyStatement.extractPredicateBlock()
+}
+
+/**
+ * Whether [declaration] mentions `predicate { }` anywhere in its body, used to tell a malformed
+ * predicate declaration apart from a function that simply has nothing to do with predicates.
+ */
+fun FirSimpleFunction.mentionsPredicateBuiltin(): Boolean =
+    body?.statements?.any { it.extractPredicateBlock() != null } == true
+
+private fun FirStatement.unwrapReturn(): FirStatement =
+    (this as? FirReturnExpression)?.result ?: this
 
 data class FirSpecification(val precond: FirBlock?, val postcond: FirBlock?, val returnVar: FirValueParameterSymbol?) {
     constructor() : this(null, null, null)

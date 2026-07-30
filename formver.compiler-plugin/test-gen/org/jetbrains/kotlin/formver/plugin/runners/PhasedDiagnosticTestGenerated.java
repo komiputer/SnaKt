@@ -340,6 +340,18 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("custom_predicates.kt")
+      public void testCustom_predicates() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_unfold.kt")
+      public void testCustom_predicates_unfold() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_unfold.kt");
+      }
+
+      @Test
       @TestMetadata("inheritance.kt")
       public void testInheritance() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/inheritance.kt");
@@ -373,6 +385,24 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("override_properties_types.kt")
       public void testOverride_properties_types() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/override_properties_types.kt");
+      }
+
+      @Test
+      @TestMetadata("predicate_malformed.kt")
+      public void testPredicate_malformed() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicate_malformed.kt");
+      }
+
+      @Test
+      @TestMetadata("predicate_outside_specification.kt")
+      public void testPredicate_outside_specification() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicate_outside_specification.kt");
+      }
+
+      @Test
+      @TestMetadata("predicate_without_class.kt")
+      public void testPredicate_without_class() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicate_without_class.kt");
       }
 
       @Test

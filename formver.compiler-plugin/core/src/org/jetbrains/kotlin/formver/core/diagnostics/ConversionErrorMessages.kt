@@ -26,5 +26,20 @@ object ConversionErrorMessages : BaseDiagnosticRendererFactory() {
             "{0}",
             CommonRenderers.STRING,
         )
+        map.put(
+            ConversionErrors.MALFORMED_PREDICATE_DECLARATION,
+            "{0}",
+            CommonRenderers.STRING,
+        )
+        map.put(
+            ConversionErrors.PREDICATE_WITHOUT_CLASS,
+            "{0}",
+            CommonRenderers.STRING,
+        )
+        map.put(
+            ConversionErrors.PREDICATE_OUTSIDE_SPECIFICATION,
+            "{0}",
+            CommonRenderers.STRING,
+        )
     }
 }

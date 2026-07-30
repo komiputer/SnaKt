@@ -50,6 +50,26 @@ data class ClassTypeEmbedding(override val name: ScopedName) : PretypeEmbedding 
         }
     }
 
+    /**
+     * Emit a user-declared predicate: the subject's type invariant and access to `C$unique`, conjoined
+     * with the body the user wrote.
+     *
+     * Extending `C$unique` rather than replacing it keeps the permissions the rest of the plugin
+     * relies on, so holding a custom predicate is always at least as strong as holding the class one.
+     *
+     * The subject's type invariant is conjoined directly, not left to `C$unique`, even though `C$unique`
+     * asserts it too. A predicate access does not expose its body, so a `val` property read in the user
+     * body — which embeds as a Viper function requiring `isSubtype(typeOf(subject), C())` — would have no
+     * justification for that precondition. This is what makes a recursive predicate reach its own link.
+     */
+    context(ctx: TypeResolver)
+    fun customPredicate(predicate: CustomPredicateEmbedding): Predicate =
+        ClassPredicateBuilder.build(name, predicate.predicateName, predicate.subjectName) {
+            includeSubTypeInvariants()
+            includeOwnUniquePredicateAccess()
+            addUserBody(predicate.body)
+        }
+
     override fun accessInvariants(ctx: TypeResolver): List<TypeInvariantEmbedding> =
         ctx.flatMapUniqueFields(name) { field ->
             field.accessInvariantsForParameter()

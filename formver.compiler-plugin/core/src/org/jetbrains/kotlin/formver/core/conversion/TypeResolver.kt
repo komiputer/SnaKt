@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.properties.BackingFieldGette
 import org.jetbrains.kotlin.formver.core.embeddings.properties.FieldEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.properties.PropertyEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.types.ClassTypeEmbedding
+import org.jetbrains.kotlin.formver.core.embeddings.types.CustomPredicateEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.types.PretypeEmbedding
 import org.jetbrains.kotlin.formver.core.names.NameMatcher
 import org.jetbrains.kotlin.formver.core.names.NameScope
@@ -34,6 +35,23 @@ class TypeResolver {
      * All the properties. Key is the pair of the class name and the field name.
      */
     private val properties = mutableMapOf<ClassPropertyPair, PropertyEmbedding>()
+
+    /**
+     * User-declared predicates, keyed by the class they are scoped to. Keyed by predicate name within
+     * a class so that converting the same declaration twice does not emit a duplicate Viper predicate.
+     */
+    private val customPredicates = mutableMapOf<SymbolicName, MutableMap<SymbolicName, CustomPredicateEmbedding>>()
+
+    fun registerCustomPredicate(predicate: CustomPredicateEmbedding) {
+        customPredicates.getOrPut(predicate.className) { mutableMapOf() }
+            .putIfAbsent(predicate.predicateName, predicate)
+    }
+
+    fun lookupCustomPredicates(className: SymbolicName): List<CustomPredicateEmbedding> =
+        customPredicates[className]?.values?.toList() ?: emptyList()
+
+    fun lookupCustomPredicate(className: SymbolicName, predicateName: SymbolicName): CustomPredicateEmbedding? =
+        customPredicates[className]?.get(predicateName)
 
     /**
      * Register a class or interface type embedding.

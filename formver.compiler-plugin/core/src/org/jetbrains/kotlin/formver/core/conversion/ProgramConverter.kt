@@ -31,6 +31,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.callables.*
 import org.jetbrains.kotlin.formver.core.embeddings.expression.AnonymousBuiltinVariableEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.expression.AnonymousVariableEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.expression.ExpEmbedding
+import org.jetbrains.kotlin.formver.core.embeddings.expression.toConjunction
 import org.jetbrains.kotlin.formver.core.embeddings.properties.*
 import org.jetbrains.kotlin.formver.core.embeddings.types.*
 import org.jetbrains.kotlin.formver.core.names.*
@@ -75,6 +76,23 @@ class ProgramConverter(
 
     override fun reportPurityViolation(source: KtSourceElement?, msg: String) =
         emit(source, ConversionErrors.PURITY_VIOLATION, msg)
+
+    override fun reportPredicateOutsideSpecification(source: KtSourceElement?, msg: String) =
+        emit(source, ConversionErrors.PREDICATE_OUTSIDE_SPECIFICATION, msg)
+
+    private var specificationDepth: Int = 0
+
+    override val inSpecification: Boolean
+        get() = specificationDepth > 0
+
+    override fun <R> withinSpecification(action: () -> R): R {
+        specificationDepth++
+        try {
+            return action()
+        } finally {
+            specificationDepth--
+        }
+    }
 
     override fun reportMinorInternalError(msg: String) =
         emit(currentDeclarationSource, ConversionErrors.MINOR_INTERNAL_ERROR, msg)
@@ -131,9 +149,10 @@ class ProgramConverter(
         fields = typeResolver.backingFields().distinctBy { it.name }.map { it.toViper() },
         functions = SpecialFunctions.all + linearizedBodyResolver.functions,
         methods = SpecialMethods.all + linearizedBodyResolver.methods,
-        predicates = typeResolver.classTypeEmbeddings().map {
+        predicates = typeResolver.classTypeEmbeddings().flatMap { classType ->
             with(typeResolver) {
-                it.uniquePredicate()
+                listOf(classType.uniquePredicate()) +
+                        typeResolver.lookupCustomPredicates(classType.name).map { classType.customPredicate(it) }
             }
         },
         adts = emptyList(),
@@ -146,6 +165,9 @@ class ProgramConverter(
      * Embed the declaration's signature and embeds the body.
      */
     fun register(declaration: FirSimpleFunction) {
+        // A predicate declaration has no body to verify; it only contributes a Viper predicate.
+        if (embedCustomPredicate(declaration.symbol) != null) return
+
         val signature = embedCompleteSignature(declaration.symbol)
         embedFunctionBody(declaration.symbol, signature)
         registered += RegisteredFunction(declaration, signature.signature, signature.returnTarget)
@@ -342,6 +364,9 @@ class ProgramConverter(
         // check if it must be handled specially
         embedSpecialFunction(symbol)?.let { return it }
 
+        // a predicate declaration is not a callable at all: it becomes a Viper predicate
+        embedCustomPredicate(symbol)?.let { return it }
+
         // check if it already was embedded
         callable[symbol.embedName(this)]?.let { return it.signature }
 
@@ -354,6 +379,77 @@ class ProgramConverter(
         }
 
         return signature.signature
+    }
+
+    // endregion
+
+
+    // region custom predicates
+
+    private val customPredicateCallables: MutableMap<SymbolicName, CustomPredicateCallable> = mutableMapOf()
+
+    /**
+     * Embed [symbol] as a user-declared predicate, or return null if it is not a predicate declaration.
+     *
+     * The callable is memoised before the body is converted, because a recursive predicate reaches this
+     * function again while converting its own body and must find the embedding already in place.
+     *
+     * The purely structural checks come first and nothing is embedded until they pass. Every function in
+     * the program reaches this path, and embedding a name or a type has ordering-visible side effects, so
+     * touching them earlier would shift the generated Viper for programs that declare no predicate at all.
+     */
+    @OptIn(SymbolInternals::class)
+    private fun embedCustomPredicate(symbol: FirFunctionSymbol<*>): CustomPredicateCallable? {
+        val declaration = symbol.fir as? FirSimpleFunction ?: return null
+        val predicateBlock = declaration.extractPredicateDeclarationBlock() ?: run {
+            if (declaration.mentionsPredicateBuiltin()) {
+                emit(
+                    declaration.source, ConversionErrors.MALFORMED_PREDICATE_DECLARATION,
+                    "A `predicate { }` block must be the entire body of a function returning Boolean.",
+                )
+            }
+            return null
+        }
+
+        val name = symbol.embedName(this)
+        customPredicateCallables[name]?.let { return it }
+
+        val subjectIsDispatch = symbol.receiverType != null
+        val subjectType = symbol.receiverType ?: symbol.extensionReceiverType
+        val classType = subjectType?.let { embedType(it).pretype as? ClassTypeEmbedding }
+        if (classType == null) {
+            emit(
+                declaration.source, ConversionErrors.PREDICATE_WITHOUT_CLASS,
+                "A predicate must be declared on a class; '${declaration.name.asString()}' has no class receiver.",
+            )
+            return null
+        }
+
+        val embedding = CustomPredicateEmbedding(
+            classType.name,
+            ScopedName(classType.name.asScope(), PredicateName(symbol.name.asString())),
+            if (subjectIsDispatch) DispatchReceiverName else ExtensionReceiverName,
+        )
+        val callable = CustomPredicateCallable(embedFunctionPretype(symbol), embedding)
+        customPredicateCallables[name] = callable
+
+        val signature = with(this) { symbol.toFunctionSignature().toNamedSignature(symbol) }
+        val conversionCtx = MethodConverter(
+            this,
+            signature.signature,
+            RootParameterResolver(
+                this,
+                signature.signature,
+                symbol.valueParameterSymbols,
+                signature.signature.labelName,
+                signature.returnTarget,
+            ),
+            ScopeIndex.NoScope,
+        ).statementCtxt()
+        embedding.body = conversionCtx.collectInvariants(predicateBlock).toConjunction()
+
+        typeResolver.registerCustomPredicate(embedding)
+        return callable
     }
 
     // endregion

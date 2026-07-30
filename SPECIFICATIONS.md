@@ -110,6 +110,99 @@ forAll<Int> { x ->
 
 Each argument to `triggers()` becomes a separate trigger. This differs from Viper syntax where you can group multiple expressions in a single trigger; currently SnaKt only supports simple (single-expression) triggers.
 
+## Custom Predicates
+
+A function whose entire body is `predicate { }` declares a Viper predicate over the state of its receiver. The function's name becomes the predicate's name, and its receiver becomes the predicate's subject. The block body is an implicit conjunction; it holds *in addition* to the permissions the class always carries, so a predicate strengthens the class invariant rather than replacing it.
+
+```kotlin
+class Interval(var lo: Int, var hi: Int)
+
+fun Interval.ordered(): Boolean = predicate {
+    lo <= hi
+}
+
+@AlwaysVerify
+fun useOrdered(i: Interval) {
+    preconditions {
+        i.ordered()
+    }
+    verify(i.lo <= i.hi)
+}
+```
+
+The `Boolean` return type is what lets a predicate refer to itself recursively:
+
+```kotlin
+class Node(val value: Int, val next: Node?)
+
+fun Node.sorted(): Boolean = predicate {
+    next == null || (value <= next.value && next.sorted())
+}
+
+@AlwaysVerify
+fun useSorted(n: Node) {
+    preconditions {
+        n.sorted()
+    }
+}
+```
+
+`ordered` generates the following Viper predicate:
+
+```viper
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.lo)) <=
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.hi))
+}
+```
+
+and `sorted`, recursively:
+
+```viper
+predicate sorted(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Node()) &&
+  acc(Node_unique(v_this_extension), write) &&
+  (next(v_this_extension) == nullValue() ||
+  intFromRef(value(v_this_extension)) <=
+  intFromRef(value(next(v_this_extension))) &&
+  acc(sorted(next(v_this_extension)), write))
+}
+```
+
+The subject's type invariant is the first conjunct of every custom predicate, even though the class
+predicate `C$unique` asserts it too. Holding `acc(C$unique(x), write)` does not expose that
+predicate's body, so without the conjunct a `val` read in the body — which embeds as a Viper
+function requiring `isSubtype(typeOf(x), C())` — would have nothing to justify its precondition.
+This is what lets a recursive predicate follow its own link.
+
+A predicate may equally be declared as a member function, in which case its subject is the dispatch
+receiver:
+
+```kotlin
+class Chain(val len: Int, val rest: Chain?) {
+    fun descending(): Boolean = predicate {
+        rest == null || (len > rest.len && rest.descending())
+    }
+}
+```
+
+A predicate may only be named inside `preconditions { }`, `postconditions { }`, `loopInvariants { }`, a `forAll { }` body or another predicate's body; naming one anywhere else is an error, and calling one at runtime throws.
+
+Reading a field inside a specification needs no annotation: the necessary `unfolding` is inserted automatically, including for a recursive predicate.
+
+**Known limitation:** a recursive predicate may only compare `val` properties across its link, as
+`sorted` compares `value` above. Reaching a `var` field of the next element would need
+`acc(C$unique(next))`, which is held only inside the recursive occurrence of the predicate, and
+unfolding that occurrence inside the predicate's own body does not terminate.
+
+**Known limitation:** the plugin does not support `!!`. A recursive predicate that needs to smart-cast a nullable link must expose it through a `val` (as `next` above), not a `var`, so the compiler can smart-cast it instead of requiring `!!`.
+
+**Known limitation:** a predicate constrains what a *specification* may say, not what a method body may read. Holding `acc(P(x))` in a method does not let that body read `x`'s `var` fields, because the plugin replaces every `var` field read in a method body with `havoc` regardless of the permissions held — the same is true of the class predicate `C$unique`, so this is not specific to custom predicates. `val` properties embed as permission-free functions and can be read normally.
+
 ## Additional Plugin Options
 
 ```kotlin

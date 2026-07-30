@@ -46,6 +46,19 @@ data class ClassTypeEmbedding(override val name: ScopedName) : PretypeEmbedding 
         }
     }
 
+    /**
+     * Emit a user-declared predicate: access to `C$unique` conjoined with the body the user wrote.
+     *
+     * Extending `C$unique` rather than replacing it keeps the permissions the rest of the plugin
+     * relies on, so holding a custom predicate is always at least as strong as holding the class one.
+     */
+    context(ctx: TypeResolver)
+    fun customPredicate(predicate: CustomPredicateEmbedding): Predicate =
+        ClassPredicateBuilder.build(name, predicate.predicateName, predicate.subjectName) {
+            includeOwnUniquePredicateAccess()
+            addUserBody(predicate.body)
+        }
+
     override fun accessInvariants(ctx: TypeResolver): List<TypeInvariantEmbedding> =
         ctx.flatMapUniqueFields(name) { field ->
             field.accessInvariantsForParameter()

@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.properties.FieldEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.properties.PropertyEmbedding
 import org.jetbrains.kotlin.formver.core.linearization.pureToViper
 import org.jetbrains.kotlin.formver.core.names.DispatchReceiverName
+import org.jetbrains.kotlin.formver.core.names.FreshName
 import org.jetbrains.kotlin.formver.viper.SymbolicName
 import org.jetbrains.kotlin.formver.viper.ast.PermExp
 import org.jetbrains.kotlin.formver.viper.ast.Predicate
@@ -21,9 +22,10 @@ import org.jetbrains.kotlin.utils.addIfNotNull
 internal class ClassPredicateBuilder private constructor(
     val typeEmbedding: TypeEmbedding,
     val properties: List<PropertyEmbedding>,
-    val classSuperTypes: List<ClassTypeEmbedding>
+    val classSuperTypes: List<ClassTypeEmbedding>,
+    subjectName: FreshName,
 ) {
-    private val subject = PlaceholderVariableEmbedding(DispatchReceiverName, typeEmbedding)
+    private val subject = PlaceholderVariableEmbedding(subjectName, typeEmbedding)
     private val body = mutableListOf<ExpEmbedding>()
 
     companion object {
@@ -31,13 +33,15 @@ internal class ClassPredicateBuilder private constructor(
         fun build(
             name: SymbolicName,
             predicateName: SymbolicName,
+            subjectName: FreshName = DispatchReceiverName,
             action: ClassPredicateBuilder.() -> Unit,
         ): Predicate {
             val typeEmbedding = ctx.lookupClassTypeEmbedding(name)!!
             val builder = ClassPredicateBuilder(
                 TypeEmbedding(typeEmbedding, TypeEmbeddingFlags(nullable = false)),
                 ctx.lookupClassProperties(name),
-                ctx.lookupSuperTypes(name)
+                ctx.lookupSuperTypes(name),
+                subjectName,
             )
             builder.action()
             return Predicate(
@@ -59,6 +63,18 @@ internal class ClassPredicateBuilder private constructor(
                 builder.action()
                 body.addAll(builder.toAssertionsList())
             }
+
+    /**
+     * Conjoin access to the subject's own `C$unique`, so that a custom predicate carries everything
+     * the class predicate carries in addition to whatever the user wrote.
+     */
+    context(ctx: TypeResolver)
+    fun includeOwnUniquePredicateAccess() = body.addIfNotNull(
+        typeEmbedding.uniquePredicateAccessInvariant(ctx)?.fillHole(subject)
+    )
+
+    /** Conjoin an already-converted user body, which refers to the subject directly. */
+    fun addUserBody(exp: ExpEmbedding) = body.add(exp)
 
     fun forEachSuperType(action: TypeInvariantsBuilder.() -> Unit) =
         classSuperTypes.forEach { type ->

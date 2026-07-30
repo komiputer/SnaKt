@@ -1,0 +1,116 @@
+LOCK-ACQUIRED-2026-07-30T17:37:58+02:00
+Reusing configuration cache.
+> Task :formver.compiler-plugin:generateBuildConfig SKIPPED
+> Task :formver.annotations:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:cli:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:locality:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:locality:generateBuildConfig SKIPPED
+> Task :formver.compiler-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.common:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:viper:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.annotations:processResources NO-SOURCE
+> Task :formver.compiler-plugin:locality:processResources NO-SOURCE
+> Task :formver.compiler-plugin:plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:core:processResources NO-SOURCE
+> Task :formver.compiler-plugin:viper:processResources NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :formver.compiler-plugin:plugin:processResources NO-SOURCE
+> Task :formver.compiler-plugin:processResources NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:processResources NO-SOURCE
+> Task :formver.compiler-plugin:generateTestFixturesBuildConfig SKIPPED
+> Task :formver.compiler-plugin:processTestFixturesResources NO-SOURCE
+> Task :formver.common:processResources NO-SOURCE
+> Task :formver.compiler-plugin:cli:processResources UP-TO-DATE
+> Task :formver.compiler-plugin:generateTestBuildConfig SKIPPED
+> Task :formver.annotations:compileKotlin UP-TO-DATE
+> Task :formver.annotations:compileJava NO-SOURCE
+> Task :formver.annotations:classes UP-TO-DATE
+> Task :formver.annotations:jar UP-TO-DATE
+> Task :formver.common:compileKotlin UP-TO-DATE
+> Task :formver.common:compileJava NO-SOURCE
+> Task :formver.common:classes UP-TO-DATE
+> Task :formver.common:jar UP-TO-DATE
+> Task :formver.compiler-plugin:viper:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:viper:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:viper:classes UP-TO-DATE
+> Task :formver.compiler-plugin:viper:jar UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:uniqueness:classes UP-TO-DATE
+> Task :formver.compiler-plugin:uniqueness:jar UP-TO-DATE
+> Task :formver.compiler-plugin:locality:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:locality:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:locality:classes UP-TO-DATE
+> Task :formver.compiler-plugin:processTestResources UP-TO-DATE
+> Task :formver.compiler-plugin:locality:jar UP-TO-DATE
+> Task :formver.compiler-plugin:core:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:core:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:core:classes UP-TO-DATE
+> Task :formver.compiler-plugin:core:jar UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:plugin:classes UP-TO-DATE
+> Task :formver.compiler-plugin:plugin:jar UP-TO-DATE
+> Task :formver.compiler-plugin:cli:compileKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:cli:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:cli:classes UP-TO-DATE
+> Task :formver.compiler-plugin:cli:jar UP-TO-DATE
+> Task :formver.compiler-plugin:compileKotlin NO-SOURCE
+> Task :formver.compiler-plugin:compileJava NO-SOURCE
+> Task :formver.compiler-plugin:classes UP-TO-DATE
+> Task :formver.compiler-plugin:jar UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestFixturesKotlin UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestFixturesJava NO-SOURCE
+> Task :formver.compiler-plugin:testFixturesClasses UP-TO-DATE
+> Task :formver.compiler-plugin:testFixturesJar UP-TO-DATE
+> Task :formver.compiler-plugin:generateTests UP-TO-DATE
+> Task :formver.compiler-plugin:compileTestKotlin NO-SOURCE
+> Task :formver.compiler-plugin:compileTestJava UP-TO-DATE
+> Task :formver.compiler-plugin:testClasses UP-TO-DATE
+> Task :formver.compiler-plugin:test
+
+PhasedDiagnosticTestGenerated > Verification > Classes > testCustom_predicates_a2_composition() FAILED
+    org.gradle.internal.exceptions.DefaultMultiCauseException at PhasedDiagnosticTestGenerated.java:351
+        Caused by: org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:351
+
+Daemon will be stopped at the end of the build after the daemon was no longer found in the daemon registry
+The message received from the daemon indicates that the daemon has disappeared.
+Build request sent: Build{id=91cb0b7e-4e92-4357-981f-9e1db71dfcf4, currentDir=/home/silverbot/dev/SnaKt-wip12}
+Attempting to read last messages from the daemon log...
+Daemon pid: 725942
+  log file: /home/silverbot/.gradle/daemon/8.14.3/daemon-725942.out.log
+----- Last 20 lines from daemon log file - daemon-725942.out.log -----
+    org.gradle.internal.exceptions.DefaultMultiCauseException at PhasedDiagnosticTestGenerated.java:351
+        Caused by: org.opentest4j.AssertionFailedError at PhasedDiagnosticTestGenerated.java:351
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+Daemon will be stopped at the end of the build after the daemon was no longer found in the daemon registry
+Remove shutdown hook failed
+java.lang.IllegalStateException: Shutdown in progress
+	at java.base/java.lang.ApplicationShutdownHooks.remove(ApplicationShutdownHooks.java:83)
+	at java.base/java.lang.Runtime.removeShutdownHook(Runtime.java:281)
+	at org.gradle.process.internal.shutdown.ShutdownHooks.removeShutdownHook(ShutdownHooks.java:38)
+	at org.gradle.process.internal.DefaultExecHandle.setEndStateInfo(DefaultExecHandle.java:208)
+	at org.gradle.process.internal.DefaultExecHandle.aborted(DefaultExecHandle.java:392)
+	at org.gradle.process.internal.ExecHandleRunner.completed(ExecHandleRunner.java:132)
+	at org.gradle.process.internal.ExecHandleRunner.lambda$run$2(ExecHandleRunner.java:97)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.process.internal.ExecHandleRunner.run(ExecHandleRunner.java:95)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)----- End of the daemon log -----
+
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Gradle build daemon disappeared unexpectedly (it may have been killed or may have crashed)
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+exit=1

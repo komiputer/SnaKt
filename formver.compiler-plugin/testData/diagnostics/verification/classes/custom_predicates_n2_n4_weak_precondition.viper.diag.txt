@@ -1,0 +1,1 @@
+/custom_predicates_n2_n4_weak_precondition.kt: warning: Viper verification error: Postcondition of weakPrecondition might not hold. Assertion intFromRef(v_ret_0) > 0 might not hold.

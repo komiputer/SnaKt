@@ -1,0 +1,113 @@
+/custom_predicates_a2_name_collision.kt: info: Generated Viper text for useIntervalXOrdered:
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), IntervalX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), IntervalX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate IntervalX_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), IntervalX())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), IntervalX()) &&
+  acc(IntervalX_unique(v_this_extension), write) &&
+  intFromRef(lo(v_this_extension)) <= intFromRef(hi(v_this_extension))
+}
+
+method useIntervalXOrdered(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), IntervalX())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_a2_name_collision.kt: info: Generated Viper text for usePairXOrdered:
+function first(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), PairX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function second(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), PairX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate PairX_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), PairX())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), PairX()) &&
+  acc(PairX_unique(v_this_extension), write) &&
+  intFromRef(first(v_this_extension)) <=
+  intFromRef(second(v_this_extension))
+}
+
+method usePairXOrdered(p: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(p), PairX())
+  requires acc(ordered(p), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_a2_name_collision.kt: info: Generated Viper text for useBothOrdered:
+function first(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), PairX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), IntervalX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), IntervalX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function second(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), PairX())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate IntervalX_ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), IntervalX()) &&
+  acc(IntervalX_unique(v_this_extension), write) &&
+  intFromRef(lo(v_this_extension)) <= intFromRef(hi(v_this_extension))
+}
+
+predicate IntervalX_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), IntervalX())
+}
+
+predicate PairX_ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), PairX()) &&
+  acc(PairX_unique(v_this_extension), write) &&
+  intFromRef(first(v_this_extension)) <=
+  intFromRef(second(v_this_extension))
+}
+
+predicate PairX_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), PairX())
+}
+
+method useBothOrdered(i: Ref, p: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), IntervalX())
+  requires isSubtype(typeOf(p), PairX())
+  requires acc(IntervalX_ordered(i), write)
+  requires acc(PairX_ordered(p), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

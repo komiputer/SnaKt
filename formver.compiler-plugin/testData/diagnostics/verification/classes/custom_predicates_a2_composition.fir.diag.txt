@@ -1,0 +1,99 @@
+/custom_predicates_a2_composition.kt: info: Generated Viper text for useSortedBox:
+function a(this: Ref): Ref
+  requires isSubtype(typeOf(this), Box())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function b(this: Ref): Ref
+  requires isSubtype(typeOf(this), Box())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function c(this: Ref): Ref
+  requires isSubtype(typeOf(this), Box())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Box_unique(this: Ref) {
+  isSubtype(typeOf(this), Box())
+}
+
+predicate aLeB(this: Ref) {
+  isSubtype(typeOf(this), Box()) && acc(Box_unique(this), write) &&
+  intFromRef(a(this)) <= intFromRef(b(this))
+}
+
+predicate bLeC(this: Ref) {
+  isSubtype(typeOf(this), Box()) && acc(Box_unique(this), write) &&
+  intFromRef(b(this)) <= intFromRef(c(this))
+}
+
+predicate sorted(this: Ref) {
+  isSubtype(typeOf(this), Box()) && acc(Box_unique(this), write) &&
+  (acc(aLeB(this), write) && acc(bLeC(this), write))
+}
+
+method useSortedBox(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), Box())
+  requires acc(sorted(x), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_a2_composition.kt: info: Generated Viper text for useMutualRecursion:
+function NodeA_g_partner(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), NodeA())
+  ensures isSubtype(typeOf(result), nullable(NodeB()))
+
+
+function NodeA_g_value(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), NodeA())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function NodeB_g_partner(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), NodeB())
+  ensures isSubtype(typeOf(result), nullable(NodeA()))
+
+
+function NodeB_g_value(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), NodeB())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate NodeA_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), NodeA())
+}
+
+predicate NodeB_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), NodeB())
+}
+
+predicate aInv(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), NodeA()) &&
+  acc(NodeA_unique(v_this_extension), write) &&
+  (NodeA_g_partner(v_this_extension) == nullValue() ||
+  intFromRef(NodeA_g_value(v_this_extension)) <=
+  intFromRef(NodeB_g_value(NodeA_g_partner(v_this_extension))) &&
+  acc(bInv(NodeA_g_partner(v_this_extension)), write))
+}
+
+predicate bInv(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), NodeB()) &&
+  acc(NodeB_unique(v_this_extension), write) &&
+  (NodeB_g_partner(v_this_extension) == nullValue() ||
+  intFromRef(NodeB_g_value(v_this_extension)) <=
+  intFromRef(NodeA_g_value(NodeB_g_partner(v_this_extension))) &&
+  acc(aInv(NodeB_g_partner(v_this_extension)), write))
+}
+
+method useMutualRecursion(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), NodeA())
+  requires acc(aInv(a), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

@@ -1,0 +1,37 @@
+/custom_predicates_b2_case4_structural_invariant.kt: info: Generated Viper text for span:
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Range())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Range())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function mid(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Range())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Range_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Range())
+}
+
+predicate wellFormed(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Range()) &&
+  acc(Range_unique(v_this_extension), write) &&
+  (intFromRef(lo(v_this_extension)) <= intFromRef(mid(v_this_extension)) &&
+  intFromRef(mid(v_this_extension)) <= intFromRef(hi(v_this_extension)))
+}
+
+method span(par_r: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_r), Range())
+  requires acc(wellFormed(par_r), write)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures intFromRef(v_ret_0) >= 0
+{
+  v_ret_0 := minusInts(hi(par_r), lo(par_r))
+  goto lbl_ret_0
+  label lbl_ret_0
+}

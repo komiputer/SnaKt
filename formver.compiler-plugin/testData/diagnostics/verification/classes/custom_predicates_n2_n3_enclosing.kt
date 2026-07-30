@@ -7,7 +7,7 @@ class Chain(val len: Int, val rest: Chain?) {
         rest == null || (len > rest.len && rest.descending())
     }
 
-    fun checkOutsideBlock(): Boolean {
-        return descending()
+    fun <!VERIFICATION_SKIPPED!>checkOutsideBlock<!>(): Boolean {
+        return <!PREDICATE_OUTSIDE_SPECIFICATION!>descending()<!>
     }
 }

@@ -8,7 +8,7 @@ fun Interval.ordered(): Boolean = predicate {
     lo <= hi
 }
 
-fun callInLambda(i: Interval): Int {
+<!INTERNAL_ERROR!>fun callInLambda(i: Interval): Int {
     val check = { i.ordered() }
     return if (check()) 1 else 0
-}
+}<!>

@@ -1,0 +1,36 @@
+/custom_predicates_a2_val_recursive.kt: info: Generated Viper text for useNonDecreasing:
+function next(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Link())
+  ensures isSubtype(typeOf(result), nullable(Link()))
+
+
+function value(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Link())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Link_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Link())
+}
+
+predicate nonDecreasing(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Link()) &&
+  acc(Link_unique(v_this_extension), write) &&
+  (next(v_this_extension) == nullValue() ||
+  intFromRef(value(v_this_extension)) <=
+  intFromRef(value(next(v_this_extension))) &&
+  acc(nonDecreasing(next(v_this_extension)), write))
+}
+
+method useNonDecreasing(l: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(l), Link())
+  requires acc(nonDecreasing(l), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_a2_val_recursive.kt: error: Function 'buildAndUse' was not verified because of errors in its declaration
+
+/custom_predicates_a2_val_recursive.kt: error: A predicate can only be referred to from a specification; it has no value at run time.

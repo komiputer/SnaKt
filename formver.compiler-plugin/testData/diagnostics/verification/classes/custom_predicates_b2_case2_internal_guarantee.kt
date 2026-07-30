@@ -17,7 +17,7 @@ fun LazyBox.cacheValid(): Boolean = predicate {
     !computed || cache != null
 }
 
-fun readCache(b: LazyBox): Int {
+<!VIPER_VERIFICATION_ERROR!>fun <!VIPER_TEXT!>readCache<!>(b: LazyBox): Int {
     preconditions {
         b.computed
         b.cacheValid()
@@ -26,4 +26,4 @@ fun readCache(b: LazyBox): Int {
         result >= 0
     }
     return if (b.cache != null) b.cache else 0
-}
+}<!>

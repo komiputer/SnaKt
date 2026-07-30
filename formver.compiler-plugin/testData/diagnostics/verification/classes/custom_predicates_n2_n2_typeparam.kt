@@ -3,11 +3,11 @@
 import org.jetbrains.kotlin.formver.plugin.predicate
 import org.jetbrains.kotlin.formver.plugin.preconditions
 
-fun <T> T.generic(): Boolean = predicate {
+fun <T> T.<!PREDICATE_WITHOUT_CLASS!>generic<!>(): Boolean = predicate {
     true
 }
 
-fun useGeneric(x: Int) {
+fun <!VERIFICATION_SKIPPED!>useGeneric<!>(x: Int) {
     preconditions {
         x.generic()
     }

@@ -21,14 +21,14 @@ fun PairX.ordered(): Boolean = predicate {
 }
 
 @AlwaysVerify
-fun useIntervalXOrdered(i: IntervalX) {
+fun <!VIPER_TEXT!>useIntervalXOrdered<!>(i: IntervalX) {
     preconditions {
         i.ordered()
     }
 }
 
 @AlwaysVerify
-fun usePairXOrdered(p: PairX) {
+fun <!VIPER_TEXT!>usePairXOrdered<!>(p: PairX) {
     preconditions {
         p.ordered()
     }
@@ -37,7 +37,7 @@ fun usePairXOrdered(p: PairX) {
 // Both predicates used together in the same function, to force both qualified names to
 // appear in one generated program.
 @AlwaysVerify
-fun useBothOrdered(i: IntervalX, p: PairX) {
+fun <!VIPER_TEXT!>useBothOrdered<!>(i: IntervalX, p: PairX) {
     preconditions {
         i.ordered()
         p.ordered()

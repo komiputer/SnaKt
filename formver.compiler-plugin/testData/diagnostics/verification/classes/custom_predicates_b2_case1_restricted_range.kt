@@ -19,13 +19,13 @@ fun Percent.valid(): Boolean = predicate {
     v >= 0 && v <= 100
 }
 
-fun requiresValidPercent(p: Percent) {
+fun <!VIPER_TEXT!>requiresValidPercent<!>(p: Percent) {
     preconditions {
         p.valid()
     }
 }
 
-fun makeValidPercent(x: Int): Percent {
+<!VIPER_VERIFICATION_ERROR!>fun <!VIPER_TEXT!>makeValidPercent<!>(x: Int): Percent {
     preconditions {
         x >= 0
         x <= 100
@@ -34,8 +34,8 @@ fun makeValidPercent(x: Int): Percent {
         result.valid()
     }
     return Percent(x)
-}
+}<!>
 
-fun useValidPercent() {
+fun <!VIPER_TEXT!>useValidPercent<!>() {
     requiresValidPercent(makeValidPercent(50))
 }

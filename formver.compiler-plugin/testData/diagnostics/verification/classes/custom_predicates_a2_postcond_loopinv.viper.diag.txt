@@ -1,0 +1,7 @@
+/custom_predicates_a2_postcond_loopinv.kt: warning: Viper verification error: Postcondition of makeOrdered might not hold. There might be insufficient permission to access ordered(v_ret_0)
+
+/custom_predicates_a2_postcond_loopinv.kt: warning: Viper verification error: Postcondition of makeUnordered might not hold. There might be insufficient permission to access ordered(v_ret_0)
+
+/custom_predicates_a2_postcond_loopinv.kt: warning: Viper verification error: Loop invariant acc(ordered(b), write) might not hold on entry. There might be insufficient permission to access ordered(b)
+
+/custom_predicates_a2_postcond_loopinv.kt: warning: Viper verification error: Loop invariant acc(ordered(b), write) might not hold on entry. There might be insufficient permission to access ordered(b)

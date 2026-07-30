@@ -1,0 +1,40 @@
+/custom_predicates_b2_case3_linked_properties.kt: info: Generated Viper text for makeLinkedPair:
+function g_a(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Pair2())
+  ensures isSubtype(typeOf(result), nullable(intType()))
+
+
+function g_b(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Pair2())
+  ensures isSubtype(typeOf(result), nullable(intType()))
+
+
+predicate Pair2_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Pair2())
+}
+
+predicate linked(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Pair2()) &&
+  acc(Pair2_unique(v_this_extension), write) &&
+  (g_a(v_this_extension) == nullValue()) ==
+  (g_b(v_this_extension) == nullValue())
+}
+
+method con(par_a: Ref, par_b: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(par_a), nullable(intType()))
+  requires isSubtype(typeOf(par_b), nullable(intType()))
+  ensures isSubtype(typeOf(ret_3), Pair2())
+  ensures acc(Pair2_unique(ret_3), write)
+  ensures g_a(ret_3) == par_a
+  ensures g_b(ret_3) == par_b
+
+
+method makeLinkedPair(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(intType()))
+  ensures isSubtype(typeOf(v_ret_0), Pair2())
+  ensures acc(linked(v_ret_0), write)
+{
+  v_ret_0 := con(x, x)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

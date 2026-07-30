@@ -1,0 +1,66 @@
+/custom_predicates_n2_n4_mutated_object.kt: info: Generated Viper text for needsOrdered:
+field hi: Ref
+
+field lo: Ref
+
+predicate Interval_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Interval()) && acc(v_this.lo, write) &&
+  isSubtype(typeOf(v_this.lo), intType()) &&
+  acc(v_this.hi, write) &&
+  isSubtype(typeOf(v_this.hi), intType())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.lo)) <=
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.hi))
+}
+
+method needsOrdered(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_n2_n4_mutated_object.kt: info: Generated Viper text for mutateThenCall:
+field hi: Ref
+
+field lo: Ref
+
+predicate Interval_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Interval()) && acc(v_this.lo, write) &&
+  isSubtype(typeOf(v_this.lo), intType()) &&
+  acc(v_this.hi, write) &&
+  isSubtype(typeOf(v_this.hi), intType())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.lo)) <=
+  intFromRef((unfolding acc(Interval_unique(v_this_extension), write) in
+    v_this_extension.hi))
+}
+
+method mutateThenCall(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon: Ref
+  anon := needsOrdered(i)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+method needsOrdered(i: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(ret_3), unitType())

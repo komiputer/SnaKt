@@ -1,0 +1,1 @@
+/custom_predicates_b2_case3_linked_properties.kt: warning: Viper verification error: Postcondition of makeLinkedPair might not hold. There might be insufficient permission to access linked(v_ret_0)

@@ -1,0 +1,16 @@
+/custom_predicates_n2_n3_argument.kt: info: Generated Viper text for accept:
+method accept(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (boolFromRef(b)) {
+    v_ret_0 := intToRef(1)
+  } else {
+    v_ret_0 := intToRef(0)}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/custom_predicates_n2_n3_argument.kt: error: Function 'passAsArgument' was not verified because of errors in its declaration
+
+/custom_predicates_n2_n3_argument.kt: error: A predicate can only be referred to from a specification; it has no value at run time.

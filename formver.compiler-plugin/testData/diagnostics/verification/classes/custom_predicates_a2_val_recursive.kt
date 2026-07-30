@@ -18,16 +18,16 @@ fun Link.nonDecreasing(): Boolean = predicate {
 }
 
 @AlwaysVerify
-fun useNonDecreasing(l: Link) {
+fun <!VIPER_TEXT!>useNonDecreasing<!>(l: Link) {
     preconditions {
         l.nonDecreasing()
     }
 }
 
 @AlwaysVerify
-fun buildAndUse(): Boolean {
+fun <!VERIFICATION_SKIPPED!>buildAndUse<!>(): Boolean {
     val tail = Link(3, null)
     val mid = Link(2, tail)
     val head = Link(1, mid)
-    return head.nonDecreasing()
+    return <!PREDICATE_OUTSIDE_SPECIFICATION!>head<!>.nonDecreasing()
 }

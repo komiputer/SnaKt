@@ -15,17 +15,17 @@ class Base(val x: Int) {
     }
 }
 
-class Derived(x: Int) : Base(x)
+class Derived(x: Int) : <!FINAL_SUPERTYPE!>Base<!>(x)
 
 @AlwaysVerify
-fun useOnDerived(d: Derived) {
+fun <!VIPER_TEXT!>useOnDerived<!>(d: Derived) {
     preconditions {
         d.nonneg()
     }
 }
 
 @AlwaysVerify
-fun useOnBase(b: Base) {
+fun <!VIPER_TEXT!>useOnBase<!>(b: Base) {
     preconditions {
         b.nonneg()
     }

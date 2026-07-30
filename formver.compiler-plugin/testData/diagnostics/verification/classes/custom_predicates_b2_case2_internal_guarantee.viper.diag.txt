@@ -1,0 +1,1 @@
+/custom_predicates_b2_case2_internal_guarantee.kt: warning: Viper verification error: Postcondition of readCache might not hold. Assertion intFromRef(v_ret_0) >= 0 might not hold.

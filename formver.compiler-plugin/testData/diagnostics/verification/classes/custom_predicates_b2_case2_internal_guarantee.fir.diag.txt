@@ -1,0 +1,36 @@
+/custom_predicates_b2_case2_internal_guarantee.kt: info: Generated Viper text for readCache:
+function cache(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), LazyBox())
+  ensures isSubtype(typeOf(result), nullable(intType()))
+
+
+function computed(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), LazyBox())
+  ensures isSubtype(typeOf(result), boolType())
+
+
+predicate LazyBox_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), LazyBox())
+}
+
+predicate cacheValid(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), LazyBox()) &&
+  acc(LazyBox_unique(v_this_extension), write) &&
+  (!boolFromRef(computed(v_this_extension)) ||
+  !(cache(v_this_extension) == nullValue()))
+}
+
+method readCache(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), LazyBox())
+  requires boolFromRef(computed(b))
+  requires acc(cacheValid(b), write)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures intFromRef(v_ret_0) >= 0
+{
+  if (!(cache(b) == nullValue())) {
+    v_ret_0 := cache(b)
+  } else {
+    v_ret_0 := intToRef(0)}
+  goto lbl_ret_0
+  label lbl_ret_0
+}

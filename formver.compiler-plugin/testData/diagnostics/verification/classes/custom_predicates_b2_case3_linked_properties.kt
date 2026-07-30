@@ -14,9 +14,9 @@ fun Pair2.linked(): Boolean = predicate {
     (a == null) == (b == null)
 }
 
-fun makeLinkedPair(x: Int?): Pair2 {
+<!VIPER_VERIFICATION_ERROR!>fun <!VIPER_TEXT!>makeLinkedPair<!>(x: Int?): Pair2 {
     postconditions<Pair2> { result ->
         result.linked()
     }
     return Pair2(x, x)
-}
+}<!>

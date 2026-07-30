@@ -1,0 +1,53 @@
+/custom_predicates_a2_scoping.kt: error: This type is final, so it cannot be extended.
+
+/custom_predicates_a2_scoping.kt: info: Generated Viper text for useOnDerived:
+function x(this: Ref): Ref
+  requires isSubtype(typeOf(this), Base())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Base_unique(this: Ref) {
+  isSubtype(typeOf(this), Base())
+}
+
+predicate Derived_unique(this: Ref) {
+  isSubtype(typeOf(this), Derived()) && acc(Base_unique(this), write)
+}
+
+predicate nonneg(this: Ref) {
+  isSubtype(typeOf(this), Base()) && acc(Base_unique(this), write) &&
+  intFromRef(x(this)) >= 0
+}
+
+method useOnDerived(d: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(d), Derived())
+  requires acc(nonneg(d), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_a2_scoping.kt: info: Generated Viper text for useOnBase:
+function x(this: Ref): Ref
+  requires isSubtype(typeOf(this), Base())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Base_unique(this: Ref) {
+  isSubtype(typeOf(this), Base())
+}
+
+predicate nonneg(this: Ref) {
+  isSubtype(typeOf(this), Base()) && acc(Base_unique(this), write) &&
+  intFromRef(x(this)) >= 0
+}
+
+method useOnBase(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), Base())
+  requires acc(nonneg(b), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

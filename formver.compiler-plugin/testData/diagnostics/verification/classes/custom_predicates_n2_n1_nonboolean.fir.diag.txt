@@ -1,0 +1,3 @@
+/custom_predicates_n2_n1_nonboolean.kt: error: A `predicate { }` block must be the entire body of a function returning Boolean.
+
+/custom_predicates_n2_n1_nonboolean.kt: error: Function 'badReturnType' was not verified because of errors in its declaration

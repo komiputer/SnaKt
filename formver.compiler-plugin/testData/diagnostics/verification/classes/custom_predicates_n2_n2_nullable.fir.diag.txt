@@ -1,0 +1,19 @@
+/custom_predicates_n2_n2_nullable.kt: info: Generated Viper text for useMaybeOrdered:
+function next(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Node())
+  ensures isSubtype(typeOf(result), nullable(Node()))
+
+
+function value(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Node())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method useMaybeOrdered(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), nullable(Node()))
+  requires acc(maybeOrdered(n), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

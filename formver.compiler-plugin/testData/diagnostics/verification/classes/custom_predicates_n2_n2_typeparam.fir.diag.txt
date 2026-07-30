@@ -1,0 +1,3 @@
+/custom_predicates_n2_n2_typeparam.kt: error: A predicate must be declared on a class; 'generic' has no class receiver.
+
+/custom_predicates_n2_n2_typeparam.kt: error: Function 'useGeneric' was not verified because of errors in its declaration

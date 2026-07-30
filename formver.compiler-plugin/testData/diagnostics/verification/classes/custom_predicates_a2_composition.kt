@@ -22,7 +22,7 @@ class Box(val a: Int, val b: Int, val c: Int) {
 }
 
 @AlwaysVerify
-fun useSortedBox(x: Box) {
+fun <!VIPER_TEXT!>useSortedBox<!>(x: Box) {
     preconditions {
         x.sorted()
     }
@@ -44,7 +44,7 @@ fun NodeB.bInv(): Boolean = predicate {
 }
 
 @AlwaysVerify
-fun useMutualRecursion(a: NodeA) {
+fun <!VIPER_TEXT!>useMutualRecursion<!>(a: NodeA) {
     preconditions {
         a.aInv()
     }

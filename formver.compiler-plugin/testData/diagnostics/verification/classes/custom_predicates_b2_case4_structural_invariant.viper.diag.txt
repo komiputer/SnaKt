@@ -1,0 +1,1 @@
+/custom_predicates_b2_case4_structural_invariant.kt: warning: Viper verification error: Postcondition of span might not hold. Assertion intFromRef(v_ret_0) >= 0 might not hold.

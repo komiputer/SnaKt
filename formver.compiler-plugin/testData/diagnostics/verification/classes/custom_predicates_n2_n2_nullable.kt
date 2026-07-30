@@ -9,7 +9,7 @@ fun Node?.maybeOrdered(): Boolean = predicate {
     true
 }
 
-fun useMaybeOrdered(n: Node?) {
+fun <!VIPER_TEXT!>useMaybeOrdered<!>(n: Node?) {
     preconditions {
         n.maybeOrdered()
     }

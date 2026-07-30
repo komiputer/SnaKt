@@ -8,6 +8,6 @@ fun Interval.ordered(): Boolean = predicate {
     lo <= hi
 }
 
-fun accept(b: Boolean): Int = if (b) 1 else 0
+fun <!VIPER_TEXT!>accept<!>(b: Boolean): Int = if (b) 1 else 0
 
-fun passAsArgument(i: Interval): Int = accept(i.ordered())
+fun <!VERIFICATION_SKIPPED!>passAsArgument<!>(i: Interval): Int = accept(<!PREDICATE_OUTSIDE_SPECIFICATION!>i<!>.ordered())

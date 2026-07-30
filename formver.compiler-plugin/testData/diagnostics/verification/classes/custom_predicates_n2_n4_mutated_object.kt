@@ -10,13 +10,13 @@ fun Interval.ordered(): Boolean = predicate {
     lo <= hi
 }
 
-fun needsOrdered(i: Interval) {
+fun <!VIPER_TEXT!>needsOrdered<!>(i: Interval) {
     preconditions {
         i.ordered()
     }
 }
 
-fun mutateThenCall(i: Interval) {
+fun <!VIPER_TEXT!>mutateThenCall<!>(i: Interval) {
     preconditions {
         i.ordered()
     }

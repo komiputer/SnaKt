@@ -11,7 +11,7 @@ fun Interval.nonNegativeLo(): Boolean = predicate {
     lo >= 0
 }
 
-fun weakPrecondition(i: Interval): Int {
+<!VIPER_VERIFICATION_ERROR!>fun <!VIPER_TEXT!>weakPrecondition<!>(i: Interval): Int {
     preconditions {
         i.nonNegativeLo()
     }
@@ -19,4 +19,4 @@ fun weakPrecondition(i: Interval): Int {
         it > 0
     }
     return i.lo
-}
+}<!>

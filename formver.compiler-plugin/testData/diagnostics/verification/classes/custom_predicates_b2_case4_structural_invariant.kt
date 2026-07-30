@@ -17,7 +17,7 @@ fun Range.wellFormed(): Boolean = predicate {
     lo <= mid && mid <= hi
 }
 
-fun span(r: Range): Int {
+<!VIPER_VERIFICATION_ERROR!>fun <!VIPER_TEXT!>span<!>(r: Range): Int {
     preconditions {
         r.wellFormed()
     }
@@ -25,4 +25,4 @@ fun span(r: Range): Int {
         result >= 0
     }
     return r.hi - r.lo
-}
+}<!>

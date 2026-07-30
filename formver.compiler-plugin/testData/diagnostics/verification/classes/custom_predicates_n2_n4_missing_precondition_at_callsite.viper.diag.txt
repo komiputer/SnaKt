@@ -1,0 +1,1 @@
+/custom_predicates_n2_n4_missing_precondition_at_callsite.kt: warning: Viper verification error: The precondition of method needsOrdered might not hold. There might be insufficient permission to access ordered(i)

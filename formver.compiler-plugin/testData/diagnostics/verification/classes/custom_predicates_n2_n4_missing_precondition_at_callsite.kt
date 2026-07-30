@@ -10,12 +10,12 @@ fun Interval.ordered(): Boolean = predicate {
     lo <= hi
 }
 
-fun needsOrdered(i: Interval) {
+fun <!VIPER_TEXT!>needsOrdered<!>(i: Interval) {
     preconditions {
         i.ordered()
     }
 }
 
-fun callWithoutEstablishing(i: Interval) {
-    needsOrdered(i)
+fun <!VIPER_TEXT!>callWithoutEstablishing<!>(i: Interval) {
+    <!VIPER_VERIFICATION_ERROR!>needsOrdered(i)<!>
 }

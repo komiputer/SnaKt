@@ -346,6 +346,36 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("custom_predicates_a2_composition.kt")
+      public void testCustom_predicates_a2_composition() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_a2_composition.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_a2_name_collision.kt")
+      public void testCustom_predicates_a2_name_collision() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_a2_name_collision.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_a2_postcond_loopinv.kt")
+      public void testCustom_predicates_a2_postcond_loopinv() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_a2_postcond_loopinv.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_a2_scoping.kt")
+      public void testCustom_predicates_a2_scoping() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_a2_scoping.kt");
+      }
+
+      @Test
+      @TestMetadata("custom_predicates_a2_val_recursive.kt")
+      public void testCustom_predicates_a2_val_recursive() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_a2_val_recursive.kt");
+      }
+
+      @Test
       @TestMetadata("custom_predicates_unfold.kt")
       public void testCustom_predicates_unfold() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/custom_predicates_unfold.kt");

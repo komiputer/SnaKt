@@ -185,6 +185,72 @@ the file was deleted between two commands.
 mtimes**, so the moment artefacts are copied, condition 5's mtime filter can no longer be applied to them.
 It must be `cp -p`.
 
+## 4a. THE DECISIVE RESULT — 157/20, verified from artefacts, and it confirms a per-case prediction
+
+**Verified by this seat from the preserved JUnit XML on `refs/heads/recovery/dispatcher-state-iter1`
+(`c9fca7ca`, `recovered-gates/briar-final/`), not from a relay.** The artefacts survived the artifact-root
+loss because they had been pushed to a ref.
+
+```
+solver-n-2-update.log:1    LOCK-ACQUIRED-2026-07-30T17:15:13+02:00
+solver-n-2-update.log:143  157 tests completed, 20 failed
+solver-n-2-update.log:156  BUILD FAILED in 12m 31s
+XML aggregate              tests=157 failures=20 errors=0 skipped=0
+```
+
+An earlier **clean, non-update** run reported the **same 157/20 split** at `LOCK-ACQUIRED 16:56:20`,
+`BUILD FAILED in 6m 56s`.
+
+**157 is confirmed empirically.** The retracted 136 is now refuted by measurement, not only by reading the
+build script.
+
+**All 20 failures are custom-predicate cases, and the arithmetic identifies the exception.** There are 21
+golden-less new files (5 `a2` + 4 `b2` + 12 `n2`); 20 failed, so **exactly one passed**. Taking the
+difference between the tree listing and the failure list, the one that passed is:
+
+```
+custom_predicates_n2_n1_property
+```
+
+**That is precisely the case predicted in advance, from source alone, to be the only one of the twelve that
+would pass a non-update gate — and to pass vacuously.** `val x = predicate { true }` is a `FirProperty`; it
+fails the `as? FirSimpleFunction` cast and the `!is FirSimpleFunction` gate at `ProgramConverter:471`, so
+nothing is converted and nothing is reported, which makes its empty golden **correct**. A static per-case
+prediction was confirmed at the level of the individual case by an independent dynamic run.
+
+**So 20 failures is the CORRECT outcome here, not a defect** — it is the golden-absence inversion of §3
+firing exactly as predicted. **The failures are the pass signal.**
+
+### The discriminating run has NOT been made
+
+**Both runs show 157/20 and the clean one ran FIRST (16:56) before the update pass (17:15).** An update pass
+writes the goldens and then reports the diffs it wrote, so 20 failures is its expected first-time
+behaviour. **A clean non-update run AFTER the update pass is the run that answers whether those 20 are now
+resolved, and it does not exist.** Until it does, nobody can say whether any case passes, and two identical
+157/20 lines invite the conclusion that the update accomplished nothing. **That single run is the cheapest
+high-value action remaining in the iteration.**
+
+### Conditions 3 and 7 need rewording, not enforcing
+
+- **Condition 7 (committed-tree invariant) does not discriminate a DELIBERATELY stale runner from an
+  accidentally stale one.** The tree is at 116/137 by the corrected ruling's own design, and **157 executed
+  either way**. Disqualifying this run on condition 7 would be enforcing a rule against the situation it
+  was written to permit.
+- **Condition 3 (`BUILD SUCCESSFUL`) is wrong for a golden-less tree**, where a correct run *must* fail. On
+  such a tree the admissible criterion is `BUILD FAILED` with **exactly** (golden-less count − vacuous-pass
+  count) failures, all of them attributable to golden creation.
+
+**Honest status: one gate RESULT exists and it FAILED as predicted. It is not a passing gate, and no
+passing gate exists.** Reporting a flat "zero" without this distinction has become a slogan that hides a
+real measurement; reporting it as a pass would be worse. **Say both halves.**
+
+### Cross-solver golden contamination — observed, not inferred
+
+**briar's update pass rewrote goldens for `a2` and `b2` cases it does not own**, which briar flagged in its
+commit message and correctly did not revert. Since `generateTests` declares all of `testData` as its input
+and an update pass regenerates against the whole on-disk tree, this is guaranteed rather than incidental.
+**Treat every golden an update pass touched as unratified until its owner has read it.**
+
 ## 5. The headline finding — hold it precisely
 
 Predicate accesses enter a program **only** at `Stmt.Inhale`. **`Stmt.Fold` has no constructor anywhere in

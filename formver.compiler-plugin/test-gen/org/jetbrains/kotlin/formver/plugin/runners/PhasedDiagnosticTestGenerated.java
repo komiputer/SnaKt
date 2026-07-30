@@ -430,6 +430,24 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("predicate_malformed.kt")
+      public void testPredicate_malformed() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicate_malformed.kt");
+      }
+
+      @Test
+      @TestMetadata("predicate_outside_specification.kt")
+      public void testPredicate_outside_specification() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicate_outside_specification.kt");
+      }
+
+      @Test
+      @TestMetadata("predicate_without_class.kt")
+      public void testPredicate_without_class() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicate_without_class.kt");
+      }
+
+      @Test
       @TestMetadata("predicates.kt")
       public void testPredicates() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/classes/predicates.kt");

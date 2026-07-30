@@ -251,6 +251,74 @@ commit message and correctly did not revert. Since `generateTests` declares all 
 and an update pass regenerates against the whole on-disk tree, this is guaranteed rather than incidental.
 **Treat every golden an update pass touched as unratified until its owner has read it.**
 
+## 4b. The daemon deaths are ONE failure, correlated with update passes
+
+Three "Gradle build daemon disappeared unexpectedly" incidents were filed as separate unexplained-class
+events. Sorted by run type they stop looking random. Counting only runs whose logs were seen or reported
+with markers:
+
+| run type | runs | daemon deaths | notes |
+|---|---|---|---|
+| golden-update pass | 5 | **4** (saskia ×2, soren ×1, felix ×1) | sole survivor 12m31s, the slowest run in the set |
+| plain `:test` | 4 | **1** (felix baseline, died at 109 lines) | survivors 6m56s, 7m44s, 7m48s |
+
+Death roll, marker where one exists:
+
+```
+felix   clean baseline   died at 109 lines, NO marker (predates the marker convention)
+felix   golden update    marker 17:27:46, no BUILD line
+soren   golden update    marker 17:03:33, no BUILD line, exit 1
+saskia  golden update    marker ~17:13,   no BUILD line
+saskia  golden update    marker 17:37:58, no BUILD line (second death, same seat)
+```
+
+**A first pass at this table recorded 0-of-3 on the plain arm and read as a clean dissociation. That was
+wrong** — felix's clean baseline died too, and it was missed because early baseline runs predate the
+`LOCK-ACQUIRED` convention, so a markerless log was being read as "never acquired the lock" rather than as
+a death. **The correlation survives the correction but is weaker than a clean dissociation: 4-of-5 against
+1-of-4.** An update pass on this host has a material chance of dying; a plain run has a smaller one.
+
+Practical consequence for any iteration 2: **assume an update pass may die, and sequence so a death costs
+one stage rather than a whole chain.** barr's per-stage abort is the pattern that already does this.
+
+**Hypothesis, not conclusion: host memory exhaustion killing the daemon, not a Gradle defect.** Update
+passes are exposed because they run longer under a large heap on a shared 11.9 GB host. Observed
+availability was 2790 MB with three `flock` chains up, recovering to 5350 MB once they drained.
+
+**This is untestable as of this writing because NO MEMORY MONITOR IS ARMED** — nothing captured RSS at any
+of the three death moments. Arming one before the next update pass is the cheap discriminator; either
+answer beats a third retry. **If the hypothesis holds, the "unexplained" class was never a Gradle defect
+and re-run budget has been spent against an environmental cause.**
+
+Consequence for the budget rule: a second identical death makes the failure *reproducible*, hence
+**diagnosed rather than unexplained**, so a third attempt at the identical command buys nothing. Do not
+spend attempt 2/2 re-running it.
+
+### Cross-owner golden contamination is reproducible, not anecdotal
+
+Two independent seats, two trees, two sets of victims:
+
+- briar's update pass rewrote `a2` and `b2` goldens.
+- saskia's update pass modified `custom_predicates_a2_composition.kt` (inline markers) and created
+  `custom_predicates_a2_composition.fir.diag.txt` — **neither file is saskia's**.
+
+`generateTests` declares all of `testData` as its input, so an update pass regenerates against the whole
+on-disk tree. **This is a general property of update passes on this repo.** soren's narrowing holds and
+sharpens it: the hazard requires a tree that *holds* other owners' files, which is why soren's own
+nine-file tree could not have written an `a2` or `b2` golden.
+
+Correct handling, as saskia demonstrated: **do not commit, do not revert, leave dirty and name the files
+as UNRATIFIED for their owner to read.** Per soren, timestamps will not later separate those writes from
+authored work, so the list of touched files is the only record.
+
+### One open conflict worth keeping
+
+`testCustom_predicates_a2_composition()` **FAILED** in saskia's run. indira's static analysis reported that
+A12 showed predicate composition *and* mutual recursion both working. That is either a different
+composition shape, a missing-golden artefact, or a genuine conflict with indira's reading. **Unresolved —
+do not file as settled in either direction.** It surfaced only because a solver read a failure in a file it
+did not own instead of filtering to its own cases.
+
 ## 5. The headline finding — hold it precisely
 
 Predicate accesses enter a program **only** at `Stmt.Inhale`. **`Stmt.Fold` has no constructor anywhere in

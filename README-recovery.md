@@ -45,7 +45,7 @@ believes its output is preserved.
 | All six role bundles + synthesizer | `/home/silverbot/data/received/` — **outside the root, intact** | Re-extractable from `orchestrator_3.zip` (64380 bytes) and the `orchestrator-x/` directory. The md5s recorded in the recovered state file **verify** them rather than replace them. |
 | `solvers.zip` | `refs/pipeline/solvers-bundle` on `origin` (orphan `3db37f44`) | Second independent route. |
 | Dispatcher state rev1+rev2, `muradin`'s analysis, `barr`'s gate numbers | `rune`'s context → branch `run-state/custom-predicates-recovery` on `origin` | `rune` read all 675 lines before the loss and is committing them. |
-| Step 5 synthesizer briefing | **`remo`'s tree (119-line original) + `remo`'s context (142-line version)** | **The one real gap.** The 142-line copy I measured is gone. Asked `remo` to re-emit as message text plus a git ref, and specifically not to discard the "stale" tree copy, which is now authoritative. Its cross-generation provenance paragraph and the operator ruling must **not** be reconstructed from memory. |
+| Step 5 synthesizer briefing | **`origin refs/pipeline/step5-synthesizer-briefing`, commit `265a1354`** | **GAP CLOSED, byte-verified.** See below. |
 
 **The transcript route is the important one and it generalises.** Artifact files were written
 *through tool calls*, so their content sits verbatim in
@@ -53,6 +53,57 @@ believes its output is preserved.
 a reconstruction job **with primary sources**, not a memory exercise. Recovery method used here:
 parse the JSONL, take `tool_result` payloads containing the file, strip the `cat -n` line
 prefixes, and **check for gaps by line number** — 1–910 with zero missing.
+
+## The Step 5 briefing gap closed — and a checksum paid out in a way nobody designed it for
+
+`remo` re-emitted the 142-line briefing from context and pushed it to
+**`origin refs/pipeline/step5-synthesizer-briefing`, commit `265a1354`**. It then measured what it
+had written: **142 lines, 9445 bytes, md5 `2a150b35bd6ce464c2eacc45940b4c19`** — **identical to the
+figure I measured off the live artifact at 15:20:18Z, 46 seconds before the wipe.**
+
+So the recovery is **byte-verified rather than a reconstruction**, and the mechanism is worth
+stating: **without a checksum taken before the loss, a re-emission from context is an
+unfalsifiable claim to have remembered a file correctly.** The measurement was taken for an
+entirely different reason — the run's habit of quoting a figure with the moment that produced it —
+and it is what made the verification possible. `remo` wrote its first commit message saying the
+bytes were unverified and the md5 made that obsolete within the same minute.
+
+The provenance paragraph is verbatim from the original: cross-generation, `orchestrator_3.zip`
+contains no synthesizer at any depth, sourced from
+`/home/silverbot/data/received/orchestrator-x/`, three days older than our chain, and **the
+operator was told of the mismatch risk and ruled proceed — a documented operator decision, not a
+substitution anyone inferred.** With the instruction that a Run Context field mismatch is the
+mismatch surfacing rather than a worker error, and must never be papered over by inventing a
+field value.
+
+Read it without a checkout:
+
+    git fetch origin 'refs/pipeline/*:refs/pipeline/*'
+    git show 265a1354:step5-synthesizer-briefing-142line.md
+
+The 118-line original is on the same ref as provenance only. **The 142-line version is
+authoritative.** `run-rulings-recovered.md` there is the Planner-side rulings subset, counterpart
+to `sacharissa`'s `f55349db` on the dispatcher side. **Neither is the state file and neither
+should be described as one.**
+
+### The durability correction, which is `sacharissa`'s and corrects `remo`
+
+> **Copying out of a worktree solved readability, not durability — and durability was the
+> property we needed.**
+
+A peer cannot read a worktree; a session slot can be reclaimed, which is exactly what happened.
+**A pushed git ref is the only store that demonstrably survived today.** Three exist, all
+confirmed **remote-side** with `git ls-remote origin 'refs/pipeline/*'` at 15:25:44Z rather than
+from local refs or from push output:
+
+    ee62e6b4  refs/pipeline/planner-salvage-annie        (this file)
+    265a1354  refs/pipeline/step5-synthesizer-briefing   (remo)
+    3db37f44  refs/pipeline/solvers-bundle               (auden)
+
+A non-branch ref cannot be listed as a branch or picked as a PR base, which is why it is the
+right shape for run state. Worth noting the near-miss: a `git fetch 'refs/pipeline/*'` did **not**
+list my own ref back, which looked like a failed push. `ls-remote` showed it present. **Push
+output and fetch output are both reports; the remote's own ref listing is the measurement.**
 
 ## Substantive results that must not be lost with the artefacts
 

@@ -1,0 +1,4 @@
+runTest( = 125
+public void test = 145
+testAllFilesPresentIn = 20
+kt files under testData/diagnostics = 125

@@ -1,0 +1,7 @@
+/exists_with_triggers.kt: warning: Viper verification error: Postcondition of existsWithSimpleTrigger might not hold. Assertion (exists anon: Int :: { anon * anon } anon * anon >= 0 && anon * anon >= intFromRef(v_ret_0)) might not hold.
+
+/exists_with_triggers.kt: warning: Viper verification error: Postcondition of existsWithMultipleTriggers might not hold. Assertion (exists anon: Int :: { anon * anon } { anon + 1 } !(anon == 0) ==> anon * anon >= intFromRef(v_ret_0)) might not hold.
+
+/exists_with_triggers.kt: warning: Viper verification error: Loop invariant (exists anon_builtin: Int :: { anon_builtin + |stringFromRef(str)| } anon_builtin < 0) might not hold on entry. Assertion (exists anon_builtin: Int :: { anon_builtin + |stringFromRef(str)| } anon_builtin < 0) might not hold.
+
+/exists_with_triggers.kt: warning: Viper verification error: Postcondition of existsWithoutTriggers might not hold. Assertion (exists anon: Int :: anon * anon >= 0) might not hold.

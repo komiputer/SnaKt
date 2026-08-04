@@ -1,0 +1,46 @@
+/exists_nested_quantifiers.kt: info: Generated Viper text for forAllOutsideExists:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method forAllOutsideExists() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  assert (forall anon_builtin_0: Int ::(exists anon_builtin_1: Int :: anon_builtin_1 >
+        anon_builtin_0))
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/exists_nested_quantifiers.kt: info: Generated Viper text for existsOutsideForAll:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method existsOutsideForAll() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  assert (exists anon_builtin_0: Int :: anon_builtin_0 > 0 &&
+      (forall anon_builtin_1: Int ::anon_builtin_1 + anon_builtin_0 >
+        anon_builtin_1))
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/exists_nested_quantifiers.kt: info: Generated Viper text for existsInsideExists:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method existsInsideExists() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  assert (exists anon_builtin_0: Int :: (exists anon_builtin_1: Int :: anon_builtin_0 +
+        anon_builtin_1 ==
+        10))
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

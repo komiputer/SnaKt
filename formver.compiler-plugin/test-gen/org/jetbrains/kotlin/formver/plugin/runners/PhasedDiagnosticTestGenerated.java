@@ -822,6 +822,36 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("exists_in_pure_function.kt")
+      public void testExists_in_pure_function() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_in_pure_function.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_nested_quantifiers.kt")
+      public void testExists_nested_quantifiers() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_nested_quantifiers.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_not_vacuous.kt")
+      public void testExists_not_vacuous() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_not_vacuous.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_ref_types.kt")
+      public void testExists_ref_types() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_ref_types.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_with_triggers.kt")
+      public void testExists_with_triggers() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_with_triggers.kt");
+      }
+
+      @Test
       @TestMetadata("factorial.kt")
       public void testFactorial() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/factorial.kt");
@@ -837,6 +867,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("loops.kt")
       public void testLoops() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/loops.kt");
+      }
+
+      @Test
+      @TestMetadata("simple_exists.kt")
+      public void testSimple_exists() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/simple_exists.kt");
       }
 
       @Test

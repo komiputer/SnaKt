@@ -218,11 +218,12 @@ fun StmtConversionContext.insertInlineFunctionCall(
 }
 
 /**
- * Insert `ForAllEmbedding` where `forAll` function call was encountered.
+ * Insert a quantifier embedding where a `forAll` or `exists` function call was encountered.
  */
-fun StmtConversionContext.insertForAllFunctionCall(
+private fun StmtConversionContext.insertQuantifierFunctionCall(
     symbol: FirValueParameterSymbol,
     block: FirBlock,
+    build: (VariableEmbedding, List<ExpEmbedding>, List<ExpEmbedding>) -> ExpEmbedding,
 ): ExpEmbedding {
     val anonVar = freshAnonBuiltinVar(embedType(symbol.resolvedReturnType))
     val methodCtxFactory = MethodContextFactory(
@@ -238,10 +239,22 @@ fun StmtConversionContext.insertForAllFunctionCall(
     return withNoScope {
         withMethodCtx(methodCtxFactory) {
             val (invariants, triggers) = collectInvariantsAndTriggers(block)
-            ForAllEmbedding(anonVar, invariants, triggers)
+            build(anonVar, invariants, triggers)
         }
     }
 }
+
+/**
+ * Insert `ForAllEmbedding` where `forAll` function call was encountered.
+ */
+fun StmtConversionContext.insertForAllFunctionCall(symbol: FirValueParameterSymbol, block: FirBlock): ExpEmbedding =
+    insertQuantifierFunctionCall(symbol, block, ::ForAllEmbedding)
+
+/**
+ * Insert `ExistsEmbedding` where `exists` function call was encountered.
+ */
+fun StmtConversionContext.insertExistsFunctionCall(symbol: FirValueParameterSymbol, block: FirBlock): ExpEmbedding =
+    insertQuantifierFunctionCall(symbol, block, ::ExistsEmbedding)
 
 fun StmtConversionContext.convertImpureBody(
     declaration: FirSimpleFunction,

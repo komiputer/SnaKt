@@ -1,0 +1,5 @@
+/exists_nested_quantifiers.kt: warning: Viper verification error: Assert might fail. Assertion (forall anon_builtin_0: Int ::(exists anon_builtin_1: Int :: anon_builtin_1 > anon_builtin_0)) might not hold.
+
+/exists_nested_quantifiers.kt: warning: Viper verification error: Assert might fail. Assertion (exists anon_builtin_0: Int :: anon_builtin_0 > 0 && (forall anon_builtin_1: Int ::anon_builtin_1 + anon_builtin_0 > anon_builtin_1)) might not hold.
+
+/exists_nested_quantifiers.kt: warning: Viper verification error: Assert might fail. Assertion (exists anon_builtin_0: Int :: (exists anon_builtin_1: Int :: anon_builtin_0 + anon_builtin_1 == 10)) might not hold.

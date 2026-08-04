@@ -1,0 +1,7 @@
+/exists_in_pure_function.kt: error: An internal error has occurred.
+Details: ExistsEmbedding((Var(anon$builtin$0), Var(par$x))) can only be translated to Viper built-in type
+Please report this at https://github.com/jesyspa/kotlin
+
+/exists_in_pure_function.kt: error: An internal error has occurred.
+Details: ExistsEmbedding((Var(anon$builtin$0), Var(par$x))) can only be translated to Viper built-in type
+Please report this at https://github.com/jesyspa/kotlin

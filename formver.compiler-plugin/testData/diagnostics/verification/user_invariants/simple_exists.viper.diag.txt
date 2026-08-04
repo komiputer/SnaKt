@@ -1,0 +1,5 @@
+/simple_exists.kt: warning: Viper verification error: Postcondition of someIntegerIsAtLeastRes might not hold. Assertion (exists anon: Int :: anon >= intFromRef(v_ret_0)) might not hold.
+
+/simple_exists.kt: warning: Viper verification error: Postcondition of existsWithConjunctiveBody might not hold. Assertion (exists anon: Int :: anon > 0 && anon < 10) might not hold.
+
+/simple_exists.kt: warning: Viper verification error: Loop invariant (exists anon_builtin: Int :: anon_builtin >= intFromRef(i)) might not hold on entry. Assertion (exists anon_builtin: Int :: anon_builtin >= intFromRef(i)) might not hold.

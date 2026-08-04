@@ -37,16 +37,7 @@ if ./gradlew "$module:test" --tests "*$PATTERN*" --no-daemon -q 2>&1; then
     exit 0
 fi
 
-# DumpAssertionDiffExtension lives in the compiler-plugin test fixtures, which
-# are not on the locality test classpath.
-if [[ "$module" == *":locality" ]]; then
-    echo
-    echo "FAILED. Expected/actual values are in the HTML report:"
-    echo "  formver.compiler-plugin/locality/build/reports/tests/test/index.html"
-    exit 1
-fi
-
 echo
 echo "FAILED. Recovering the assertion diff:"
 echo
-exec "$SCRIPT_DIR/dump-test-diff.sh" "$PATTERN"
+exec "$SCRIPT_DIR/dump-test-diff.sh" "$PATTERN" "$module"

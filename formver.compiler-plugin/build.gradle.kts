@@ -52,6 +52,7 @@ dependencies {
     testImplementation(project(":formver.compiler-plugin:plugin"))
     testImplementation(project(":formver.compiler-plugin:locality"))
     testImplementation(project(":formver.common"))
+    testImplementation(testFixtures(project(":formver.common")))
     testImplementation(project(":formver.compiler-plugin:uniqueness"))
     testRuntimeOnly(project(":formver.compiler-plugin:core"))
     testRuntimeOnly(project(":formver.compiler-plugin:viper"))

@@ -1,0 +1,62 @@
+/simple_exists.kt: info: Generated Viper text for someIntegerIsAtLeastRes:
+method someIntegerIsAtLeastRes() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon >= intFromRef(v_ret_0))
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/simple_exists.kt: info: Generated Viper text for existsWithConjunctiveBody:
+method existsWithConjunctiveBody() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon > 0 && anon < 10)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/simple_exists.kt: info: Generated Viper text for existsInPrecondition:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method existsInPrecondition(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires (exists anon: Int :: anon * anon == intFromRef(n))
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  assert true
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/simple_exists.kt: info: Generated Viper text for existsInLoopInvariant:
+method existsInLoopInvariant() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var i: Ref
+  var anon_0: Ref
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(i), intType())
+    invariant (exists anon_builtin: Int :: anon_builtin >= intFromRef(i))
+  anon_0 := ltInts(i, intToRef(10))
+  if (boolFromRef(anon_0)) {
+    i := plusInts(i, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  assert (exists anon_builtin: Int :: anon_builtin >= intFromRef(i))
+  v_ret_0 := i
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/simple_exists.kt: error: An internal error has occurred.
+Details: ExistsEmbedding((Var(anon$builtin$0), Var(par$res))) can only be translated to Viper built-in type
+Please report this at https://github.com/jesyspa/kotlin

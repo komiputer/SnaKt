@@ -1,0 +1,9 @@
+/exists_not_vacuous.kt: warning: Viper verification error: Assert might fail. Assertion (exists anon: Int :: anon > 0 && anon < 0) might not hold.
+
+/exists_not_vacuous.kt: warning: Viper verification error: Assert might fail. Assertion (exists anon: Int :: anon > 5 && anon < 3) might not hold.
+
+/exists_not_vacuous.kt: warning: Viper verification error: Assert might fail. Assertion (forall anon_builtin_1: Int ::anon_builtin_1 > 0) might not hold.
+
+/exists_not_vacuous.kt: warning: Viper verification error: Assert might fail. Assertion (exists anon: Int :: { anon * anon } anon > 0 && anon < 0) might not hold.
+
+/exists_not_vacuous.kt: warning: Viper verification error: Assert might fail. Assertion !(exists anon: Int :: anon > 0) might not hold.

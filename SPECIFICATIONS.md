@@ -110,6 +110,48 @@ forAll<Int> { x ->
 
 Each argument to `triggers()` becomes a separate trigger. This differs from Viper syntax where you can group multiple expressions in a single trigger; currently SnaKt only supports simple (single-expression) triggers.
 
+## Existential Quantification
+
+Use `exists<T>` for existentially quantified formulas:
+
+```kotlin
+@AlwaysVerify
+fun example(arr: IntArray): Unit {
+    preconditions {
+        exists<Int> { j ->
+            0 <= j && j < arr.size() && arr[j] == 0
+        }
+    }
+    // ...
+}
+```
+
+`exists<T> { ... }` is a `Boolean` expression and may be used wherever
+`forAll<T> { ... }` may: preconditions, postconditions, loop invariants, pure
+function bodies, and `verify(...)`. The two nest freely in either order.
+
+Several statements in the body are combined with **conjunction inside a single
+quantifier**: `exists<Int> { A; B }` means "there is an `x` with both `A` and
+`B`", not "there is an `x` with `A`, and there is an `x` with `B`".
+
+When `T` is a reference type, the bound variable is additionally constrained to
+be of that type, so a witness must be well-typed:
+`exists<Box> { ... }` requires a witness that really is a `Box`.
+
+### Triggers
+
+`triggers(...)` works inside `exists` exactly as inside `forAll`:
+
+```kotlin
+exists<Int> { x ->
+    triggers(x * x)
+    x * x == 4
+}
+```
+
+As with `forAll`, each argument becomes a separate trigger; compound triggers
+are not supported.
+
 ## Additional Plugin Options
 
 ```kotlin

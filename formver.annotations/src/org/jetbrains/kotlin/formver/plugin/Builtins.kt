@@ -27,6 +27,9 @@ fun <T> postconditions(@Suppress("UNUSED_PARAMETER") body: (T) -> Unit) = Unit
 fun <T> forAll(@Suppress("UNUSED_PARAMETER") body: InvariantBuilder.(T) -> Unit): Boolean =
     throw FormverFunctionCalledInRuntimeException("forAll")
 
+fun <T> exists(@Suppress("UNUSED_PARAMETER") body: InvariantBuilder.(T) -> Unit): Boolean =
+    throw FormverFunctionCalledInRuntimeException("exists")
+
 
 fun <T> old(@Suppress("UNUSED_PARAMETER") body: T): T =
     throw FormverFunctionCalledInRuntimeException("old")
@@ -57,7 +60,7 @@ fun write(): Any? =
 class InvariantBuilder {
     /**
      * Specifies trigger expressions for quantifiers.
-     * This function should be called within a `forAll` block to provide user-defined triggers
+     * This function should be called within a `forAll` or `exists` block to provide user-defined triggers
      * for SMT solver guidance.
      */
     fun triggers(@Suppress("UNUSED_PARAMETER") vararg expressions: Any?): Unit =

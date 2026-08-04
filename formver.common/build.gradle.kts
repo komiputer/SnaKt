@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm")
     id("maven-publish")
     `java-library`
+    `java-test-fixtures`
 }
 
 repositories {
@@ -11,6 +12,8 @@ repositories {
 dependencies {
     compileOnly(kotlin("compiler"))
     api(kotlin("compiler-internal-test-framework"))
+
+    testFixturesApi(kotlin("test-junit5"))
 }
 
 sourceSets {
@@ -21,6 +24,9 @@ sourceSets {
     test {
         java.setSrcDirs(emptyList<String>())
         resources.setSrcDirs(emptyList<String>())
+    }
+    testFixtures {
+        java.setSrcDirs(listOf("test-fixtures"))
     }
 }
 

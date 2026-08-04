@@ -7,9 +7,9 @@
 # never see the diff in normal test output.
 #
 # This script works around that by temporarily registering a JUnit 5
-# TestWatcher extension (DumpAssertionDiffExtension, in test-fixtures) that
-# catches failures inside the test JVM and writes the diff to
-# $SNAKT_TEST_DUMP_DIR/test-assertion-dump-*.txt (default /tmp).
+# TestWatcher extension (DumpAssertionDiffExtension, in formver.common's
+# test-fixtures) that catches failures inside the test JVM and writes the
+# diff to $SNAKT_TEST_DUMP_DIR/test-assertion-dump-*.txt (default /tmp).
 #
 # It then post-processes each dump into test-assertion-diff-*.txt in the same
 # directory — a unified diff with source-position prefixes (e.g.
@@ -19,34 +19,43 @@
 #
 # Usage:
 #   ./scripts/dump-test-diff.sh "testIs_type_contract"
+#   ./scripts/dump-test-diff.sh "testFoo" ":formver.compiler-plugin:locality"
 #   SNAKT_TEST_DUMP_DIR=/var/tmp/snakt ./scripts/dump-test-diff.sh "testFoo"
 
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
-    echo "Usage: $0 <test-method-name-pattern>"
+    echo "Usage: $0 <test-method-name-pattern> [gradle-module]"
     echo "Example: $0 'testIs_type_contract'"
+    echo "Example: $0 'testFoo' ':formver.compiler-plugin:locality'"
+    echo "gradle-module defaults to :formver.compiler-plugin."
     echo "Set SNAKT_TEST_DUMP_DIR to override the output directory (default /tmp)."
     exit 1
 fi
 
 TEST_PATTERN="$1"
+MODULE="${2:-:formver.compiler-plugin}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Gradle module path (e.g. ":formver.compiler-plugin:locality") to its
+# directory (formver.compiler-plugin/locality).
+MODULE_DIR="${MODULE#:}"
+MODULE_DIR="${MODULE_DIR//:/\/}"
 
 DUMP_DIR="${SNAKT_TEST_DUMP_DIR:-/tmp}"
 mkdir -p "$DUMP_DIR"
 export SNAKT_TEST_DUMP_DIR="$DUMP_DIR"
 
-SERVICES_DIR="$ROOT_DIR/formver.compiler-plugin/testData/META-INF/services"
+SERVICES_DIR="$ROOT_DIR/$MODULE_DIR/testData/META-INF/services"
 SERVICES_FILE="$SERVICES_DIR/org.junit.jupiter.api.extension.Extension"
-PLATFORM_PROPS="$ROOT_DIR/formver.compiler-plugin/testData/junit-platform.properties"
+PLATFORM_PROPS="$ROOT_DIR/$MODULE_DIR/testData/junit-platform.properties"
 
 rm -f "$DUMP_DIR"/test-assertion-dump-*.txt "$DUMP_DIR"/test-assertion-diff-*.txt
 
 # Register the extension via auto-detection. The DumpAssertionDiffExtension
-# class itself lives in test-fixtures and is inert unless both of these files
-# are present at test time.
+# class itself lives in formver.common's test-fixtures and is inert unless
+# both of these files are present at test time.
 mkdir -p "$SERVICES_DIR"
 echo "org.jetbrains.kotlin.formver.plugin.DumpAssertionDiffExtension" > "$SERVICES_FILE"
 echo "junit.jupiter.extensions.autodetection.enabled=true" > "$PLATFORM_PROPS"
@@ -57,12 +66,12 @@ cleanup() {
     rmdir "$SERVICES_DIR" 2>/dev/null || true
     rmdir "$(dirname "$SERVICES_DIR")" 2>/dev/null || true
     # Also clean up the build copy so it doesn't persist across runs
-    rm -f "$ROOT_DIR/formver.compiler-plugin/build/resources/test/junit-platform.properties"
-    rm -rf "$ROOT_DIR/formver.compiler-plugin/build/resources/test/META-INF/services"
+    rm -f "$ROOT_DIR/$MODULE_DIR/build/resources/test/junit-platform.properties"
+    rm -rf "$ROOT_DIR/$MODULE_DIR/build/resources/test/META-INF/services"
 }
 trap cleanup EXIT
 
-echo "Running test: $TEST_PATTERN"
+echo "Running test: $TEST_PATTERN (module $MODULE)"
 echo "Raw dumps at $DUMP_DIR/test-assertion-dump-*.txt; normalized diffs at $DUMP_DIR/test-assertion-diff-*.txt"
 echo
 
@@ -74,7 +83,7 @@ echo
 # captured diff is the interesting output. Compile/configuration errors still
 # print at ERROR level.
 cd "$ROOT_DIR"
-./gradlew :formver.compiler-plugin:test \
+./gradlew "$MODULE:test" \
     --tests "*$TEST_PATTERN*" \
     --rerun \
     --no-daemon \

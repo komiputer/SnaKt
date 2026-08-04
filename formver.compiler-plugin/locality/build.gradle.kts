@@ -28,6 +28,7 @@ dependencies {
     testFixturesApi(project(":formver.common"))
     implementation(project(":formver.common"))
     implementation(project(":formver.annotations"))
+    testImplementation(testFixtures(project(":formver.common")))
 
 
     testRuntimeOnly("junit:junit:4.13.2")

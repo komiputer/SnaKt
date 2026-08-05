@@ -610,8 +610,8 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
     data class SeqDrop(
         val seq: Exp,
         val idx: Exp,
-        val pos: Position = Position.NoPosition,
-        val info: Info = Info.NoInfo,
+        override val pos: Position = Position.NoPosition,
+        override val info: Info = Info.NoInfo,
     ) : Exp {
         context(nameResolver: NameResolver)
         override fun toSilver(): viper.silver.ast.SeqDrop =
@@ -634,8 +634,8 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
 
     data class EmptyMultiset(
         val elementType: Type,
-        val pos: Position = Position.NoPosition,
-        val info: Info = Info.NoInfo,
+        override val pos: Position = Position.NoPosition,
+        override val info: Info = Info.NoInfo,
     ) : Exp {
         context(nameResolver: NameResolver)
         override fun toSilver(): viper.silver.ast.EmptyMultiset =
@@ -654,8 +654,8 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
 
     data class ExplicitMultiset(
         val args: List<Exp>,
-        val pos: Position = Position.NoPosition,
-        val info: Info = Info.NoInfo,
+        override val pos: Position = Position.NoPosition,
+        override val info: Info = Info.NoInfo,
     ) : Exp {
         context(nameResolver: NameResolver)
         override fun toSilver(): viper.silver.ast.ExplicitMultiset =
@@ -676,8 +676,8 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
 
     data class AnySetCardinality(
         val s: Exp,
-        val pos: Position = Position.NoPosition,
-        val info: Info = Info.NoInfo,
+        override val pos: Position = Position.NoPosition,
+        override val info: Info = Info.NoInfo,
     ) : Exp {
         context(nameResolver: NameResolver)
         override fun toSilver(): viper.silver.ast.AnySetCardinality =

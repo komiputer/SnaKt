@@ -169,6 +169,12 @@ class ProgramConverter(
                 reportPurityViolation(source, "Impure function body detected in pure function")
             }
         }
+        fullSignatures.values.forEach { signature ->
+            // Library/builtin callables (e.g. `List.get`) have no declaration source and their
+            // contracts are trusted, not user-supplied; only user declarations need checking here.
+            val source = signature.declarationSource ?: return@forEach
+            (signature.preconditions + signature.postconditions).forEach { it.checkValidity(source, this) }
+        }
         if (hadConversionError) {
             for (entry in registered) {
                 reportVerificationSkipped(

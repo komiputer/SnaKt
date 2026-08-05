@@ -1,0 +1,7 @@
+/exists_list_get.kt: error: Function 'existsOverListElements' was not verified because of errors in its declaration
+
+/exists_list_get.kt: error: Quantifier body must be pure
+
+/exists_list_get.kt: error: Function 'forAllOverListElements' was not verified because of errors in its declaration
+
+/exists_list_get.kt: error: Quantifier body must be pure

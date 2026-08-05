@@ -52,6 +52,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("max_character.kt")
+      public void testMax_character() {
+        runTest("formver.compiler-plugin/testData/diagnostics/expensive_verification/algorithms/max_character.kt");
+      }
+
+      @Test
       @TestMetadata("merge_sort_of_string.kt")
       public void testMerge_sort_of_string() {
         runTest("formver.compiler-plugin/testData/diagnostics/expensive_verification/algorithms/merge_sort_of_string.kt");
@@ -867,6 +873,42 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("empty.kt")
       public void testEmpty() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/empty.kt");
+      }
+
+      @Test
+      @TestMetadata("exists.kt")
+      public void testExists() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_list_get.kt")
+      public void testExists_list_get() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_list_get.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_purity.kt")
+      public void testExists_purity() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_purity.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_vacuity.kt")
+      public void testExists_vacuity() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_vacuity.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_with_triggers.kt")
+      public void testExists_with_triggers() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_with_triggers.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_witness_support.kt")
+      public void testExists_witness_support() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_witness_support.kt");
       }
 
       @Test

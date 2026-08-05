@@ -1,0 +1,16 @@
+/exists_purity.kt: info: Generated Viper text for impureHelper:
+method impureHelper() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(1)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_purity.kt: error: Function 'existsWithSideEffectingBody' was not verified because of errors in its declaration
+
+/exists_purity.kt: error: Quantifier body must be pure
+
+/exists_purity.kt: error: Function 'existsCallingImpureFunction' was not verified because of errors in its declaration
+
+/exists_purity.kt: error: Quantifier body must be pure

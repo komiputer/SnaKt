@@ -882,9 +882,33 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
-      @TestMetadata("exists_list_get_crash.kt")
-      public void testExists_list_get_crash() {
-        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_list_get_crash.kt");
+      @TestMetadata("exists_list_get.kt")
+      public void testExists_list_get() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_list_get.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_purity.kt")
+      public void testExists_purity() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_purity.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_vacuity.kt")
+      public void testExists_vacuity() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_vacuity.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_with_triggers.kt")
+      public void testExists_with_triggers() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_with_triggers.kt");
+      }
+
+      @Test
+      @TestMetadata("exists_witness_support.kt")
+      public void testExists_witness_support() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/exists_witness_support.kt");
       }
 
       @Test

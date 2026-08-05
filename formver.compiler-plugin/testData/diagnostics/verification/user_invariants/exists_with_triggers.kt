@@ -46,10 +46,10 @@ fun <!VIPER_TEXT!>existsWithTriggerInLoopInvariant<!>(str: String): Int {
     while (i < str.length) {
         loopInvariants {
             1 <= i && i <= str.length
-            exists<Int> {
+            <!VIPER_VERIFICATION_ERROR!>exists<Int> {
                 triggers(str[it])
                 0 <= it && it < i
-            }
+            }<!>
         }
         i += 1
     }
@@ -59,7 +59,7 @@ fun <!VIPER_TEXT!>existsWithTriggerInLoopInvariant<!>(str: String): Int {
 // A trigger term that does not mention the bound variable is not a valid Viper
 // trigger. The plugin passes triggers through unchecked, so this must surface as
 // a diagnostic from Viper rather than being accepted or crashing the compiler.
-<!VIPER_VERIFICATION_ERROR!>@AlwaysVerify
+@AlwaysVerify
 fun <!VIPER_TEXT!>existsWithTriggerNotMentioningBoundVariable<!>(n: Int): Int {
     preconditions {
         exists<Int> {
@@ -68,4 +68,4 @@ fun <!VIPER_TEXT!>existsWithTriggerNotMentioningBoundVariable<!>(n: Int): Int {
         }
     }
     return 0
-}<!>
+}

@@ -1,0 +1,54 @@
+/exists_vacuity.kt: info: Generated Viper text for contradictoryExists:
+method contradictoryExists() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon == 0 && anon == 1)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_vacuity.kt: info: Generated Viper text for referenceTypedExistsIsNotVacuous:
+function g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Box())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method referenceTypedExistsIsNotVacuous() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Ref :: isSubtype(typeOf(anon), Box()) && 1 == 2)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_vacuity.kt: info: Generated Viper text for referenceTypedExistsInPrecondition:
+function g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Box())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method referenceTypedExistsInPrecondition() returns (v_ret_0: Ref)
+  requires (exists anon_builtin_0: Ref :: isSubtype(typeOf(anon_builtin_0),
+      Box()) &&
+      1 == 2)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_1: Ref :: isSubtype(typeOf(anon_builtin_1), Box()) &&
+      1 == 2)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_vacuity.kt: info: Generated Viper text for existsDoesNotImplyForAll:
+method existsDoesNotImplyForAll() returns (v_ret_0: Ref)
+  requires (exists anon_builtin_0: Int :: anon_builtin_0 > 0)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (forall anon_builtin_1: Int ::anon_builtin_1 > 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

@@ -1,0 +1,5 @@
+/exists_vacuity.kt: warning: Viper verification error: Postcondition of contradictoryExists might not hold. Assertion (exists anon: Int :: anon == 0 && anon == 1) might not hold.
+
+/exists_vacuity.kt: warning: Viper verification error: Postcondition of referenceTypedExistsIsNotVacuous might not hold. Assertion (exists anon: Ref :: { isSubtype(typeOf(anon), Box()) } isSubtype(typeOf(anon), Box()) && 1 == 2) might not hold.
+
+/exists_vacuity.kt: warning: Viper verification error: Postcondition of existsDoesNotImplyForAll might not hold. Assertion (forall anon_builtin_1: Int ::anon_builtin_1 > 0) might not hold.

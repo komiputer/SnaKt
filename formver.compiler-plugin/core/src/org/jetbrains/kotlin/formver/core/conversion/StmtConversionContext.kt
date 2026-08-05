@@ -323,7 +323,7 @@ fun StmtConversionContext.collectInvariants(block: FirBlock) = buildList {
         check(stmt is FirExpression && stmt.resolvedType.isBoolean) {
             INVALID_STATEMENT_MSG
         }
-        add(stmt.accept(StmtConversionVisitor, this@collectInvariants))
+        add(stmt.accept(StmtConversionVisitor, this@collectInvariants).withPosition(stmt.source))
     }
 }
 
@@ -361,7 +361,7 @@ fun StmtConversionContext.collectInvariantsAndTriggers(block: FirBlock): Invaria
         check(stmt is FirExpression && stmt.resolvedType.isBoolean) {
             INVALID_STATEMENT_MSG
         }
-        invariants.add(stmt.accept(StmtConversionVisitor, this))
+        invariants.add(stmt.accept(StmtConversionVisitor, this).withPosition(stmt.source))
     }
 
     return InvariantsAndTriggers(invariants, triggers)

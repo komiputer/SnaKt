@@ -1,0 +1,72 @@
+/exists_with_triggers.kt: info: Generated Viper text for existsWithSimpleTrigger:
+method existsWithSimpleTrigger() returns (v_ret_0: Ref)
+  requires (exists anon_builtin_0: Int :: { anon_builtin_0 * anon_builtin_0 } anon_builtin_0 *
+      anon_builtin_0 ==
+      0)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_1: Int :: { anon_builtin_1 * anon_builtin_1 } anon_builtin_1 *
+      anon_builtin_1 ==
+      0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_with_triggers.kt: info: Generated Viper text for existsWithMultipleTriggers:
+method existsWithMultipleTriggers() returns (v_ret_0: Ref)
+  requires (exists anon_builtin_0: Int :: { anon_builtin_0 * anon_builtin_0 } { anon_builtin_0 +
+      1 } anon_builtin_0 * anon_builtin_0 == 0 && anon_builtin_0 + 1 == 1)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_1: Int :: { anon_builtin_1 * anon_builtin_1 } { anon_builtin_1 +
+      1 } anon_builtin_1 * anon_builtin_1 == 0 && anon_builtin_1 + 1 == 1)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_with_triggers.kt: info: Generated Viper text for existsWithTriggerInLoopInvariant:
+method existsWithTriggerInLoopInvariant(str: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(str), stringType())
+  requires |stringFromRef(str)| > 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var i: Ref
+  var anon_0: Ref
+  i := intToRef(1)
+  label cont
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(str), stringType())
+    invariant 1 <= intFromRef(i) && intFromRef(i) <= |stringFromRef(str)|
+    invariant (exists anon_builtin: Int :: { stringFromRef(str)[anon_builtin] } 0 <=
+        anon_builtin &&
+        anon_builtin < intFromRef(i))
+  anon_0 := ltInts(i, stringLength(str))
+  if (boolFromRef(anon_0)) {
+    i := plusInts(i, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(str), stringType())
+  assert 1 <= intFromRef(i) && intFromRef(i) <= |stringFromRef(str)|
+  assert (exists anon_builtin: Int :: { stringFromRef(str)[anon_builtin] } 0 <=
+      anon_builtin &&
+      anon_builtin < intFromRef(i))
+  v_ret_0 := i
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_with_triggers.kt: info: Generated Viper text for existsWithTriggerNotMentioningBoundVariable:
+method existsWithTriggerNotMentioningBoundVariable(n: Ref)
+  returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires (exists anon: Int :: { intFromRef(n) * intFromRef(n) } anon == 0)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

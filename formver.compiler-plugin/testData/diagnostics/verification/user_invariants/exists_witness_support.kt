@@ -6,13 +6,13 @@ import org.jetbrains.kotlin.formver.plugin.*
 // precondition or a loop invariant. Silicon runs without model-based quantifier
 // instantiation, so it will not invent a witness on its own: a bare `exists`
 // postcondition does not verify even when it is trivially true.
-<!VIPER_VERIFICATION_ERROR!>@AlwaysVerify
+@AlwaysVerify
 fun <!VIPER_TEXT!>bareExistsPostcondition<!>(): Int {
     postconditions<Int> {
-        exists<Int> { it == 0 }
+        <!VIPER_VERIFICATION_ERROR!>exists<Int> { it == 0 }<!>
     }
     return 0
-}<!>
+}
 
 // The same existential verifies once a precondition supplies the witness.
 @AlwaysVerify
@@ -21,7 +21,7 @@ fun <!VIPER_TEXT!>existsCarriedByPrecondition<!>(): Int {
         exists<Int> { it == 0 }
     }
     postconditions<Int> {
-        exists<Int> { it == 0 }
+        <!VIPER_VERIFICATION_ERROR!>exists<Int> { it == 0 }<!>
     }
     return 0
 }
@@ -41,7 +41,7 @@ fun <!VIPER_TEXT!>existsCarriedByLoopInvariant<!>(n: Int): Int {
     while (i < n) {
         loopInvariants {
             0 <= i && i <= n
-            exists<Int> { 0 <= it && it <= i }
+            <!VIPER_VERIFICATION_ERROR!>exists<Int> { 0 <= it && it <= i }<!>
         }
         i += 1
     }

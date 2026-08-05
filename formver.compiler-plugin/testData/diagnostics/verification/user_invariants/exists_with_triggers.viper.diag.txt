@@ -1,0 +1,1 @@
+/exists_with_triggers.kt: warning: Viper verification error: Loop invariant (exists anon_builtin: Int :: { stringFromRef(str)[anon_builtin] } 0 <= anon_builtin && anon_builtin < intFromRef(i)) might not hold on entry. Assertion (exists anon_builtin: Int :: { stringFromRef(str)[anon_builtin] } 0 <= anon_builtin && anon_builtin < intFromRef(i)) might not hold.

@@ -1,0 +1,5 @@
+/exists_witness_support.kt: warning: Viper verification error: Postcondition of bareExistsPostcondition might not hold. Assertion (exists anon: Int :: anon == 0) might not hold.
+
+/exists_witness_support.kt: warning: Viper verification error: Postcondition of existsCarriedByPrecondition might not hold. Assertion (exists anon_builtin_1: Int :: anon_builtin_1 == 0) might not hold.
+
+/exists_witness_support.kt: warning: Viper verification error: Loop invariant (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 && anon_builtin_1 <= intFromRef(i)) might not hold on entry. Assertion (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 && anon_builtin_1 <= intFromRef(i)) might not hold.

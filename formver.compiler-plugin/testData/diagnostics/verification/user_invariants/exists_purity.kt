@@ -2,6 +2,8 @@
 
 import org.jetbrains.kotlin.formver.plugin.*
 
+class Counter(var x: Int)
+
 fun <!VIPER_TEXT!>impureHelper<!>(): Int {
     return 1
 }
@@ -10,10 +12,9 @@ fun <!VIPER_TEXT!>impureHelper<!>(): Int {
 // in the body has to be rejected with a purity diagnostic; accepting it would
 // let a specification mutate state while being evaluated.
 @NeverVerify
-fun <!VERIFICATION_SKIPPED!>existsWithSideEffectingBody<!>(): Int {
-    var x = 42
+fun <!VERIFICATION_SKIPPED!>existsWithSideEffectingBody<!>(c: Counter): Int {
     preconditions {
-        exists<Int> { <!PURITY_VIOLATION!>it == x++<!> }
+        exists<Int> { <!PURITY_VIOLATION!>it == c.x++<!> }
     }
     return 0
 }

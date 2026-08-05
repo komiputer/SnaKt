@@ -1,0 +1,53 @@
+/exists_witness_support.kt: info: Generated Viper text for bareExistsPostcondition:
+method bareExistsPostcondition() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon: Int :: anon == 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_witness_support.kt: info: Generated Viper text for existsCarriedByPrecondition:
+method existsCarriedByPrecondition() returns (v_ret_0: Ref)
+  requires (exists anon_builtin_0: Int :: anon_builtin_0 == 0)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_1: Int :: anon_builtin_1 == 0)
+{
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exists_witness_support.kt: info: Generated Viper text for existsCarriedByLoopInvariant:
+method existsCarriedByLoopInvariant(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+  ensures (exists anon_builtin_0: Int :: 0 <= anon_builtin_0 &&
+      anon_builtin_0 <= intFromRef(n))
+{
+  var i: Ref
+  var anon_0: Ref
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(n), intType())
+    invariant 0 <= intFromRef(i) && intFromRef(i) <= intFromRef(n)
+    invariant (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+        anon_builtin_1 <= intFromRef(i))
+  anon_0 := ltInts(i, n)
+  if (boolFromRef(anon_0)) {
+    i := plusInts(i, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(n), intType())
+  assert 0 <= intFromRef(i) && intFromRef(i) <= intFromRef(n)
+  assert (exists anon_builtin_1: Int :: 0 <= anon_builtin_1 &&
+      anon_builtin_1 <= intFromRef(i))
+  v_ret_0 := i
+  goto lbl_ret_0
+  label lbl_ret_0
+}

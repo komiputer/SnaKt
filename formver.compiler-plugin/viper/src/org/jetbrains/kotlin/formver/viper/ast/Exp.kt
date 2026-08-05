@@ -699,8 +699,8 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
     data class AnySetUnion(
         override val left: Exp,
         override val right: Exp,
-        val pos: Position = Position.NoPosition,
-        val info: Info = Info.NoInfo,
+        override val pos: Position = Position.NoPosition,
+        override val info: Info = Info.NoInfo,
     ) : BinaryExp {
         context(nameResolver: NameResolver)
         override fun toSilver(): viper.silver.ast.AnySetUnion =

@@ -17,7 +17,7 @@ fun Interval.ordered(): Boolean = predicate {
 }
 
 // Returns the access it takes, so a caller may call it any number of times.
-fun inspect(i: Interval) {
+fun <!VIPER_TEXT!>inspect<!>(i: Interval) {
     preconditions {
         i.ordered()
     }
@@ -27,14 +27,14 @@ fun inspect(i: Interval) {
 }
 
 // Takes the access and does not return it.
-fun consume(i: Interval) {
+fun <!VIPER_TEXT!>consume<!>(i: Interval) {
     preconditions {
         i.ordered()
     }
 }
 
 @AlwaysVerify
-fun twoInspections(i: Interval) {
+fun <!VIPER_TEXT!>twoInspections<!>(i: Interval) {
     preconditions {
         i.ordered()
     }
@@ -43,7 +43,7 @@ fun twoInspections(i: Interval) {
 }
 
 @AlwaysVerify
-fun inspectAfterConsume(i: Interval) {
+fun <!VIPER_TEXT!>inspectAfterConsume<!>(i: Interval) {
     preconditions {
         i.ordered()
     }

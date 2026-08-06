@@ -1,0 +1,7 @@
+/custom_predicates_ki03_nonlambda_spec_block.kt: error: Function 'preconditionFromStoredBlock' was not verified because of errors in its declaration
+
+/custom_predicates_ki03_nonlambda_spec_block.kt: error: A specification block must take a lambda literal, not a stored function value or reference.
+
+/custom_predicates_ki03_nonlambda_spec_block.kt: error: Function 'loopInvariantFromStoredBlock' was not verified because of errors in its declaration
+
+/custom_predicates_ki03_nonlambda_spec_block.kt: error: A specification block must take a lambda literal, not a stored function value or reference.

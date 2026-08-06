@@ -1,0 +1,15 @@
+/custom_predicates_ki03_nonlambda_argument.kt: error: A `predicate { }` block must be the entire body of a function returning Boolean.
+
+/custom_predicates_ki03_nonlambda_argument.kt: error: Function 'useStoredPredicateBody' was not verified because of errors in its declaration
+
+/custom_predicates_ki03_nonlambda_argument.kt: info: Generated Viper text for emptyBody:
+method emptyBody() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_ki03_nonlambda_argument.kt: error: A `predicate { }` block must be the entire body of a function returning Boolean.
+
+/custom_predicates_ki03_nonlambda_argument.kt: error: Function 'useReferencedPredicateBody' was not verified because of errors in its declaration

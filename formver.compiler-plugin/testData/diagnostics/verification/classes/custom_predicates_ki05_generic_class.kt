@@ -16,14 +16,14 @@ fun <T> Cell<T>.tagged(): Boolean = predicate {
 }
 
 @AlwaysVerify
-fun useIntCell(c: Cell<Int>) {
+fun <!VIPER_TEXT!>useIntCell<!>(c: Cell<Int>) {
     preconditions {
         c.tagged()
     }
 }
 
 @AlwaysVerify
-fun useStringCell(c: Cell<String>) {
+fun <!VIPER_TEXT!>useStringCell<!>(c: Cell<String>) {
     preconditions {
         c.tagged()
     }
@@ -38,7 +38,7 @@ fun <A> Pair2<A>.sameIdentity(): Boolean = predicate {
 }
 
 @AlwaysVerify
-fun useSameIdentity(p: Pair2<Cell<Int>>) {
+fun <!VIPER_TEXT!>useSameIdentity<!>(p: Pair2<Cell<Int>>) {
     preconditions {
         p.sameIdentity()
     }

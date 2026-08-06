@@ -1,0 +1,148 @@
+/custom_predicates_ki04_full_permission.kt: info: Generated Viper text for inspect:
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Interval_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Interval())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef(lo(v_this_extension)) <= intFromRef(hi(v_this_extension))
+}
+
+method inspect(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+  ensures acc(ordered(i), write)
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_ki04_full_permission.kt: info: Generated Viper text for consume:
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Interval_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Interval())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef(lo(v_this_extension)) <= intFromRef(hi(v_this_extension))
+}
+
+method consume(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_ki04_full_permission.kt: info: Generated Viper text for twoInspections:
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Interval_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Interval())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef(lo(v_this_extension)) <= intFromRef(hi(v_this_extension))
+}
+
+method inspect(i: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(ret_2), unitType())
+  ensures acc(ordered(i), write)
+
+
+method twoInspections(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  anon_0 := inspect(i)
+  anon_1 := inspect(i)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_ki04_full_permission.kt: info: Generated Viper text for inspectAfterConsume:
+function hi(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function lo(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Interval())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Interval_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Interval())
+}
+
+predicate ordered(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Interval()) &&
+  acc(Interval_unique(v_this_extension), write) &&
+  intFromRef(lo(v_this_extension)) <= intFromRef(hi(v_this_extension))
+}
+
+method consume(i: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(ret_2), unitType())
+
+
+method inspect(i: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(ret_3), unitType())
+  ensures acc(ordered(i), write)
+
+
+method inspectAfterConsume(i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(i), Interval())
+  requires acc(ordered(i), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  anon_0 := consume(i)
+  anon_1 := inspect(i)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

@@ -1,0 +1,7 @@
+/custom_predicates_ki01_overload_collision.kt: error: Another predicate named 'level' is already declared on class 'ScopedName(scope=PackageScope(packageName=<root>), name=ClassKotlinName(name=Gauge))'; same-class predicate overloads are not supported.
+
+/custom_predicates_ki01_overload_collision.kt: error: A predicate must not declare value parameters; 'level' takes 1, but a call site can only ever supply the subject.
+
+/custom_predicates_ki01_overload_collision.kt: error: Function 'useLevelZero' was not verified because of errors in its declaration
+
+/custom_predicates_ki01_overload_collision.kt: error: Function 'useLevelOne' was not verified because of errors in its declaration

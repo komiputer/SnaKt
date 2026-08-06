@@ -6,11 +6,11 @@ function size(this: Ref): Ref
   ensures isSubtype(typeOf(result), intType())
 
 
-method inc(c: Ref) returns (ret_3: Ref)
+method inc(c: Ref) returns (ret_1: Ref)
   requires isSubtype(typeOf(c), C())
   requires acc(C_unique(c), write)
   ensures acc(C_unique(c), write)
-  ensures isSubtype(typeOf(ret_3), unitType())
+  ensures isSubtype(typeOf(ret_1), unitType())
   ensures intFromRef((unfolding acc(C_unique(c), write) in c.bf_field)) ==
     old(intFromRef((unfolding acc(C_unique(c), write) in c.bf_field))) + 1
 

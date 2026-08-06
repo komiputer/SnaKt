@@ -26,7 +26,16 @@ sealed interface SpecialKotlinFunction : CallableEmbedding {
 /**
  * Kotlin function that will always be handled specially, like aforementioned `Int.plus(Int)`.
  */
-interface FullySpecialKotlinFunction : SpecialKotlinFunction
+interface FullySpecialKotlinFunction : SpecialKotlinFunction {
+    /**
+     * Whether this function's `insertCall` never looks at its arguments (e.g. a no-op like
+     * `preconditions { }`). When true, callers may skip converting the call's argument expressions
+     * altogether, which matters for arguments that are legal Kotlin but not convertible on their own
+     * (a stored function value passed where a lambda literal is expected).
+     */
+    val ignoresArguments: Boolean
+        get() = false
+}
 
 /**
  * Kotlin function that will sometimes be handled specially depending on arguments they're called with.

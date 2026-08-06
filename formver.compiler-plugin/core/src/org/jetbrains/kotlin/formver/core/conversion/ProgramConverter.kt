@@ -14,6 +14,7 @@ import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
 import org.jetbrains.kotlin.fir.declarations.utils.isFinal
+import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.resolve.toClassSymbol
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
 import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
@@ -31,6 +32,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.callables.*
 import org.jetbrains.kotlin.formver.core.embeddings.expression.AnonymousBuiltinVariableEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.expression.AnonymousVariableEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.expression.ExpEmbedding
+import org.jetbrains.kotlin.formver.core.embeddings.expression.toConjunction
 import org.jetbrains.kotlin.formver.core.embeddings.properties.*
 import org.jetbrains.kotlin.formver.core.embeddings.types.*
 import org.jetbrains.kotlin.formver.core.names.*
@@ -75,6 +77,26 @@ class ProgramConverter(
 
     override fun reportPurityViolation(source: KtSourceElement?, msg: String) =
         emit(source, ConversionErrors.PURITY_VIOLATION, msg)
+
+    override fun reportPredicateOutsideSpecification(source: KtSourceElement?, msg: String) =
+        emit(source, ConversionErrors.PREDICATE_OUTSIDE_SPECIFICATION, msg)
+
+    override fun reportMalformedSpecificationBlock(source: KtSourceElement?, msg: String) =
+        emit(source, ConversionErrors.MALFORMED_SPECIFICATION_BLOCK, msg)
+
+    private var specificationDepth: Int = 0
+
+    override val inSpecification: Boolean
+        get() = specificationDepth > 0
+
+    override fun <R> withinSpecification(action: () -> R): R {
+        specificationDepth++
+        try {
+            return action()
+        } finally {
+            specificationDepth--
+        }
+    }
 
     override fun reportMinorInternalError(msg: String) =
         emit(currentDeclarationSource, ConversionErrors.MINOR_INTERNAL_ERROR, msg)
@@ -131,9 +153,10 @@ class ProgramConverter(
         fields = typeResolver.backingFields().distinctBy { it.name }.map { it.toViper() },
         functions = SpecialFunctions.all + linearizedBodyResolver.functions,
         methods = SpecialMethods.all + linearizedBodyResolver.methods,
-        predicates = typeResolver.classTypeEmbeddings().map {
+        predicates = typeResolver.classTypeEmbeddings().flatMap { classType ->
             with(typeResolver) {
-                it.uniquePredicate()
+                listOf(classType.uniquePredicate()) +
+                        typeResolver.lookupCustomPredicates(classType.name).map { classType.customPredicate(it) }
             }
         },
         adts = emptyList(),
@@ -146,6 +169,9 @@ class ProgramConverter(
      * Embed the declaration's signature and embeds the body.
      */
     fun register(declaration: FirSimpleFunction) {
+        // A predicate declaration has no body to verify; it only contributes a Viper predicate.
+        if (embedCustomPredicate(declaration.symbol) != null) return
+
         val signature = embedCompleteSignature(declaration.symbol)
         embedFunctionBody(declaration.symbol, signature)
         registered += RegisteredFunction(declaration, signature.signature, signature.returnTarget)
@@ -342,6 +368,9 @@ class ProgramConverter(
         // check if it must be handled specially
         embedSpecialFunction(symbol)?.let { return it }
 
+        // a predicate declaration is not a callable at all: it becomes a Viper predicate
+        embedCustomPredicate(symbol)?.let { return it }
+
         // check if it already was embedded
         callable[symbol.embedName(this)]?.let { return it.signature }
 
@@ -354,6 +383,134 @@ class ProgramConverter(
         }
 
         return signature.signature
+    }
+
+    // endregion
+
+
+    // region custom predicates
+
+    private val customPredicateCallables: MutableMap<SymbolicName, CustomPredicateCallable> = mutableMapOf()
+    private val rejectedPredicateSymbols: MutableSet<FirFunctionSymbol<*>> = mutableSetOf()
+
+    /**
+     * Other top-level predicate declarations sharing [symbol]'s name and class, besides [symbol] itself.
+     *
+     * Every declaration check gets its own [ProgramConverter], so a same-class overload collision can't
+     * be caught by remembering what an earlier declaration looked like: there is no earlier state to
+     * remember. Looked up through the session's symbol provider instead, which sees every top-level
+     * function named [symbol] regardless of which one is currently being converted.
+     */
+    @OptIn(SymbolInternals::class)
+    private fun siblingPredicateDeclarations(symbol: FirFunctionSymbol<*>, classType: ClassTypeEmbedding): List<FirFunctionSymbol<*>> {
+        val callableId = symbol.callableId
+        return session.symbolProvider.getTopLevelFunctionSymbols(callableId.packageName, callableId.callableName)
+            .filter { candidate ->
+                candidate != symbol &&
+                    (candidate.fir as? FirSimpleFunction)?.extractPredicateDeclarationBlock() != null &&
+                    (candidate.receiverType ?: candidate.extensionReceiverType)
+                        ?.let { embedType(it).pretype as? ClassTypeEmbedding }?.name == classType.name
+            }
+    }
+
+    /**
+     * Embed [symbol] as a user-declared predicate, or return null if it is not a predicate declaration.
+     *
+     * The callable is memoised before the body is converted, because a recursive predicate reaches this
+     * function again while converting its own body and must find the embedding already in place.
+     *
+     * The purely structural checks come first and nothing is embedded until they pass. Every function in
+     * the program reaches this path, and embedding a name or a type has ordering-visible side effects, so
+     * touching them earlier would shift the generated Viper for programs that declare no predicate at all.
+     */
+    @OptIn(SymbolInternals::class)
+    private fun embedCustomPredicate(symbol: FirFunctionSymbol<*>): CustomPredicateCallable? {
+        val declaration = symbol.fir as? FirSimpleFunction ?: return null
+        // A malformed declaration is not memoised as a callable, so without this guard resolving the
+        // same symbol a second time within one conversion (e.g. from a later validation pass) would
+        // re-emit its diagnostics.
+        if (symbol in rejectedPredicateSymbols) return null
+
+        val predicateBlock = declaration.extractPredicateDeclarationBlock() ?: run {
+            if (declaration.mentionsPredicateBuiltin()) {
+                emit(
+                    declaration.source, ConversionErrors.MALFORMED_PREDICATE_DECLARATION,
+                    "A `predicate { }` block must be the entire body of a function returning Boolean.",
+                )
+                rejectedPredicateSymbols += symbol
+            }
+            return null
+        }
+
+        val name = symbol.embedName(this)
+        customPredicateCallables[name]?.let { return it }
+
+        val subjectIsDispatch = symbol.receiverType != null
+        val subjectType = symbol.receiverType ?: symbol.extensionReceiverType
+        val classType = subjectType?.let { embedType(it).pretype as? ClassTypeEmbedding }
+        if (classType == null) {
+            emit(
+                declaration.source, ConversionErrors.PREDICATE_WITHOUT_CLASS,
+                "A predicate must be declared on a class; '${declaration.name.asString()}' has no class receiver.",
+            )
+            return null
+        }
+
+        val predicateName = ScopedName(classType.name.asScope(), PredicateName(symbol.name.asString()))
+
+        // A predicate's Viper form takes exactly one argument, the subject; call sites forward only
+        // the subject, so a non-receiver value parameter can never be given a meaning. Checked before
+        // the sibling-collision check below so a declaration with both problems is reported once, for
+        // its more fundamental defect.
+        val hasValueParameters = symbol.valueParameterSymbols.isNotEmpty()
+        if (hasValueParameters) {
+            emit(
+                declaration.source, ConversionErrors.MALFORMED_PREDICATE_DECLARATION,
+                "A predicate must not declare value parameters; '${declaration.name.asString()}' takes " +
+                    "${symbol.valueParameterSymbols.size}, but a call site can only ever supply the subject.",
+            )
+            rejectedPredicateSymbols += symbol
+            return null
+        }
+
+        // The emitted Viper predicate name is derived from the class and function name alone, so two
+        // declarations with the same name on the same class (distinct Kotlin overloads) would collide
+        // on one Viper predicate. Reject both rather than silently keeping whichever is seen first.
+        if (siblingPredicateDeclarations(symbol, classType).isNotEmpty()) {
+            emit(
+                declaration.source, ConversionErrors.MALFORMED_PREDICATE_DECLARATION,
+                "Another predicate named '${declaration.name.asString()}' is already declared on class " +
+                    "'${classType.name}'; same-class predicate overloads are not supported.",
+            )
+            rejectedPredicateSymbols += symbol
+            return null
+        }
+
+        val embedding = CustomPredicateEmbedding(
+            classType.name,
+            predicateName,
+            if (subjectIsDispatch) DispatchReceiverName else ExtensionReceiverName,
+        )
+        val callable = CustomPredicateCallable(embedFunctionPretype(symbol), embedding)
+        customPredicateCallables[name] = callable
+
+        val signature = with(this) { symbol.toFunctionSignature().toNamedSignature(symbol) }
+        val conversionCtx = MethodConverter(
+            this,
+            signature.signature,
+            RootParameterResolver(
+                this,
+                signature.signature,
+                symbol.valueParameterSymbols,
+                signature.signature.labelName,
+                signature.returnTarget,
+            ),
+            ScopeIndex.NoScope,
+        ).statementCtxt()
+        embedding.body = conversionCtx.collectInvariants(predicateBlock).toConjunction()
+
+        typeResolver.registerCustomPredicate(embedding)
+        return callable
     }
 
     // endregion
@@ -376,7 +533,12 @@ class ProgramConverter(
             return Pair(emptyList(), emptyList())
         }
 
-        val firSpec = extractFirSpecification(body, declaration.symbol.resolvedReturnType)
+        val firSpec = extractFirSpecification(body, declaration.symbol.resolvedReturnType) { call ->
+            emit(
+                call.source, ConversionErrors.MALFORMED_SPECIFICATION_BLOCK,
+                "A specification block must take a lambda literal, not a stored function value or reference.",
+            )
+        }
 
 
         val (preconditionContext, postconditionContext) = createContractConversionContext(

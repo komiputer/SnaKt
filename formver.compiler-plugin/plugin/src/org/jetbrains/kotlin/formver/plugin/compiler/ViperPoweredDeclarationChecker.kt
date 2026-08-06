@@ -21,6 +21,8 @@ import org.jetbrains.kotlin.formver.common.PluginConfiguration
 import org.jetbrains.kotlin.formver.common.SnaktInternalException
 import org.jetbrains.kotlin.formver.common.TargetsSelection
 import org.jetbrains.kotlin.formver.core.conversion.ProgramConverter
+import org.jetbrains.kotlin.formver.core.conversion.extractPredicateDeclarationBlock
+import org.jetbrains.kotlin.formver.core.conversion.mentionsPredicateBuiltin
 import org.jetbrains.kotlin.formver.core.embeddings.expression.debug.print
 import org.jetbrains.kotlin.formver.core.names.SimpleNameResolver
 import org.jetbrains.kotlin.formver.core.shouldVerify
@@ -141,6 +143,10 @@ class ViperPoweredDeclarationChecker(private val session: FirSession, private va
         declaration.origin != FirDeclarationOrigin.Source -> false
         declaration.hasAnnotation(neverConvertId, session) -> false
         declaration.hasAnnotation(alwaysVerifyId, session) -> true
+        // A predicate declaration states a property rather than computing one; there is nothing to
+        // verify. This also covers a malformed one (e.g. `predicate(storedValue)`): it is diagnosed
+        // lazily, from call sites via embedCustomPredicate, the same way a well-formed one is embedded.
+        declaration.extractPredicateDeclarationBlock() != null || declaration.mentionsPredicateBuiltin() -> false
         else -> conversionSelection.applicable(declaration)
     }
 

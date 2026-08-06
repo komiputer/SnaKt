@@ -1,0 +1,11 @@
+/custom_predicates_ki02_value_parameter.kt: error: A predicate must not declare value parameters; 'atMost' takes 1, but a call site can only ever supply the subject.
+
+/custom_predicates_ki02_value_parameter.kt: error: A predicate must not declare value parameters; 'atMost' takes 1, but a call site can only ever supply the subject.
+
+/custom_predicates_ki02_value_parameter.kt: error: Function 'atMostTen' was not verified because of errors in its declaration
+
+/custom_predicates_ki02_value_parameter.kt: error: Function 'atMostZero' was not verified because of errors in its declaration
+
+/custom_predicates_ki02_value_parameter.kt: error: A predicate must not declare value parameters; 'positiveIgnoringArg' takes 1, but a call site can only ever supply the subject.
+
+/custom_predicates_ki02_value_parameter.kt: error: Function 'usePositiveIgnoringArg' was not verified because of errors in its declaration

@@ -16,6 +16,7 @@ class FullySpecialKotlinFunctionImpl(
     override val className: String?,
     override val name: String,
     override val callableType: FunctionTypeEmbedding,
+    override val ignoresArguments: Boolean,
     val body: (List<ExpEmbedding>, StmtConversionContext) -> ExpEmbedding,
 ) : FullySpecialKotlinFunction {
     override fun insertCall(args: List<ExpEmbedding>, ctx: StmtConversionContext) = body(args, ctx)
@@ -51,10 +52,11 @@ class FullySpecialKotlinFunctionBuilder {
             packageName: List<String>,
             className: String? = null,
             name: String,
+            ignoresArguments: Boolean = false,
             body: (List<ExpEmbedding>, StmtConversionContext) -> ExpEmbedding,
         ) {
             FullySpecialKotlinFunctionImpl(
-                packageName, className, name, callableType, body
+                packageName, className, name, callableType, ignoresArguments, body
             ).apply { byName[embedName()] = this }
         }
 
@@ -62,7 +64,7 @@ class FullySpecialKotlinFunctionBuilder {
             packageName: List<String>,
             className: String? = null,
             name: String,
-        ) = addFunction(packageName, className, name) { _, _ ->
+        ) = addFunction(packageName, className, name, ignoresArguments = true) { _, _ ->
             UnitLit
         }
     }

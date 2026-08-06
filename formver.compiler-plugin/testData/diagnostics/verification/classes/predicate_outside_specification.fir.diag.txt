@@ -1,0 +1,3 @@
+/predicate_outside_specification.kt: error: Function 'checkAtRuntime' was not verified because of errors in its declaration
+
+/predicate_outside_specification.kt: error: A predicate can only be referred to from a specification; it has no value at run time.

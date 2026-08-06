@@ -33,6 +33,30 @@ fun <T> old(@Suppress("UNUSED_PARAMETER") body: T): T =
 
 
 /**
+ * Declares a predicate over the state of the receiver's class.
+ *
+ * The enclosing function must return [Boolean] and have `predicate { }` as its entire body; its
+ * name becomes the predicate's name and its receiver becomes the predicate's subject. The block
+ * body is an implicit conjunction, and it holds in addition to the permissions the class always
+ * carries, so a predicate strengthens the class invariant rather than replacing it.
+ *
+ * The [Boolean] return type is what lets a predicate refer to itself: `next!!.sorted()` composes
+ * with `&&` and `||` inside its own body.
+ *
+ * ```kotlin
+ * fun Node.sorted(): Boolean = predicate {
+ *     next == null || (value <= next!!.value && next!!.sorted())
+ * }
+ * ```
+ *
+ * A predicate may only be named in a specification: `preconditions { }`, `postconditions { }`
+ * or `loopInvariants { }`.
+ */
+fun predicate(@Suppress("UNUSED_PARAMETER") body: () -> Unit): Boolean =
+    throw FormverFunctionCalledInRuntimeException("predicate")
+
+
+/**
  * Requests access permission to the field denoted by [path] in a pre- or postcondition.
  *
  * [path] must be a field access such as `x.a`. The optional [permission] selects how much

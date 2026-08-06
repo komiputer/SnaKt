@@ -1,0 +1,89 @@
+/custom_predicates_ki05_generic_class.kt: info: Generated Viper text for useIntCell:
+function item(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Cell())
+  ensures isSubtype(typeOf(result), nullable(anyType()))
+
+
+function tag(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Cell())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Cell_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Cell())
+}
+
+predicate tagged(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Cell()) &&
+  acc(Cell_unique(v_this_extension), write) &&
+  intFromRef(tag(v_this_extension)) > 0
+}
+
+method useIntCell(c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(c), Cell())
+  requires acc(tagged(c), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_ki05_generic_class.kt: info: Generated Viper text for useStringCell:
+function item(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Cell())
+  ensures isSubtype(typeOf(result), nullable(anyType()))
+
+
+function tag(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Cell())
+  ensures isSubtype(typeOf(result), intType())
+
+
+predicate Cell_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Cell())
+}
+
+predicate tagged(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Cell()) &&
+  acc(Cell_unique(v_this_extension), write) &&
+  intFromRef(tag(v_this_extension)) > 0
+}
+
+method useStringCell(c: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(c), Cell())
+  requires acc(tagged(c), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/custom_predicates_ki05_generic_class.kt: info: Generated Viper text for useSameIdentity:
+function left(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Pair2())
+  ensures isSubtype(typeOf(result), nullable(anyType()))
+
+
+function right(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), Pair2())
+  ensures isSubtype(typeOf(result), nullable(anyType()))
+
+
+predicate Pair2_unique(v_this: Ref) {
+  isSubtype(typeOf(v_this), Pair2())
+}
+
+predicate sameIdentity(v_this_extension: Ref) {
+  isSubtype(typeOf(v_this_extension), Pair2()) &&
+  acc(Pair2_unique(v_this_extension), write) &&
+  left(v_this_extension) == right(v_this_extension)
+}
+
+method useSameIdentity(p: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(p), Pair2())
+  requires acc(sameIdentity(p), write)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

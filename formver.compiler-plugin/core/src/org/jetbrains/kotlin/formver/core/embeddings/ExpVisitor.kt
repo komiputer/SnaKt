@@ -68,6 +68,10 @@ interface ExpVisitor<R> {
     fun visitPermissionLit(e: PermissionLit): R
     fun visitFold(e: Fold): R
     fun visitUnfold(e: Unfold): R
+    fun visitIntArraySize(e: IntArraySize): R
+    fun visitIntArrayGet(e: IntArrayGet): R
+    fun visitIntArraySet(e: IntArraySet): R
+    fun visitIntArrayAsMultiset(e: IntArrayAsMultiset): R
 }
 
 /**
@@ -129,4 +133,8 @@ interface DefaultingExpVisitor<R> : ExpVisitor<R> {
     override fun visitPermissionLit(e: PermissionLit): R = visitDefault(e)
     override fun visitFold(e: Fold): R = visitDefault(e)
     override fun visitUnfold(e: Unfold): R = visitDefault(e)
+    override fun visitIntArraySize(e: IntArraySize): R = visitDefault(e)
+    override fun visitIntArrayGet(e: IntArrayGet): R = visitDefault(e)
+    override fun visitIntArraySet(e: IntArraySet): R = visitDefault(e)
+    override fun visitIntArrayAsMultiset(e: IntArrayAsMultiset): R = visitDefault(e)
 }

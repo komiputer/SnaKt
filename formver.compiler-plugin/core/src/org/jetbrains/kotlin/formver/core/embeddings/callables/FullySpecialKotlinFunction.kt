@@ -376,6 +376,25 @@ object SpecialKotlinFunctions {
             StringGet(args[0], args[1])
         }
 
+        val intArrayGetType = buildFunctionPretype {
+            withDispatchReceiver { intArray() }
+            withParam { int() }
+            withReturnType { int() }
+        }
+        addFunction(intArrayGetType, SpecialPackages.kotlin, className = "IntArray", name = "get") { args, _ ->
+            IntArrayGet(args[0], args[1])
+        }
+
+        val intArraySetType = buildFunctionPretype {
+            withDispatchReceiver { intArray() }
+            withParam { int() }
+            withParam { int() }
+            withReturnType { unit() }
+        }
+        addFunction(intArraySetType, SpecialPackages.kotlin, className = "IntArray", name = "set") { args, _ ->
+            IntArraySet(args[0], args[1], args[2])
+        }
+
         val uniquePredicatePermissionsToUnit = buildFunctionPretype {
             withParam {
                 klass {
@@ -406,6 +425,15 @@ object SpecialKotlinFunctions {
             Fold(
                 extractPredicate(exp, extractPermission(args.getOrNull(1)))
             )
+        }
+
+
+        val intArrayToAny = buildFunctionPretype {
+            withParam { intArray() }
+            withReturnType { any() }
+        }
+        addFunction(intArrayToAny, SpecialPackages.formver, name = "toMultiset") { args, _ ->
+            IntArrayAsMultiset(args[0])
         }
     }
 }

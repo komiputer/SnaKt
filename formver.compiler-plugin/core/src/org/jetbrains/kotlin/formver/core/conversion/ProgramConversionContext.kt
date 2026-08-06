@@ -60,6 +60,9 @@ interface ProgramConversionContext : ErrorCollectionContext {
     /** Report a predicate access built where [inSpecification] is false. */
     fun reportPredicateOutsideSpecification(source: KtSourceElement?, msg: String)
 
+    /** Report a specification block (`preconditions`, `postconditions`, `loopInvariants`) whose argument is not a lambda literal. */
+    fun reportMalformedSpecificationBlock(source: KtSourceElement?, msg: String)
+
     fun embedAnyFunction(symbol: FirFunctionSymbol<*>): CallableEmbedding
     fun embedType(type: ConeKotlinType): TypeEmbedding
     fun embedFunctionPretype(symbol: FirFunctionSymbol<*>): FunctionTypeEmbedding

@@ -41,5 +41,10 @@ object ConversionErrorMessages : BaseDiagnosticRendererFactory() {
             "{0}",
             CommonRenderers.STRING,
         )
+        map.put(
+            ConversionErrors.MALFORMED_SPECIFICATION_BLOCK,
+            "{0}",
+            CommonRenderers.STRING,
+        )
     }
 }

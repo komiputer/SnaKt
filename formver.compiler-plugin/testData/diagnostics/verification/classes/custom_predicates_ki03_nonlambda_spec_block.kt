@@ -15,15 +15,15 @@ fun Interval.ordered(): Boolean = predicate {
 
 val storedSpec: () -> Unit = {}
 
-fun preconditionFromStoredBlock(i: Interval): Int {
-    preconditions(storedSpec)
+fun <!VERIFICATION_SKIPPED!>preconditionFromStoredBlock<!>(i: Interval): Int {
+    <!MALFORMED_SPECIFICATION_BLOCK!>preconditions(storedSpec)<!>
     return i.lo
 }
 
-fun loopInvariantFromStoredBlock(n: Int): Int {
+fun <!VERIFICATION_SKIPPED!>loopInvariantFromStoredBlock<!>(n: Int): Int {
     var i = 0
     while (i < n) {
-        loopInvariants(storedSpec)
+        <!MALFORMED_SPECIFICATION_BLOCK!>loopInvariants(storedSpec)<!>
         i = i + 1
     }
     return i

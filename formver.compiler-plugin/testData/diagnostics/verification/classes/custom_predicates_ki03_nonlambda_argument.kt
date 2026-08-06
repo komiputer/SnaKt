@@ -20,7 +20,7 @@ fun <!VERIFICATION_SKIPPED!>useStoredPredicateBody<!>(i: Interval) {
 }
 
 // A function reference reaches the same extraction path by a different route.
-fun emptyBody() {}
+fun <!VIPER_TEXT!>emptyBody<!>() {}
 
 fun Interval.<!MALFORMED_PREDICATE_DECLARATION!>referencedPredicateBody<!>(): Boolean = predicate(::emptyBody)
 

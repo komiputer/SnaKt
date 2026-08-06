@@ -13,19 +13,31 @@ import org.jetbrains.kotlin.fir.symbols.impl.FirValueParameterSymbol
 import org.jetbrains.kotlin.fir.types.*
 import org.jetbrains.kotlin.formver.core.isFormverFunctionNamed
 
-fun FirStatement.extractFormverFirBlock(predicate: FirFunctionSymbol<*>.() -> Boolean): FirAnonymousFunction? {
+/**
+ * Extracts the lambda argument of a call to a formver builtin recognised by [predicate], or `null`
+ * if [this] is not such a call. If it is such a call but the argument is not a lambda literal (e.g.
+ * a stored function value or a callable reference), [onMalformedArgument] is invoked with the call's
+ * source and `null` is returned rather than throwing: callers can pass legal Kotlin here, and a
+ * misuse must be reported as a diagnostic, not crash the compiler frontend.
+ */
+fun FirStatement.extractFormverFirBlock(
+    onMalformedArgument: (FirFunctionCall) -> Unit = {},
+    predicate: FirFunctionSymbol<*>.() -> Boolean,
+): FirAnonymousFunction? {
     if (this !is FirFunctionCall) return null
     val firFunction = toResolvedCallableSymbol() as? FirFunctionSymbol<*> ?: return null
     if (!predicate(firFunction)) return null
     val formverInvariantsArgument = argument
-    if (formverInvariantsArgument !is FirAnonymousFunctionExpression)
-        error("Only lambdas are allowed as arguments of ${firFunction.name}.")
+    if (formverInvariantsArgument !is FirAnonymousFunctionExpression) {
+        onMalformedArgument(this)
+        return null
+    }
     return formverInvariantsArgument.anonymousFunction
 }
 
-fun extractLoopInvariants(parentBlock: FirBlock): FirBlock? {
+fun extractLoopInvariants(parentBlock: FirBlock, onMalformedArgument: (FirFunctionCall) -> Unit = {}): FirBlock? {
     val firstStmt = parentBlock.statements.firstOrNull() ?: return null
-    return firstStmt.extractFormverFirBlock { isFormverFunctionNamed("loopInvariants") }?.body
+    return firstStmt.extractFormverFirBlock(onMalformedArgument) { isFormverFunctionNamed("loopInvariants") }?.body
 }
 
 /**
@@ -49,11 +61,16 @@ fun FirSimpleFunction.extractPredicateDeclarationBlock(): FirBlock? {
 }
 
 /**
- * Whether [declaration] mentions `predicate { }` anywhere in its body, used to tell a malformed
- * predicate declaration apart from a function that simply has nothing to do with predicates.
+ * Whether [declaration] mentions `predicate(...)` anywhere in its body, regardless of whether its
+ * argument is a lambda literal. Used to tell a malformed predicate declaration (including one whose
+ * argument is not a lambda literal) apart from a function that simply has nothing to do with
+ * predicates.
  */
 fun FirSimpleFunction.mentionsPredicateBuiltin(): Boolean =
-    body?.statements?.any { it.extractPredicateBlock() != null } == true
+    body?.statements?.any { stmt ->
+        val call = stmt.unwrapReturn() as? FirFunctionCall ?: return@any false
+        (call.toResolvedCallableSymbol() as? FirFunctionSymbol<*>)?.isFormverFunctionNamed("predicate") == true
+    } == true
 
 private fun FirStatement.unwrapReturn(): FirStatement =
     (this as? FirReturnExpression)?.result ?: this
@@ -69,16 +86,21 @@ private fun FirAnonymousFunction.extractFormverReturnVar(returnType: ConeKotlinT
     return param.symbol
 }
 
-fun extractFirSpecification(parentBlock: FirBlock, returnType: ConeKotlinType): FirSpecification {
+fun extractFirSpecification(
+    parentBlock: FirBlock,
+    returnType: ConeKotlinType,
+    onMalformedArgument: (FirFunctionCall) -> Unit = {},
+): FirSpecification {
     val firstStmt = parentBlock.statements.firstOrNull() ?: return FirSpecification()
 
-    firstStmt.extractFormverFirBlock { isFormverFunctionNamed("postconditions") }?.let { lambda ->
+    firstStmt.extractFormverFirBlock(onMalformedArgument) { isFormverFunctionNamed("postconditions") }?.let { lambda ->
         return FirSpecification(null, lambda.body, lambda.extractFormverReturnVar(returnType))
     }
 
-    val precond = firstStmt.extractFormverFirBlock { isFormverFunctionNamed("preconditions") }
+    val precond = firstStmt.extractFormverFirBlock(onMalformedArgument) { isFormverFunctionNamed("preconditions") }
         ?: return FirSpecification()
     val postcond =
-        parentBlock.statements.getOrNull(1)?.extractFormverFirBlock { isFormverFunctionNamed("postconditions") }
+        parentBlock.statements.getOrNull(1)
+            ?.extractFormverFirBlock(onMalformedArgument) { isFormverFunctionNamed("postconditions") }
     return FirSpecification(precond.body, postcond?.body, postcond?.extractFormverReturnVar(returnType))
 }

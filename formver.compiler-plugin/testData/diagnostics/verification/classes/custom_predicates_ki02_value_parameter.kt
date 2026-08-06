@@ -11,7 +11,9 @@ import org.jetbrains.kotlin.formver.plugin.AlwaysVerify
 // discarded. Accepting the declaration is the bug; it must be rejected.
 class Box(val v: Int)
 
-fun Box.<!MALFORMED_PREDICATE_DECLARATION!>atMost<!>(bound: Int): Boolean = predicate {
+// Two call sites below each embed and diagnose this declaration independently (predicates are
+// embedded lazily, per caller), so the malformed declaration is marked once per caller.
+fun Box.<!MALFORMED_PREDICATE_DECLARATION, MALFORMED_PREDICATE_DECLARATION!>atMost<!>(bound: Int): Boolean = predicate {
     v <= bound
 }
 

@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.formver.common.SnaktInternalException
 import org.jetbrains.kotlin.formver.common.UnsupportedFeatureBehaviour
 import org.jetbrains.kotlin.formver.core.embeddings.LabelLink
 import org.jetbrains.kotlin.formver.core.embeddings.callables.CallableEmbedding
+import org.jetbrains.kotlin.formver.core.embeddings.callables.FullySpecialKotlinFunction
 import org.jetbrains.kotlin.formver.core.embeddings.callables.insertCall
 import org.jetbrains.kotlin.formver.core.embeddings.callables.isVerifyFunction
 import org.jetbrains.kotlin.formver.core.embeddings.expression.*
@@ -287,11 +288,16 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
             ?: throw NotImplementedError("Only functions are expected as callables of function calls, got ${functionCall.toResolvedCallableSymbol()}")
 
         val callee = data.embedAnyFunction(symbol)
-        return callee.insertCall(
-            functionCall.functionCallArguments.withVarargsHandled(data, callee),
-            data,
-            data.embedType(functionCall.resolvedType),
-        )
+        // A callee that never looks at its arguments (e.g. `preconditions { }`) may be called with an
+        // argument that isn't independently convertible, such as a stored function value passed where a
+        // lambda literal is expected; that misuse is reported as a diagnostic elsewhere, so there is
+        // nothing to gain (and a crash to risk) from converting it here.
+        val args = if ((callee as? FullySpecialKotlinFunction)?.ignoresArguments == true) {
+            emptyList()
+        } else {
+            functionCall.functionCallArguments.withVarargsHandled(data, callee)
+        }
+        return callee.insertCall(args, data, data.embedType(functionCall.resolvedType))
     }
 
     override fun visitImplicitInvokeCall(
@@ -337,7 +343,12 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
             data.retrievePropertiesAndParameters().forEach {
                 addAll(it.provenInvariants())
             }
-            extractLoopInvariants(whileLoop.block)?.let {
+            extractLoopInvariants(whileLoop.block) { call ->
+                data.reportMalformedSpecificationBlock(
+                    call.source,
+                    "A specification block must take a lambda literal, not a stored function value or reference.",
+                )
+            }?.let {
                 addAll(data.withScopeImpl(ScopeIndex.NoScope) { data.collectInvariants(it) })
             }
         }

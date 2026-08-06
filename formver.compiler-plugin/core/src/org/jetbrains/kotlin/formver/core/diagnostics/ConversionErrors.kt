@@ -35,5 +35,8 @@ object ConversionErrors : KtDiagnosticsContainer() {
     /** A call to a predicate declaration somewhere other than a specification block. */
     val PREDICATE_OUTSIDE_SPECIFICATION by error1<PsiElement, String>(SourceElementPositioningStrategies.DEFAULT)
 
+    /** A `preconditions`/`postconditions`/`loopInvariants` call whose argument is not a lambda literal. */
+    val MALFORMED_SPECIFICATION_BLOCK by error1<PsiElement, String>(SourceElementPositioningStrategies.DEFAULT)
+
     override fun getRendererFactory() = ConversionErrorMessages
 }

@@ -76,6 +76,7 @@ data class DoWhile(
     val continueLabel = LabelEmbedding(continueLabelName)
     val breakLabel = LabelEmbedding(breakLabelName)
 
+    // Matches While's child order for consistency; not the emission order, which is body then condition.
     override fun children(): Sequence<ExpEmbedding> = sequenceOf(condition, body)
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitDoWhile(this)
 }

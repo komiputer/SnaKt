@@ -84,6 +84,8 @@ data class LinearizationVisitor(
                 }
                 Stmt.If(condVar.linearize().toViperBuiltinType(ctx), bodyBlock, els = Stmt.Seqn(), ctx.source.asPosition)
             }
+            // No trailing invariant assert: exit is reached only after body-then-condition,
+            // so the invariant already held at the last check inside the loop.
             ctx.addLabel(e.breakLabel.toViper(ctx))
         }
     }

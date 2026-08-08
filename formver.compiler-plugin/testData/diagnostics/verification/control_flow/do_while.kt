@@ -1,4 +1,5 @@
 // FULL_JDK
+// needed for Comparable resolution on `x > 0` below
 
 import org.jetbrains.kotlin.formver.plugin.NeverConvert
 

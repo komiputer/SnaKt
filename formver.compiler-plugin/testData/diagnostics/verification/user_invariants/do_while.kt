@@ -60,3 +60,17 @@ fun <!VIPER_TEXT!>doWhileInvariantNotCheckedOnExit<!>(n: Int) {
         it = it + 1
     } while (it < n)
 }
+
+@AlwaysVerify
+fun <!VIPER_TEXT!>doWhileInvariantCheckedBeforeFirstIteration<!>(n: Int) {
+    preconditions {
+        n > 0
+    }
+    var it = 0
+    <!VIPER_VERIFICATION_ERROR!>do {
+        loopInvariants {
+            it > 0
+        }
+        it = it + 1
+    } while (it < n)<!>
+}

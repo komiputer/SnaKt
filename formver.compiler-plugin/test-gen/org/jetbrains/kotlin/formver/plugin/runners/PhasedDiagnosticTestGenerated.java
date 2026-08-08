@@ -596,6 +596,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("do_while.kt")
+      public void testDo_while() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/do_while.kt");
+      }
+
+      @Test
       @TestMetadata("exp_side_effects.kt")
       public void testExp_side_effects() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/exp_side_effects.kt");
@@ -861,6 +867,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("and_or_then.kt")
       public void testAnd_or_then() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/and_or_then.kt");
+      }
+
+      @Test
+      @TestMetadata("do_while.kt")
+      public void testDo_while() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/do_while.kt");
       }
 
       @Test

@@ -1,0 +1,132 @@
+/do_while.kt: info: Generated Viper text for doWhileSimple:
+method doWhileSimple(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var a: Ref
+  var anon: Ref
+  label body
+    invariant isSubtype(typeOf(b), boolType())
+  a := intToRef(1)
+  label cont
+  anon := b
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileFunctionCondition:
+method doWhileFunctionCondition() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon: Ref
+  label body
+  label cont
+  anon := returnsBoolean()
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+method returnsBoolean() returns (ret_1: Ref)
+  ensures isSubtype(typeOf(ret_1), boolType())
+
+
+/do_while.kt: info: Generated Viper text for doWhileConditionUsesBodyLocal:
+method computeX() returns (ret_1: Ref)
+  ensures isSubtype(typeOf(ret_1), intType())
+
+
+method doWhileConditionUsesBodyLocal() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var x: Ref
+  var anon: Ref
+  label body
+  x := computeX()
+  label cont
+  anon := gtInts(x, intToRef(0))
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileBreakContinue:
+method doWhileBreakContinue(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon: Ref
+  label body
+    invariant isSubtype(typeOf(b), boolType())
+  if (boolFromRef(b)) {
+    goto break
+  }
+  goto cont
+  label cont
+  anon := b
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileLabelledOuterBreak:
+method doWhileLabelledOuterBreak(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  label body_0
+    invariant isSubtype(typeOf(b), boolType())
+  label body_1
+    invariant isSubtype(typeOf(b), boolType())
+  goto break_0
+  label cont_1
+  anon_0 := b
+  if (boolFromRef(anon_0)) {
+    goto body_1
+  }
+  label break_1
+  label cont_0
+  anon_1 := b
+  if (boolFromRef(anon_1)) {
+    goto body_0
+  }
+  label break_0
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileReturn:
+method doWhileReturn(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  label body
+    invariant isSubtype(typeOf(b), boolType())
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  label cont
+  anon := b
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  v_ret_0 := intToRef(1)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

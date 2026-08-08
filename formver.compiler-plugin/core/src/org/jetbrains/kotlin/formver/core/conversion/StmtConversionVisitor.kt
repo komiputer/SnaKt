@@ -331,19 +331,30 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         return data.declareLocalProperty(symbol, property.initializer?.let { data.convert(it) })
     }
 
+    private fun collectLoopInvariants(loop: FirLoop, data: StmtConversionContext): List<ExpEmbedding> = buildList {
+        data.retrievePropertiesAndParameters().forEach {
+            addAll(it.provenInvariants())
+        }
+        extractLoopInvariants(loop.block)?.let {
+            addAll(data.withScopeImpl(ScopeIndex.NoScope) { data.collectInvariants(it) })
+        }
+    }
+
     override fun visitWhileLoop(whileLoop: FirWhileLoop, data: StmtConversionContext): ExpEmbedding {
         val condition = data.convert(whileLoop.condition).withType { boolean() }
-        val invariants = buildList {
-            data.retrievePropertiesAndParameters().forEach {
-                addAll(it.provenInvariants())
-            }
-            extractLoopInvariants(whileLoop.block)?.let {
-                addAll(data.withScopeImpl(ScopeIndex.NoScope) { data.collectInvariants(it) })
-            }
-        }
+        val invariants = collectLoopInvariants(whileLoop, data)
         return data.withFreshWhile(whileLoop.label) {
             val body = convert(whileLoop.block)
             While(condition, body, breakLabelName(), continueLabelName(), invariants)
+        }
+    }
+
+    override fun visitDoWhileLoop(doWhileLoop: FirDoWhileLoop, data: StmtConversionContext): ExpEmbedding {
+        val invariants = collectLoopInvariants(doWhileLoop, data)
+        return data.withFreshWhile(doWhileLoop.label) {
+            val body = convert(doWhileLoop.block)
+            val condition = convert(doWhileLoop.condition).withType { boolean() }
+            DoWhile(condition, body, breakLabelName(), continueLabelName(), loopBodyLabelName(), invariants)
         }
     }
 

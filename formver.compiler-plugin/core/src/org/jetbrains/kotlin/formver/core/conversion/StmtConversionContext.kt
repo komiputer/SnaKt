@@ -54,6 +54,7 @@ interface StmtConversionContext : MethodConversionContext {
 
     fun continueLabelName(targetName: String? = null): SymbolicName
     fun breakLabelName(targetName: String? = null): SymbolicName
+    fun loopBodyLabelName(): SymbolicName
     fun addLoopName(targetName: String)
     fun convert(stmt: FirStatement): ExpEmbedding
 

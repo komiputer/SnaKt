@@ -1,1 +1,5 @@
+/do_while.kt: warning: Viper verification error: Assert might fail. Assertion intFromRef(x) == 0 might not hold.
+
+/do_while.kt: warning: Viper verification error: Assert might fail. Assertion intFromRef(i) <= 10 might not hold.
+
 /do_while.kt: warning: Viper verification error: Loop invariant intFromRef(i) >= 1 might not hold on entry. Assertion intFromRef(i) >= 1 might not hold.

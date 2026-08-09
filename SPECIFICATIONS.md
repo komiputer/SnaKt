@@ -74,6 +74,10 @@ The rules are as follows:
 - Loop invariant must hold when the loop is exited.
 - Code after the loop may assume the condition fails.
 
+The same `loopInvariants { }` block works as the first statement of a `do`
+body, and the invariant must hold when the loop is entered, i.e. before the
+first execution of the body.
+
 ## Universal Quantification
 
 Use `forAll<T>` for quantified formulas:

@@ -14,6 +14,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.expression.VariableEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.expression.withPosition
 import org.jetbrains.kotlin.formver.core.names.BreakLabelName
 import org.jetbrains.kotlin.formver.core.names.ContinueLabelName
+import org.jetbrains.kotlin.formver.core.names.LoopHeadLabelName
 import org.jetbrains.kotlin.formver.viper.SymbolicName
 
 /**
@@ -62,6 +63,11 @@ data class StmtConverter(
     override fun breakLabelName(targetName: String?): SymbolicName {
         val index = resolveWhileIndex(targetName)
         return BreakLabelName(index)
+    }
+
+    override fun loopHeadLabelName(targetName: String?): SymbolicName {
+        val index = resolveWhileIndex(targetName)
+        return LoopHeadLabelName(index)
     }
 
     override fun addLoopName(targetName: String) {

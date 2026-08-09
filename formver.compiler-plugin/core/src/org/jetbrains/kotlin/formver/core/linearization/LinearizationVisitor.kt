@@ -71,6 +71,29 @@ data class LinearizationVisitor(
         }
     }
 
+    override fun visitDoWhile(e: DoWhile): Linearizable = object : UnitResultLinearizable(e) {
+        override fun toViperUnusedResult(ctx: LinearizationContext) {
+            ctx.addLabel(e.headLabel.toViper(ctx))
+            e.body.linearize().toViperUnusedResult(ctx)
+            ctx.addLabel(e.continueLabel.toViper(ctx))
+            val condVar = ctx.freshAnonVar { boolean() }
+            e.condition.linearize().toViperStoringIn(condVar, ctx)
+            ctx.addStatement {
+                val gotoHeadBlock = ctx.asBlock {
+                    addStatement { e.headLabel.toLink().toViperGoto(this) }
+                }
+                Stmt.If(condVar.linearize().toViperBuiltinType(ctx), gotoHeadBlock, els = Stmt.Seqn(), ctx.source.asPosition)
+            }
+            ctx.addLabel(e.breakLabel.toViper(ctx))
+
+            e.invariants.forEach {
+                ctx.addStatement {
+                    Stmt.Assert(it.pureToViper(toBuiltin = true, ctx.typeResolver))
+                }
+            }
+        }
+    }
+
     override fun visitGoto(e: Goto): Linearizable = object : UnitResultLinearizable(e) {
         override fun toViperUnusedResult(ctx: LinearizationContext) {
             ctx.addStatement { e.target.toViperGoto(ctx) }

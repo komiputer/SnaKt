@@ -347,6 +347,22 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         }
     }
 
+    override fun visitDoWhileLoop(doWhileLoop: FirDoWhileLoop, data: StmtConversionContext): ExpEmbedding {
+        val condition = data.convert(doWhileLoop.condition).withType { boolean() }
+        val invariants = buildList {
+            data.retrievePropertiesAndParameters().forEach {
+                addAll(it.provenInvariants())
+            }
+            extractLoopInvariants(doWhileLoop.block)?.let {
+                addAll(data.withScopeImpl(ScopeIndex.NoScope) { data.collectInvariants(it) })
+            }
+        }
+        return data.withFreshWhile(doWhileLoop.label) {
+            val body = convert(doWhileLoop.block)
+            DoWhile(condition, body, loopHeadLabelName(), breakLabelName(), continueLabelName(), invariants)
+        }
+    }
+
     override fun visitBreakExpression(
         breakExpression: FirBreakExpression,
         data: StmtConversionContext,

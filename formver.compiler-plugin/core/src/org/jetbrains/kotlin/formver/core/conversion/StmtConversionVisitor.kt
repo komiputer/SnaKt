@@ -543,6 +543,17 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         return Elvis(lhs, rhs, expType)
     }
 
+    override fun visitCheckNotNullCall(
+        checkNotNullCall: FirCheckNotNullCall,
+        data: StmtConversionContext,
+    ): ExpEmbedding {
+        val operand = data.convert(checkNotNullCall.argumentList.arguments[0])
+        val expType = operand.type.getNonNullable()
+        return share(operand) { shared ->
+            If(shared.notNullCmp(), shared.withType(expType), ErrorExp, expType)
+        }
+    }
+
     override fun visitSafeCallExpression(
         safeCallExpression: FirSafeCallExpression,
         data: StmtConversionContext,

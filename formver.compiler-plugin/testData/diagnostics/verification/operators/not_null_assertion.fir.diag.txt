@@ -82,3 +82,18 @@ method notNullAssertionInTry(x: Ref) returns (v_ret_0: Ref)
   label tryExit
   label lbl_ret_0
 }
+
+/not_null_assertion.kt: info: Generated Viper text for notNullAssertionOfTypeParameter:
+method notNullAssertionOfTypeParameter(par_t: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_t), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  var anon: Ref
+  if (par_t != nullValue()) {
+    anon := par_t
+  } else {
+    inhale false}
+  v_ret_0 := anon
+  goto lbl_ret_0
+  label lbl_ret_0
+}

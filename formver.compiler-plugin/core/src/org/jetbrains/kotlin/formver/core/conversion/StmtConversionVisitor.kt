@@ -547,9 +547,11 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         checkNotNullCall: FirCheckNotNullCall,
         data: StmtConversionContext,
     ): ExpEmbedding {
-        val operand = data.convert(checkNotNullCall.argumentList.arguments[0])
+        val operand = data.convert(checkNotNullCall.argumentList.arguments.single())
         val expType = operand.type.getNonNullable()
         return share(operand) { shared ->
+            // The null path throws, and the plugin does not model `throw`, so it is pruned
+            // here rather than treated as unsupported.
             If(shared.notNullCmp(), shared.withType(expType), ErrorExp, expType)
         }
     }

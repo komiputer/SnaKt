@@ -1,0 +1,1 @@
+/do_while.kt: warning: Viper verification error: Loop invariant intFromRef(i) >= 1 might not hold on entry. Assertion intFromRef(i) >= 1 might not hold.

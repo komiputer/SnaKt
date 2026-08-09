@@ -870,6 +870,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("do_while.kt")
+      public void testDo_while() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/do_while.kt");
+      }
+
+      @Test
       @TestMetadata("empty.kt")
       public void testEmpty() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/user_invariants/empty.kt");

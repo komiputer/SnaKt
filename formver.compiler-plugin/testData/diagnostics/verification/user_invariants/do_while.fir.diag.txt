@@ -1,0 +1,57 @@
+/do_while.kt: info: Generated Viper text for bodyRunsBeforeCondition:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method bodyRunsBeforeCondition() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var x: Ref
+  var anon: Ref
+  x := intToRef(0)
+  label head
+    invariant isSubtype(typeOf(x), intType())
+    invariant intFromRef(x) <= 1
+  x := intToRef(1)
+  label cont
+  anon := boolToRef(false)
+  if (boolFromRef(anon)) {
+    goto head
+  }
+  label break
+  assert isSubtype(typeOf(x), intType())
+  assert intFromRef(x) <= 1
+  assert intFromRef(x) == 1
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for invariantFailsOnEntry:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method invariantFailsOnEntry() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var i: Ref
+  var anon: Ref
+  i := intToRef(0)
+  label head
+    invariant isSubtype(typeOf(i), intType())
+    invariant intFromRef(i) >= 1
+  i := plusInts(i, intToRef(1))
+  label cont
+  anon := ltInts(i, intToRef(10))
+  if (boolFromRef(anon)) {
+    goto head
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  assert intFromRef(i) >= 1
+  assert intFromRef(i) == 10
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

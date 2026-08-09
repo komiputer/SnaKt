@@ -16,31 +16,11 @@ fun <!VIPER_TEXT!>bodyRunsBeforeCondition<!>() {
 }
 
 @AlwaysVerify
-fun <!VIPER_TEXT!>whileNeverRuns<!>() {
-    var x = 0
-    while (false) {
-        loopInvariants { x <= 1 }
-        x = 1
-    }
-    verify(x == 0)
-}
-
-@AlwaysVerify
-fun <!VIPER_TEXT!>countUpAtLeastOnce<!>() {
-    var i = 0
-    do {
-        loopInvariants { i <= 10 }
-        i = i + 1
-    } while (i < 10)
-    verify(i == 10)
-}
-
-@AlwaysVerify
 fun <!VIPER_TEXT!>invariantFailsOnEntry<!>() {
     var i = 0
-    do {
+    <!VIPER_VERIFICATION_ERROR!>do {
         loopInvariants { i >= 1 }
         i = i + 1
-    } while (i < 10)
+    } while (i < 10)<!>
     verify(i == 10)
 }

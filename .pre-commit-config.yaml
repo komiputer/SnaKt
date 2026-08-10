@@ -1,3 +1,8 @@
+  _hook_defaults: &defaults
+  language: script
+  always_run: true
+  pass_filenames: false
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -9,15 +14,11 @@ repos:
   # These need no build, so they run here rather than in the Gradle workflow.
   - repo: local
     hooks:
-      - id: check-testdata
+      - <<: *defaults
+        id: check-testdata
         name: check-testdata
         entry: scripts/check-testdata.sh
-        language: script
-        always_run: true
-        pass_filenames: false
-      - id: script-tests
+      - <<: *defaults
+        id: script-tests
         name: script-tests
         entry: scripts/tests/run.sh
-        language: script
-        always_run: true
-        pass_filenames: false

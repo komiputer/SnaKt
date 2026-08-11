@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2025 JetBrains s.r.o. and Kotlin Programming Language contributors.
+ * Copyright 2010-2026 JetBrains s.r.o. and Kotlin Programming Language contributors.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
@@ -28,7 +28,6 @@ private fun quantifierConditionsValid(conditions: List<ExpEmbedding>, ctx: Purit
 }
 
 data class ForAllEmbedding(
-    // TODO: support multiple variables
     val variable: VariableEmbedding,
     val conditions: List<ExpEmbedding>,
     val triggerExpressions: List<ExpEmbedding> = emptyList(),

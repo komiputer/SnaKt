@@ -1,0 +1,96 @@
+/map.kt: info: Generated Viper text for constructMap:
+field p_size: Ref
+
+method con() returns (ret_8: Ref)
+  ensures isSubtype(typeOf(ret_8), HashMap())
+  ensures acc(HashMap_unique(ret_8), write)
+
+
+method constructMap() returns (v_ret_4: Ref)
+  ensures isSubtype(typeOf(v_ret_4), Map())
+{
+  var anon: Ref
+  anon := con()
+  v_ret_4 := anon
+  goto lbl_ret_4
+  label lbl_ret_4
+}
+
+method entries(this: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_3), nullable(anyType()))
+
+
+method g_size(this: Ref) returns (ret_0: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_0), nullable(anyType()))
+
+
+method keys(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method values(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_2), nullable(anyType()))
+
+
+/map.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (m["key"] = 1)
+Please report this at https://github.com/jesyspa/kotlin
+
+/map.kt: info: Generated Viper text for containsKey:
+field p_size: Ref
+
+method Map_f_containsKey(this: Ref, key: Ref) returns (ret_5: Ref)
+  requires isSubtype(typeOf(this), Map())
+  requires isSubtype(typeOf(key), stringType())
+  ensures isSubtype(typeOf(ret_5), boolType())
+
+
+method entries(this: Ref) returns (ret_4: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_4), nullable(anyType()))
+
+
+method f_containsKey_Boolean(m: Ref, k: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(m), Map())
+  requires isSubtype(typeOf(k), stringType())
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+{
+  v_ret_0 := Map_f_containsKey(m, k)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method g_size(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method keys(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_2), nullable(anyType()))
+
+
+method values(this: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_3), nullable(anyType()))
+
+
+/map.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (m["a"] = 1)
+Please report this at https://github.com/jesyspa/kotlin
+
+/map.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (seen[l[i]] = (seen[l[i]] ?: 0) + 1)
+Please report this at https://github.com/jesyspa/kotlin
+
+/map.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (freq[l[i]] = (freq[l[i]] ?: 0) + 1)
+Please report this at https://github.com/jesyspa/kotlin
+
+/map.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (m[k] = v)
+Please report this at https://github.com/jesyspa/kotlin

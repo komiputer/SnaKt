@@ -1,0 +1,46 @@
+/lambdas.kt: error: An internal error has occurred.
+Details: An operation is not implemented: create new function object with counter, duplicable (requires toViper restructuring)
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: error: An internal error has occurred.
+Details: An operation is not implemented: create new function object with counter, duplicable (requires toViper restructuring)
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: error: An internal error has occurred.
+Details: An operation is not implemented: create new function object with counter, duplicable (requires toViper restructuring)
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: error: An internal error has occurred.
+Details: An operation is not implemented: create new function object with counter, duplicable (requires toViper restructuring)
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: error: An internal error has occurred.
+Details: No message provided
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: error: An internal error has occurred.
+Details: No message provided
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: error: An internal error has occurred.
+Details: An operation is not implemented: create new function object with counter, duplicable (requires toViper restructuring)
+Please report this at https://github.com/jesyspa/kotlin
+
+/lambdas.kt: info: Generated Viper text for applyTwice:
+method applyTwice(f: Ref, x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(f), functionType())
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  inhale isSubtype(typeOf(anon_1), intType())
+  inhale isSubtype(typeOf(anon_0), intType())
+  v_ret_0 := anon_0
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/lambdas.kt: error: An internal error has occurred.
+Details: An operation is not implemented: create new function object with counter, duplicable (requires toViper restructuring)
+Please report this at https://github.com/jesyspa/kotlin

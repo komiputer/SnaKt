@@ -331,6 +331,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("lambdas.kt")
+    public void testLambdas() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/lambdas.kt");
+    }
+
+    @Test
     @TestMetadata("manualFolding.kt")
     public void testManualFolding() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/manualFolding.kt");

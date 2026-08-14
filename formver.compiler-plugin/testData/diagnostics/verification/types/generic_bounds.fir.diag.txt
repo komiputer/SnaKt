@@ -1,0 +1,166 @@
+/generic_bounds.kt: info: Generated Viper text for identityGeneric:
+method identityGeneric(par_t: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_t), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  v_ret_0 := par_t
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/generic_bounds.kt: info: Generated Viper text for swapGeneric:
+method swapGeneric(a: Ref, b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), nullable(anyType()))
+  requires isSubtype(typeOf(b), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  var tmp: Ref
+  tmp := a
+  v_ret_0 := b
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/generic_bounds.kt: info: Generated Viper text for maxOf2:
+method compareTo(this: Ref, other: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Comparable())
+  requires isSubtype(typeOf(other), nullable(anyType()))
+  ensures isSubtype(typeOf(ret_1), intType())
+
+
+method maxOf2(a: Ref, b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), nullable(anyType()))
+  requires isSubtype(typeOf(b), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  var anon: Ref
+  anon := compareTo(a, b)
+  if (intFromRef(anon) > 0) {
+    v_ret_0 := a
+  } else {
+    v_ret_0 := b}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/generic_bounds.kt: info: Generated Viper text for minOf2:
+method compareTo(this: Ref, other: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Comparable())
+  requires isSubtype(typeOf(other), nullable(anyType()))
+  ensures isSubtype(typeOf(ret_1), intType())
+
+
+method minOf2(a: Ref, b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), nullable(anyType()))
+  requires isSubtype(typeOf(b), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  var anon: Ref
+  anon := compareTo(a, b)
+  if (intFromRef(anon) < 0) {
+    v_ret_0 := a
+  } else {
+    v_ret_0 := b}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/generic_bounds.kt: info: Generated Viper text for isSorted:
+field size: Ref
+
+method compareTo(this: Ref, other: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), Comparable())
+  requires isSubtype(typeOf(other), nullable(anyType()))
+  ensures isSubtype(typeOf(ret_2), intType())
+
+
+method get(this: Ref, index: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), List())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  requires isSubtype(typeOf(index), intType())
+  requires intFromRef(index) >= 0
+  requires intFromRef(this.size) > intFromRef(index)
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+  ensures intFromRef(this.size) == old(intFromRef(this.size))
+
+
+method isSorted(l: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(l), List())
+  requires acc(l.size, write)
+  requires intFromRef(l.size) >= 0
+  ensures acc(l.size, write)
+  ensures intFromRef(l.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+{
+  var i: Ref
+  var anon_1: Ref
+  var anon_2: Ref
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(l), List())
+  anon_2 := l.size
+  inhale isSubtype(typeOf(anon_2), intType())
+  anon_1 := ltInts(i, minusInts(anon_2, intToRef(1)))
+  if (boolFromRef(anon_1)) {
+    var anon_3: Ref
+    var anon_4: Ref
+    var anon_5: Ref
+    var anon_0: Ref
+    anon_4 := get(l, i)
+    anon_5 := get(l, plusInts(i, intToRef(1)))
+    anon_3 := compareTo(anon_4, anon_5)
+    if (intFromRef(anon_3) > 0) {
+      v_ret_0 := boolToRef(false)
+      goto lbl_ret_0
+    }
+    anon_0 := i
+    i := plusInts(anon_0, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(l), List())
+  v_ret_0 := boolToRef(true)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/generic_bounds.kt: info: Generated Viper text for clamp:
+method clamp(value: Ref, lo: Ref, hi: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(value), nullable(anyType()))
+  requires isSubtype(typeOf(lo), nullable(anyType()))
+  requires isSubtype(typeOf(hi), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  anon_0 := compareTo(value, lo)
+  if (intFromRef(anon_0) < 0) {
+    v_ret_0 := lo
+    goto lbl_ret_0
+  }
+  anon_1 := compareTo(value, hi)
+  if (intFromRef(anon_1) > 0) {
+    v_ret_0 := hi
+    goto lbl_ret_0
+  }
+  v_ret_0 := value
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method compareTo(this: Ref, other: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Comparable())
+  requires isSubtype(typeOf(other), nullable(anyType()))
+  ensures isSubtype(typeOf(ret_1), intType())
+
+
+/generic_bounds.kt: error: An internal error has occurred.
+Details: Every statement in invariant block must be a pure boolean invariant.
+Please report this at https://github.com/jesyspa/kotlin
+
+/generic_bounds.kt: error: Unresolved reference 'implies'.

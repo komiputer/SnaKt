@@ -87,6 +87,22 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Nested
+    @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/arrays")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Arrays {
+      @Test
+      public void testAllFilesPresentInArrays() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("formver.compiler-plugin/testData/diagnostics/stdlib/arrays"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("array_write.kt")
+      public void testArray_write() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/arrays/array_write.kt");
+      }
+    }
+
+    @Nested
     @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/list")
     @TestDataPath("$PROJECT_ROOT")
     public class List {

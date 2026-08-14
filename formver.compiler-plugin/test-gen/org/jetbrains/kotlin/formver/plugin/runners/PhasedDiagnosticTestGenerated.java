@@ -115,6 +115,22 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Nested
+    @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/map")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Map {
+      @Test
+      public void testAllFilesPresentInMap() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("formver.compiler-plugin/testData/diagnostics/stdlib/map"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("map.kt")
+      public void testMap() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/map/map.kt");
+      }
+    }
+
+    @Nested
     @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/string")
     @TestDataPath("$PROJECT_ROOT")
     public class String {

@@ -87,6 +87,28 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Nested
+    @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/arrays")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Arrays {
+      @Test
+      public void testAllFilesPresentInArrays() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("formver.compiler-plugin/testData/diagnostics/stdlib/arrays"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("array_size_invariant.kt")
+      public void testArray_size_invariant() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/arrays/array_size_invariant.kt");
+      }
+
+      @Test
+      @TestMetadata("array_write.kt")
+      public void testArray_write() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/arrays/array_write.kt");
+      }
+    }
+
+    @Nested
     @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/list")
     @TestDataPath("$PROJECT_ROOT")
     public class List {
@@ -115,12 +137,50 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Nested
+    @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/map")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Map {
+      @Test
+      public void testAllFilesPresentInMap() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("formver.compiler-plugin/testData/diagnostics/stdlib/map"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("map.kt")
+      public void testMap() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/map/map.kt");
+      }
+    }
+
+    @Nested
+    @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/set")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Set {
+      @Test
+      public void testAllFilesPresentInSet() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("formver.compiler-plugin/testData/diagnostics/stdlib/set"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("set.kt")
+      public void testSet() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/set/set.kt");
+      }
+    }
+
+    @Nested
     @TestMetadata("formver.compiler-plugin/testData/diagnostics/stdlib/string")
     @TestDataPath("$PROJECT_ROOT")
     public class String {
       @Test
       public void testAllFilesPresentInString() {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("formver.compiler-plugin/testData/diagnostics/stdlib/string"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("char_sequence.kt")
+      public void testChar_sequence() {
+        runTest("formver.compiler-plugin/testData/diagnostics/stdlib/string/char_sequence.kt");
       }
 
       @Test
@@ -295,6 +355,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("companion_constants.kt")
+    public void testCompanion_constants() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/companion_constants.kt");
+    }
+
+    @Test
     @TestMetadata("do_not_verify.kt")
     public void testDo_not_verify() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/do_not_verify.kt");
@@ -328,6 +394,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     @TestMetadata("havoc.kt")
     public void testHavoc() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/havoc.kt");
+    }
+
+    @Test
+    @TestMetadata("lambdas.kt")
+    public void testLambdas() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/lambdas.kt");
     }
 
     @Test
@@ -638,6 +710,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("throw.kt")
+      public void testThrow() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/throw.kt");
+      }
+
+      @Test
       @TestMetadata("when.kt")
       public void testWhen() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/control_flow/when.kt");
@@ -833,6 +911,18 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("casts.kt")
       public void testCasts() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/types/casts.kt");
+      }
+
+      @Test
+      @TestMetadata("enums.kt")
+      public void testEnums() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/types/enums.kt");
+      }
+
+      @Test
+      @TestMetadata("generic_bounds.kt")
+      public void testGeneric_bounds() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/types/generic_bounds.kt");
       }
 
       @Test

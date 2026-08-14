@@ -1,0 +1,39 @@
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin
+
+/companion_constants.kt: error: An internal error has occurred.
+Details: Unsupported resolved qualifier FirRegularClassSymbol
+Please report this at https://github.com/jesyspa/kotlin

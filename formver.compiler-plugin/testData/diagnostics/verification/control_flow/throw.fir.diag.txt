@@ -1,0 +1,27 @@
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw IllegalArgumentException("always"))
+Please report this at https://github.com/jesyspa/kotlin
+
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw IllegalArgumentException("non-positive: $n"))
+Please report this at https://github.com/jesyspa/kotlin
+
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw IllegalArgumentException("below lo"))
+Please report this at https://github.com/jesyspa/kotlin
+
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw ArithmeticException("zero is unclassified"))
+Please report this at https://github.com/jesyspa/kotlin
+
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw IllegalArgumentException("m must be positive when n > 0"))
+Please report this at https://github.com/jesyspa/kotlin
+
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw ArithmeticException("division by zero"))
+Please report this at https://github.com/jesyspa/kotlin
+
+/throw.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirThrowExpressionImpl (throw IllegalArgumentException("unknown sign: $s"))
+Please report this at https://github.com/jesyspa/kotlin

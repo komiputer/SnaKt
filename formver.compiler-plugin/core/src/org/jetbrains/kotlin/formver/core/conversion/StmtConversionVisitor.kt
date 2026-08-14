@@ -59,7 +59,7 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
     // translating statements here, after all.  It isn't 100% clear how best to
     // communicate this.
     override fun visitElement(element: FirElement, data: StmtConversionContext): ExpEmbedding =
-        handleUnimplementedElement(element.source, "Not yet implemented for $element (${element.source.text})", data)
+        handleUnimplementedElement(element.source, "Not yet implemented for ${element::class.simpleName} (${element.source.text})", data)
 
     override fun visitReturnExpression(
         returnExpression: FirReturnExpression,

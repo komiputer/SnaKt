@@ -836,6 +836,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("generic_bounds.kt")
+      public void testGeneric_bounds() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/types/generic_bounds.kt");
+      }
+
+      @Test
       @TestMetadata("generics.kt")
       public void testGenerics() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/types/generics.kt");

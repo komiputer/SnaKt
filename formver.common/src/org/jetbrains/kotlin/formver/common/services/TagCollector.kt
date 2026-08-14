@@ -41,7 +41,12 @@ abstract class TagCollector(
     private lateinit var existingInfos: Map<TestFile, List<CodeMetaInfo>>
 
     private fun reportMetaInfos(file: TestFile, codeMetaInfos: List<CodeMetaInfo>) {
-        val filteredInfos = codeMetaInfos.filter { tagsToConsider == null || it.tag in tagsToConsider!! }
+        val filteredInfos = codeMetaInfos
+            .filter { tagsToConsider == null || it.tag in tagsToConsider!! }
+            // ParsedCodeMetaInfo.equals deduplicates by (start, end, tag) when reading
+            // the golden file, so we apply the same dedup here to keep actual == expected
+            // when multiple identical diagnostics land at the same source position.
+            .distinctBy { Triple(it.start, it.end, it.tag) }
         val infos = reportedInfos.getOrPut(file) { mutableListOf() }
         infos += filteredInfos
     }

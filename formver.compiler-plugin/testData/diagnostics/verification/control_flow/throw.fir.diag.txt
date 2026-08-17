@@ -1,0 +1,37 @@
+/throw.kt: info: Generated Viper text for alwaysThrows:
+method alwaysThrows() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  inhale false
+  label lbl_ret_0
+}
+
+/throw.kt: info: Generated Viper text for requirePositive:
+method requirePositive(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (intFromRef(x) <= 0) {
+    inhale false
+  }
+  v_ret_0 := x
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/throw.kt: info: Generated Viper text for throwInBranch:
+method throwInBranch(b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(b), boolType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (boolFromRef(b)) {
+    v_ret_0 := intToRef(42)
+  } else {
+    var anon: Ref
+    inhale false
+    anon := unitValue()
+    v_ret_0 := anon
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}

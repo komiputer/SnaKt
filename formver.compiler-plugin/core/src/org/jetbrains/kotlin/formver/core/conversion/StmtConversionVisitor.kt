@@ -86,6 +86,11 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         )
     }
 
+    override fun visitThrowExpression(
+        throwExpression: FirThrowExpression,
+        data: StmtConversionContext,
+    ): ExpEmbedding = InhaleDirect(BooleanLit(false)).withType { nothing() }
+
     override fun visitBlock(block: FirBlock, data: StmtConversionContext): ExpEmbedding =
         block.statements.map(data::convert).toBlock()
 

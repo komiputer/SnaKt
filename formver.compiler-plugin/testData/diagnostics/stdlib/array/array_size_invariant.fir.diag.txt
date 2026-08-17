@@ -1,0 +1,50 @@
+/array_size_invariant.kt: info: Generated Viper text for intArraySizeNonNegative:
+field size: Ref
+
+method intArraySizeNonNegative(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), IntArray())
+  requires acc(a.size, write)
+  requires intFromRef(a.size) >= 0
+  ensures acc(a.size, write)
+  ensures intFromRef(a.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := a.size
+  inhale isSubtype(typeOf(v_ret_0), intType())
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/array_size_invariant.kt: info: Generated Viper text for booleanArraySizeNonNegative:
+field size: Ref
+
+method booleanArraySizeNonNegative(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), BooleanArray())
+  requires acc(a.size, write)
+  requires intFromRef(a.size) >= 0
+  ensures acc(a.size, write)
+  ensures intFromRef(a.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := a.size
+  inhale isSubtype(typeOf(v_ret_0), intType())
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/array_size_invariant.kt: info: Generated Viper text for genericArraySizeNonNegative:
+field size: Ref
+
+method genericArraySizeNonNegative(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), Array())
+  requires acc(a.size, write)
+  requires intFromRef(a.size) >= 0
+  ensures acc(a.size, write)
+  ensures intFromRef(a.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := a.size
+  inhale isSubtype(typeOf(v_ret_0), intType())
+  goto lbl_ret_0
+  label lbl_ret_0
+}

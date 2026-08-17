@@ -62,7 +62,7 @@ object CollectionSizeProperty :
         )
         NameMatcher.Companion.matchClassScope(scopedName) {
             ifBackingFieldName("size") {
-                val result = typeResolver.isCollectionInheritor(embedding)
+                val result = typeResolver.isCollectionInheritor(embedding) || typeResolver.isNativeArray(embedding)
                 return result
             }
             return false

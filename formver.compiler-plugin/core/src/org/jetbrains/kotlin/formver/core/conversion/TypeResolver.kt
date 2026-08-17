@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.types.PretypeEmbedding
 import org.jetbrains.kotlin.formver.core.names.NameMatcher
 import org.jetbrains.kotlin.formver.core.names.NameScope
 import org.jetbrains.kotlin.formver.core.names.ScopedName
+import org.jetbrains.kotlin.formver.core.names.SpecialPackages
 import org.jetbrains.kotlin.formver.viper.SymbolicName
 import org.jetbrains.kotlin.name.Name
 
@@ -156,6 +157,24 @@ class TypeResolver {
     }
 
     fun isCollectionInheritor(pretype: PretypeEmbedding) = isInheritorOfCollectionTypeNamed(pretype, "Collection")
+
+    fun isNativeArray(pretype: PretypeEmbedding): Boolean {
+        val classEmbedding = pretype as? ClassTypeEmbedding ?: return false
+        NameMatcher.matchGlobalScope(classEmbedding.name) {
+            ifPackageName(SpecialPackages.kotlin) {
+                ifClassName("IntArray") { return true }
+                ifClassName("LongArray") { return true }
+                ifClassName("DoubleArray") { return true }
+                ifClassName("FloatArray") { return true }
+                ifClassName("ShortArray") { return true }
+                ifClassName("ByteArray") { return true }
+                ifClassName("CharArray") { return true }
+                ifClassName("BooleanArray") { return true }
+                ifClassName("Array") { return true }
+            }
+            return false
+        }
+    }
 
     fun PretypeEmbedding.isCollectionTypeNamed(name: String): Boolean {
         val classEmbedding = this as? ClassTypeEmbedding ?: return false

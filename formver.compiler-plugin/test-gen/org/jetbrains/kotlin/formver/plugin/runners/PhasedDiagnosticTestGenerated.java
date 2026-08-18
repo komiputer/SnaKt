@@ -355,6 +355,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("resolved_qualifier_class.kt")
+    public void testResolved_qualifier_class() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/resolved_qualifier_class.kt");
+    }
+
+    @Test
     @TestMetadata("shadowing.kt")
     public void testShadowing() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/shadowing.kt");

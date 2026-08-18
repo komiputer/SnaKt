@@ -91,6 +91,8 @@ sealed interface StdLibPostcondition : StdLibCondition {
     companion object {
         val all = listOf(
             EmptyListPostcondition,
+            EmptySetPostcondition,
+            EmptyMutableSetPostcondition,
             IsEmptyPostcondition,
             GetPostcondition,
             SubListPostcondition,
@@ -151,6 +153,43 @@ data object EmptyListPostcondition : StdLibPostcondition {
 
     override val stdLibInterface = NoInterface
     override val functionName = "emptyList"
+}
+
+// setOf/mutableSetOf are overloaded: a no-arg overload that always returns
+// an empty set, and a vararg overload that doesn't. Matching on name alone
+// would wrongly apply the empty-set postcondition to the vararg overload too.
+data object EmptySetPostcondition : StdLibPostcondition {
+    override fun match(function: NamedFunctionSignature): Boolean =
+        super.match(function) && function.formalArgs.isEmpty()
+
+    override fun getEmbeddings(
+        returnVariable: VariableEmbedding,
+        function: NamedFunctionSignature
+    ): List<ExpEmbedding> {
+        return listOf(
+            EqCmp(FieldAccess(returnVariable, CollectionSizeFieldEmbedding), IntLit(0))
+        )
+    }
+
+    override val stdLibInterface = NoInterface
+    override val functionName = "setOf"
+}
+
+data object EmptyMutableSetPostcondition : StdLibPostcondition {
+    override fun match(function: NamedFunctionSignature): Boolean =
+        super.match(function) && function.formalArgs.isEmpty()
+
+    override fun getEmbeddings(
+        returnVariable: VariableEmbedding,
+        function: NamedFunctionSignature
+    ): List<ExpEmbedding> {
+        return listOf(
+            EqCmp(FieldAccess(returnVariable, CollectionSizeFieldEmbedding), IntLit(0))
+        )
+    }
+
+    override val stdLibInterface = NoInterface
+    override val functionName = "mutableSetOf"
 }
 
 data object IsEmptyPostcondition : StdLibPostcondition {

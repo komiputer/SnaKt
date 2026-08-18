@@ -355,6 +355,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("set_construction_postcondition.kt")
+    public void testSet_construction_postcondition() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/set_construction_postcondition.kt");
+    }
+
+    @Test
     @TestMetadata("shadowing.kt")
     public void testShadowing() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/shadowing.kt");

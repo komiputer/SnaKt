@@ -361,6 +361,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("string_charsequence_subtype.kt")
+    public void testString_charsequence_subtype() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/string_charsequence_subtype.kt");
+    }
+
+    @Test
     @TestMetadata("unit_return_type.kt")
     public void testUnit_return_type() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/unit_return_type.kt");

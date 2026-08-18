@@ -1,0 +1,36 @@
+/string_charsequence_subtype.kt: info: Generated Viper text for takesCharSequence:
+method length(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method takesCharSequence(cs: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(cs), CharSequence())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := length(cs)
+  v_ret_0 := anon
+  inhale isSubtype(typeOf(v_ret_0), intType())
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/string_charsequence_subtype.kt: info: Generated Viper text for passStringAsCharSequence:
+method length(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method passStringAsCharSequence(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := takesCharSequence(s)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method takesCharSequence(cs: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(cs), CharSequence())
+  ensures isSubtype(typeOf(ret_2), intType())

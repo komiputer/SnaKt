@@ -1,0 +1,40 @@
+/int_min_max_literals.kt: info: Generated Viper text for intMinValue:
+method intMinValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(-2147483648)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/int_min_max_literals.kt: info: Generated Viper text for intMaxValue:
+method intMaxValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(2147483647)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/int_min_max_literals.kt: info: Generated Viper text for clampLower:
+method clampLower(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (intFromRef(x) < -2147483648) {
+    v_ret_0 := intToRef(-2147483648)
+  } else {
+    v_ret_0 := x}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/int_min_max_literals.kt: info: Generated Viper text for isMaxInt:
+method isMaxInt(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+{
+  v_ret_0 := boolToRef(intFromRef(x) == 2147483647)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

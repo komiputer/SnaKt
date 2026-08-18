@@ -331,6 +331,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("int_min_max_literals.kt")
+    public void testInt_min_max_literals() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/int_min_max_literals.kt");
+    }
+
+    @Test
     @TestMetadata("manualFolding.kt")
     public void testManualFolding() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/manualFolding.kt");

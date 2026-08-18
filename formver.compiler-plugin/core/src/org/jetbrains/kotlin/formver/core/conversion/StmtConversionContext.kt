@@ -26,6 +26,7 @@ import org.jetbrains.kotlin.formver.core.embeddings.properties.PropertyAccessEmb
 import org.jetbrains.kotlin.formver.core.embeddings.properties.asPropertyAccess
 import org.jetbrains.kotlin.formver.core.embeddings.types.TypeEmbedding
 import org.jetbrains.kotlin.formver.core.isCustom
+import org.jetbrains.kotlin.formver.core.kotlinCompanionCallableId
 import org.jetbrains.kotlin.formver.core.isInvariantBuilderFunctionNamed
 import org.jetbrains.kotlin.formver.core.linearization.*
 import org.jetbrains.kotlin.formver.viper.SymbolicName
@@ -122,12 +123,27 @@ fun FirPropertySymbol.findFinalParentProperty(): FirPropertySymbol? =
  * If final backing field is not found, we lazily create a getter/setter pair for this
  * `FirIntersectionOverrideProperty`.
  */
+/**
+ * Companion-object constants for which the value is fixed by the Kotlin
+ * specification can be embedded as a literal directly, without converting
+ * the class qualifier that is their dispatch receiver.
+ */
+fun stdlibConstantLiteral(symbol: FirPropertySymbol): LiteralEmbedding? =
+    when (symbol.callableId) {
+        kotlinCompanionCallableId("Int", "MIN_VALUE") -> IntLit(Int.MIN_VALUE)
+        kotlinCompanionCallableId("Int", "MAX_VALUE") -> IntLit(Int.MAX_VALUE)
+        else -> null
+    }
+
 fun StmtConversionContext.embedPropertyAccess(accessExpression: FirPropertyAccessExpression): PropertyAccessEmbedding =
     when (val calleeSymbol = accessExpression.calleeReference.symbol) {
         is FirValueParameterSymbol -> embedParameter(calleeSymbol).asPropertyAccess()
         is FirPropertySymbol -> {
             val type = embedType(calleeSymbol.resolvedReturnType)
+            val constantLiteral = stdlibConstantLiteral(calleeSymbol)
             when {
+                constantLiteral != null -> constantLiteral.asPropertyAccess()
+
                 accessExpression.dispatchReceiver != null -> {
                     val property = calleeSymbol.findFinalParentProperty()?.let {
                         embedProperty(it)

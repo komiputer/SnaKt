@@ -1,0 +1,9 @@
+/companion_constants.kt: warning: Viper verification error: Postcondition of longMinValue might not hold. Assertion isSubtype(typeOf(v_ret_0), Long()) might not hold.
+
+/companion_constants.kt: warning: Viper verification error: Postcondition of longMaxValue might not hold. Assertion isSubtype(typeOf(v_ret_0), Long()) might not hold.
+
+/companion_constants.kt: warning: Viper verification error: Assignment might fail. There might be insufficient permission to access l.size
+
+/companion_constants.kt: warning: Viper verification error: Assignment might fail. There might be insufficient permission to access l.size
+
+/companion_constants.kt: warning: Viper verification error: Assignment might fail. There might be insufficient permission to access l.size

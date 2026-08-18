@@ -1,39 +1,240 @@
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for intMinValue:
+method intMinValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(-2147483648)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for intMaxValue:
+method intMaxValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := intToRef(2147483647)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for longMinValue:
+method longMinValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), Long())
+{
+  v_ret_0 := intToRef(-9223372036854775808)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for longMaxValue:
+method longMaxValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), Long())
+{
+  v_ret_0 := intToRef(9223372036854775807)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for charMinValue:
+method charMinValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), charType())
+{
+  v_ret_0 := charToRef(0)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for charMaxValue:
+method charMaxValue() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), charType())
+{
+  v_ret_0 := charToRef(65535)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+/companion_constants.kt: info: Generated Viper text for maxElement:
+field size: Ref
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+method get(this: Ref, index: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), List())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  requires isSubtype(typeOf(index), intType())
+  requires intFromRef(index) >= 0
+  requires intFromRef(this.size) > intFromRef(index)
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), intType())
+  ensures intFromRef(this.size) == old(intFromRef(this.size))
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
 
-/companion_constants.kt: error: An internal error has occurred.
-Details: Unsupported resolved qualifier FirRegularClassSymbol
-Please report this at https://github.com/jesyspa/kotlin
+method maxElement(l: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(l), List())
+  requires acc(l.size, write)
+  requires intFromRef(l.size) >= 0
+  ensures acc(l.size, write)
+  ensures intFromRef(l.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var max: Ref
+  var i: Ref
+  var anon_1: Ref
+  var anon_2: Ref
+  max := intToRef(-2147483648)
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(max), intType())
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(l), List())
+  anon_2 := l.size
+  inhale isSubtype(typeOf(anon_2), intType())
+  anon_1 := ltInts(i, anon_2)
+  if (boolFromRef(anon_1)) {
+    var anon_3: Ref
+    var anon_0: Ref
+    anon_3 := get(l, i)
+    if (intFromRef(anon_3) > intFromRef(max)) {
+      max := get(l, i)
+    }
+    anon_0 := i
+    i := plusInts(anon_0, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(max), intType())
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(l), List())
+  v_ret_0 := max
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/companion_constants.kt: info: Generated Viper text for minElement:
+field size: Ref
+
+method get(this: Ref, index: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), List())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  requires isSubtype(typeOf(index), intType())
+  requires intFromRef(index) >= 0
+  requires intFromRef(this.size) > intFromRef(index)
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), intType())
+  ensures intFromRef(this.size) == old(intFromRef(this.size))
+
+
+method minElement(l: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(l), List())
+  requires acc(l.size, write)
+  requires intFromRef(l.size) >= 0
+  ensures acc(l.size, write)
+  ensures intFromRef(l.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var min: Ref
+  var i: Ref
+  var anon_1: Ref
+  var anon_2: Ref
+  min := intToRef(2147483647)
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(min), intType())
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(l), List())
+  anon_2 := l.size
+  inhale isSubtype(typeOf(anon_2), intType())
+  anon_1 := ltInts(i, anon_2)
+  if (boolFromRef(anon_1)) {
+    var anon_3: Ref
+    var anon_0: Ref
+    anon_3 := get(l, i)
+    if (intFromRef(anon_3) < intFromRef(min)) {
+      min := get(l, i)
+    }
+    anon_0 := i
+    i := plusInts(anon_0, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(min), intType())
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(l), List())
+  v_ret_0 := min
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/companion_constants.kt: info: Generated Viper text for safeDoubleOrMax:
+method safeDoubleOrMax(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (intFromRef(n) > 2147483647 \ 2) {
+    v_ret_0 := intToRef(2147483647)
+  } else {
+    v_ret_0 := timesInts(n, intToRef(2))}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/companion_constants.kt: info: Generated Viper text for clampSum:
+field size: Ref
+
+method clampSum(l: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(l), List())
+  requires acc(l.size, write)
+  requires intFromRef(l.size) >= 0
+  ensures acc(l.size, write)
+  ensures intFromRef(l.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var sum: Ref
+  var i: Ref
+  var anon_1: Ref
+  var anon_2: Ref
+  sum := intToRef(0)
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(sum), intType())
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(l), List())
+  anon_2 := l.size
+  inhale isSubtype(typeOf(anon_2), intType())
+  anon_1 := ltInts(i, anon_2)
+  if (boolFromRef(anon_1)) {
+    var anon_3: Ref
+    var anon_4: Ref
+    var anon_0: Ref
+    anon_3 := get(l, i)
+    if (intFromRef(sum) > 2147483647 - intFromRef(anon_3)) {
+      v_ret_0 := intToRef(2147483647)
+      goto lbl_ret_0
+    }
+    anon_4 := get(l, i)
+    sum := plusInts(sum, anon_4)
+    anon_0 := i
+    i := plusInts(anon_0, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(sum), intType())
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(l), List())
+  v_ret_0 := sum
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method get(this: Ref, index: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), List())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  requires isSubtype(typeOf(index), intType())
+  requires intFromRef(index) >= 0
+  requires intFromRef(this.size) > intFromRef(index)
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), intType())
+  ensures intFromRef(this.size) == old(intFromRef(this.size))

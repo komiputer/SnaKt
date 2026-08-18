@@ -305,7 +305,7 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
 
     //region Literals
     data class IntLit(
-        val value: Int,
+        val value: Long,
         override val pos: Position = Position.NoPosition,
         override val info: Info = Info.NoInfo,
     ) : Exp {
@@ -879,7 +879,7 @@ infix operator fun Exp.times(other: Exp) = Exp.Mul(this, other)
 infix operator fun Exp.div(other: Exp) = Exp.Div(this, other)
 infix operator fun Exp.rem(other: Exp) = Exp.Mod(this, other)
 infix fun Exp.implies(other: Exp) = Exp.Implies(this, other)
-fun Int.toExp() = Exp.IntLit(this)
+fun Int.toExp() = Exp.IntLit(this.toLong())
 fun Boolean.toExp() = Exp.BoolLit(this)
 
 fun Any?.viperLiteral(
@@ -887,9 +887,10 @@ fun Any?.viperLiteral(
     info: Info = Info.NoInfo,
 ): Exp = when (this) {
     null -> Exp.NullLit(pos, info)
-    is Int -> Exp.IntLit(this, pos, info)
+    is Long -> Exp.IntLit(this, pos, info)
+    is Int -> Exp.IntLit(this.toLong(), pos, info)
     is Boolean -> Exp.BoolLit(this, pos, info)
-    is Char -> Exp.IntLit(this.code, pos, info)
+    is Char -> Exp.IntLit(this.code.toLong(), pos, info)
     is String ->
         if (isEmpty()) Exp.EmptySeq(Type.Int, pos, info)
         else Exp.ExplicitSeq(map { it.viperLiteral(pos, info) }, pos, info)

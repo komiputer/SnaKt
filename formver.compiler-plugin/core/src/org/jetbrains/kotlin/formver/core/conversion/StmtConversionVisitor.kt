@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.fir.declarations.FirProperty
 import org.jetbrains.kotlin.fir.expressions.*
 import org.jetbrains.kotlin.fir.expressions.impl.FirElseIfTrueCondition
 import org.jetbrains.kotlin.fir.expressions.impl.FirUnitExpression
+import org.jetbrains.kotlin.fir.references.symbol
 import org.jetbrains.kotlin.fir.references.toResolvedSymbol
 import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.*
@@ -39,6 +40,8 @@ import org.jetbrains.kotlin.formver.core.embeddings.toLink
 import org.jetbrains.kotlin.formver.core.embeddings.types.TypeEmbedding
 import org.jetbrains.kotlin.formver.core.embeddings.types.equalToType
 import org.jetbrains.kotlin.formver.core.functionCallArguments
+import org.jetbrains.kotlin.formver.core.kotlinCallableId
+import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.text
 import org.jetbrains.kotlin.types.ConstantValueKind
 
@@ -55,6 +58,14 @@ import org.jetbrains.kotlin.types.ConstantValueKind
  * a temporary variable for the result is not acceptable in those cases.
  */
 object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>() {
+    private val companionConstants: Map<CallableId, ExpEmbedding> = mapOf(
+        kotlinCallableId("Int.Companion", "MIN_VALUE") to IntLit(Int.MIN_VALUE.toLong()),
+        kotlinCallableId("Int.Companion", "MAX_VALUE") to IntLit(Int.MAX_VALUE.toLong()),
+        kotlinCallableId("Long.Companion", "MIN_VALUE") to IntLit(Long.MIN_VALUE),
+        kotlinCallableId("Long.Companion", "MAX_VALUE") to IntLit(Long.MAX_VALUE),
+        kotlinCallableId("Char.Companion", "MIN_VALUE") to CharLit(Char.MIN_VALUE),
+        kotlinCallableId("Char.Companion", "MAX_VALUE") to CharLit(Char.MAX_VALUE),
+    )
     // Note that in some cases we don't expect to ever implement it: we are only
     // translating statements here, after all.  It isn't 100% clear how best to
     // communicate this.
@@ -93,7 +104,7 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         literalExpression: FirLiteralExpression,
         data: StmtConversionContext,
     ): ExpEmbedding = when (literalExpression.kind) {
-        ConstantValueKind.Int -> IntLit((literalExpression.value as Long).toInt())
+        ConstantValueKind.Int -> IntLit(literalExpression.value as Long)
         ConstantValueKind.Boolean -> BooleanLit(literalExpression.value as Boolean)
         ConstantValueKind.Char -> CharLit(literalExpression.value as Char)
         ConstantValueKind.String -> StringLit(literalExpression.value as String)
@@ -174,6 +185,9 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         propertyAccessExpression: FirPropertyAccessExpression,
         data: StmtConversionContext,
     ): ExpEmbedding {
+        (propertyAccessExpression.calleeReference.symbol as? FirPropertySymbol)?.let { sym ->
+            companionConstants[sym.callableId]?.let { return it }
+        }
         val propertyAccess = data.embedPropertyAccess(propertyAccessExpression)
         return propertyAccess.getValue(data)
     }

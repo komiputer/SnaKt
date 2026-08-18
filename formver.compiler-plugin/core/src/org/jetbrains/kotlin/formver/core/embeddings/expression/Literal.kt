@@ -26,7 +26,7 @@ data object UnitLit : LiteralEmbedding {
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitUnitLit(this)
 }
 
-data class IntLit(override val value: Int) : LiteralEmbedding {
+data class IntLit(override val value: Long) : LiteralEmbedding {
     override val type = buildType { int() }
     override val debugName = "Int"
 }

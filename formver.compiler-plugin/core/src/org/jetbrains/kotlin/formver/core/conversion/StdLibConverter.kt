@@ -22,7 +22,7 @@ private fun VariableEmbedding.sameSize(): ExpEmbedding =
 private fun VariableEmbedding.increasedSize(amount: Int): ExpEmbedding =
     EqCmp(
         FieldAccess(this, CollectionSizeFieldEmbedding),
-        OperatorExpEmbeddings.AddIntInt(Old(FieldAccess(this, CollectionSizeFieldEmbedding)), IntLit(amount)),
+        OperatorExpEmbeddings.AddIntInt(Old(FieldAccess(this, CollectionSizeFieldEmbedding)), IntLit(amount.toLong())),
     )
 
 sealed interface StdLibReceiverInterface {

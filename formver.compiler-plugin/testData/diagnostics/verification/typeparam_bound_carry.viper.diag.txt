@@ -1,0 +1,5 @@
+/typeparam_bound_carry.kt: warning: Viper verification error: The precondition of method toInt might not hold. Assertion isSubtype(typeOf(x), Number()) might not hold.
+
+/typeparam_bound_carry.kt: warning: Viper verification error: The precondition of method get might not hold. Assertion isSubtype(typeOf(x), CharSequence()) might not hold.
+
+/typeparam_bound_carry.kt: warning: Viper verification error: The precondition of method toDouble might not hold. Assertion isSubtype(typeOf(x), Number()) might not hold.

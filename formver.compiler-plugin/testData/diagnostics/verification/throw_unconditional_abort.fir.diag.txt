@@ -1,0 +1,91 @@
+/throw_unconditional_abort.kt: info: Generated Viper text for alwaysThrows:
+method alwaysThrows() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := con(stringToRef(Seq(98, 111, 111, 109)))
+  inhale false
+  label lbl_ret_0
+}
+
+method cause(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_2), nullable(anyType()))
+
+
+method con(p0: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(p0), nullable(stringType()))
+  ensures isSubtype(typeOf(ret_3), IllegalStateException())
+  ensures acc(IllegalStateException_unique(ret_3), write)
+
+
+method message(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+/throw_unconditional_abort.kt: info: Generated Viper text for throwsInBranch:
+method cause(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_2), nullable(anyType()))
+
+
+method con(p0: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(p0), nullable(stringType()))
+  ensures isSubtype(typeOf(ret_3), IllegalArgumentException())
+  ensures acc(IllegalArgumentException_unique(ret_3), write)
+
+
+method message(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method throwsInBranch(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (intFromRef(x) < 0) {
+    var anon: Ref
+    anon := con(stringToRef(Seq(110, 101, 103, 97, 116, 105, 118, 101)))
+    inhale false
+  }
+  v_ret_0 := x
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/throw_unconditional_abort.kt: info: Generated Viper text for throwsInElseBranch:
+method cause(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_2), nullable(anyType()))
+
+
+method con(p0: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(p0), nullable(stringType()))
+  ensures isSubtype(typeOf(ret_3), IllegalArgumentException())
+  ensures acc(IllegalArgumentException_unique(ret_3), write)
+
+
+method message(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method throwsInElseBranch(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (intFromRef(x) >= 0) {
+    v_ret_0 := x
+  } else {
+    var anon_0: Ref
+    var anon_1: Ref
+    anon_1 := con(stringToRef(Seq(110, 101, 103, 97, 116, 105, 118, 101)))
+    inhale false
+    anon_0 := unitValue()
+    v_ret_0 := anon_0
+  }
+  goto lbl_ret_0
+  label lbl_ret_0
+}

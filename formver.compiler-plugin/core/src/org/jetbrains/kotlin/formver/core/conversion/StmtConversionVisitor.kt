@@ -494,6 +494,17 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
     }
 
 
+    // Models the exception as always escaping the current method: the thrown value is
+    // evaluated for its side effects, then the state is marked unreachable. This does not
+    // account for an enclosing try with a matching catch, which would resume there instead.
+    override fun visitThrowExpression(
+        throwExpression: FirThrowExpression,
+        data: StmtConversionContext,
+    ): ExpEmbedding = Block {
+        add(data.convert(throwExpression.exception))
+        add(InhaleDirect(BooleanLit(false)).withType { nothing() })
+    }
+
     override fun visitTryExpression(tryExpression: FirTryExpression, data: StmtConversionContext): ExpEmbedding {
         val (catchData, tryBody) = data.withCatches(tryExpression.catches) { catchData ->
             withNewScope {

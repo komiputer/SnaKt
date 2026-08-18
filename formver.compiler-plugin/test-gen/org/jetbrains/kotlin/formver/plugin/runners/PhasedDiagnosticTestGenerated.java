@@ -361,6 +361,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("throw_unconditional_abort.kt")
+    public void testThrow_unconditional_abort() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/throw_unconditional_abort.kt");
+    }
+
+    @Test
     @TestMetadata("unit_return_type.kt")
     public void testUnit_return_type() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/unit_return_type.kt");

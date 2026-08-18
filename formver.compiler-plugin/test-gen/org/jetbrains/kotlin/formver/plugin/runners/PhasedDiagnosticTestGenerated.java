@@ -355,6 +355,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("set_collection_interfaces.kt")
+    public void testSet_collection_interfaces() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/set_collection_interfaces.kt");
+    }
+
+    @Test
     @TestMetadata("shadowing.kt")
     public void testShadowing() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/shadowing.kt");

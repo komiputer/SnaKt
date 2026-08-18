@@ -1,0 +1,60 @@
+/typeparam_bound_carry.kt: info: Generated Viper text for toIntValue:
+method toInt(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Number())
+  ensures isSubtype(typeOf(ret_1), intType())
+
+
+method toIntValue(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := toInt(x)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/typeparam_bound_carry.kt: info: Generated Viper text for firstChar:
+method firstChar(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), charType())
+{
+  v_ret_0 := get(x, intToRef(0))
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method get(this: Ref, index: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), CharSequence())
+  requires isSubtype(typeOf(index), intType())
+  ensures isSubtype(typeOf(ret_2), charType())
+
+
+method length(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+/typeparam_bound_carry.kt: info: Generated Viper text for sumWithBound:
+method plus(this: Ref, other: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Double())
+  requires isSubtype(typeOf(other), Double())
+  ensures isSubtype(typeOf(ret_1), Double())
+
+
+method sumWithBound(x: Ref, y: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(anyType()))
+  requires isSubtype(typeOf(y), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), Double())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  anon_0 := toDouble(x)
+  anon_1 := toDouble(y)
+  v_ret_0 := plus(anon_0, anon_1)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method toDouble(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), Number())
+  ensures isSubtype(typeOf(ret_2), Double())

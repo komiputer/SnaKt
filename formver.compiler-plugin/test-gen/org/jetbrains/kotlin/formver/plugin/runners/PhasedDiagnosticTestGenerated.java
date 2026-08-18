@@ -361,6 +361,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("typeparam_bound_carry.kt")
+    public void testTypeparam_bound_carry() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/typeparam_bound_carry.kt");
+    }
+
+    @Test
     @TestMetadata("unit_return_type.kt")
     public void testUnit_return_type() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/unit_return_type.kt");

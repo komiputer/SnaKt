@@ -355,6 +355,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("set_contains_spec.kt")
+    public void testSet_contains_spec() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/set_contains_spec.kt");
+    }
+
+    @Test
     @TestMetadata("shadowing.kt")
     public void testShadowing() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/shadowing.kt");

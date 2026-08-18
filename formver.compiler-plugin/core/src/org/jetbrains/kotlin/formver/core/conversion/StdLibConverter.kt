@@ -53,6 +53,10 @@ data object MutableListInterface : PresentInterface {
     override val interfaceName = "MutableList"
 }
 
+data object MutableSetInterface : PresentInterface {
+    override val interfaceName = "MutableSet"
+}
+
 data object NoInterface : StdLibReceiverInterface {
     override fun match(function: NamedFunctionSignature, ctx: TypeResolver): Boolean =
         NameMatcher.matchClassScope(function.name) {
@@ -94,7 +98,8 @@ sealed interface StdLibPostcondition : StdLibCondition {
             IsEmptyPostcondition,
             GetPostcondition,
             SubListPostcondition,
-            AddPostcondition
+            AddPostcondition,
+            SetAddPostcondition
         )
     }
 
@@ -208,6 +213,22 @@ data object AddPostcondition : StdLibPostcondition {
     }
 
     override val stdLibInterface = MutableListInterface
+    override val functionName = "add"
+}
+
+data object SetAddPostcondition : StdLibPostcondition {
+    override fun getEmbeddings(
+        returnVariable: VariableEmbedding,
+        function: NamedFunctionSignature
+    ): List<ExpEmbedding> {
+        val receiver = function.dispatchReceiver!!
+        return listOf(
+            Implies(returnVariable, receiver.increasedSize(1)),
+            Implies(Not(returnVariable), receiver.sameSize()),
+        )
+    }
+
+    override val stdLibInterface = MutableSetInterface
     override val functionName = "add"
 }
 

@@ -349,6 +349,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("mutable_set_add_postcondition.kt")
+    public void testMutable_set_add_postcondition() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/mutable_set_add_postcondition.kt");
+    }
+
+    @Test
     @TestMetadata("old.kt")
     public void testOld() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/old.kt");

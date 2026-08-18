@@ -295,6 +295,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("companion_property_read.kt")
+    public void testCompanion_property_read() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/companion_property_read.kt");
+    }
+
+    @Test
     @TestMetadata("do_not_verify.kt")
     public void testDo_not_verify() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/do_not_verify.kt");

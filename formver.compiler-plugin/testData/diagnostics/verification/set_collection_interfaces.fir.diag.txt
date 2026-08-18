@@ -1,0 +1,82 @@
+/set_collection_interfaces.kt: info: Generated Viper text for setIsEmpty:
+field size: Ref
+
+method isEmpty(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Set())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), boolType())
+  ensures intFromRef(this.size) == old(intFromRef(this.size))
+  ensures boolFromRef(ret_1) ==> intFromRef(this.size) == 0
+  ensures !boolFromRef(ret_1) ==> intFromRef(this.size) > 0
+
+
+method setIsEmpty(s: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), Set())
+  requires acc(s.size, write)
+  requires intFromRef(s.size) >= 0
+  ensures acc(s.size, write)
+  ensures intFromRef(s.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+{
+  v_ret_0 := isEmpty(s)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/set_collection_interfaces.kt: info: Generated Viper text for mutableSetAdd:
+field size: Ref
+
+method add(this: Ref, element: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), MutableSet())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  requires isSubtype(typeOf(element), intType())
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), boolType())
+
+
+method mutableSetAdd(s: Ref, x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), MutableSet())
+  requires acc(s.size, write)
+  requires intFromRef(s.size) >= 0
+  requires isSubtype(typeOf(x), intType())
+  ensures acc(s.size, write)
+  ensures intFromRef(s.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var anon: Ref
+  anon := add(s, x)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/set_collection_interfaces.kt: info: Generated Viper text for mutableSetContains:
+field size: Ref
+
+method contains(this: Ref, element: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), MutableSet())
+  requires acc(this.size, write)
+  requires intFromRef(this.size) >= 0
+  requires isSubtype(typeOf(element), intType())
+  ensures acc(this.size, write)
+  ensures intFromRef(this.size) >= 0
+  ensures isSubtype(typeOf(ret_1), boolType())
+
+
+method mutableSetContains(s: Ref, x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), MutableSet())
+  requires acc(s.size, write)
+  requires intFromRef(s.size) >= 0
+  requires isSubtype(typeOf(x), intType())
+  ensures acc(s.size, write)
+  ensures intFromRef(s.size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+{
+  v_ret_0 := contains(s, x)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

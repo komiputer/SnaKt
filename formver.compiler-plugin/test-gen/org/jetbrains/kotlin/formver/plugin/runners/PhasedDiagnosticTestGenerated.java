@@ -361,6 +361,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
     }
 
     @Test
+    @TestMetadata("string_substring_take_drop.kt")
+    public void testString_substring_take_drop() {
+      runTest("formver.compiler-plugin/testData/diagnostics/verification/string_substring_take_drop.kt");
+    }
+
+    @Test
     @TestMetadata("unit_return_type.kt")
     public void testUnit_return_type() {
       runTest("formver.compiler-plugin/testData/diagnostics/verification/unit_return_type.kt");

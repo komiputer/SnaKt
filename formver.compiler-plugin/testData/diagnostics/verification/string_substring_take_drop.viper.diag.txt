@@ -1,0 +1,5 @@
+/string_substring_take_drop.kt: warning: Viper verification error: Assert might fail. Assertion |stringFromRef(sub)| == |stringFromRef(s)| - intFromRef(i) might not hold.
+
+/string_substring_take_drop.kt: warning: Viper verification error: Assert might fail. Assertion |stringFromRef(prefix)| == intFromRef(bound) might not hold.
+
+/string_substring_take_drop.kt: warning: Viper verification error: Assert might fail. Assertion |stringFromRef(rest)| == |stringFromRef(s)| - intFromRef(bound) might not hold.

@@ -18,7 +18,10 @@ import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbedd
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.Not
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.Or
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.RemIntInt
+import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.StringDrop
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.StringGet
+import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.StringSubstring
+import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.StringTake
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.SubCharChar
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.SubCharInt
 import org.jetbrains.kotlin.formver.core.embeddings.expression.OperatorExpEmbeddings.SubIntInt
@@ -374,6 +377,22 @@ object SpecialKotlinFunctions {
 
         addFunction(stringIntToCharType, SpecialPackages.kotlin, className = "String", name = "get") { args, _ ->
             StringGet(args[0], args[1])
+        }
+
+        val stringIntToStringType = buildFunctionPretype {
+            withDispatchReceiver { string() }
+            withParam { int() }
+            withReturnType { string() }
+        }
+
+        addFunction(stringIntToStringType, SpecialPackages.kotlin, className = "String", name = "substring") { args, _ ->
+            StringSubstring(args[0], args[1])
+        }
+        addFunction(stringIntToStringType, SpecialPackages.kotlin, className = "String", name = "take") { args, _ ->
+            StringTake(args[0], args[1])
+        }
+        addFunction(stringIntToStringType, SpecialPackages.kotlin, className = "String", name = "drop") { args, _ ->
+            StringDrop(args[0], args[1])
         }
 
         val uniquePredicatePermissionsToUnit = buildFunctionPretype {

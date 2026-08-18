@@ -1,0 +1,102 @@
+/string_substring_take_drop.kt: info: Generated Viper text for substringLength:
+function size(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method substring(v_this_extension: Ref, startIndex: Ref)
+  returns (ret_1: Ref)
+  requires isSubtype(typeOf(v_this_extension), stringType())
+  requires isSubtype(typeOf(startIndex), intType())
+  ensures isSubtype(typeOf(ret_1), stringType())
+
+
+method substringLength(s: Ref, i: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(i), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  var sub: Ref
+  if (intFromRef(i) < 0) {
+    anon := boolToRef(true)
+  } else {
+    anon := gtInts(i, stringLength(s))}
+  if (boolFromRef(anon)) {
+    v_ret_0 := intToRef(-1)
+    goto lbl_ret_0
+  }
+  sub := substring(s, i)
+  assert |stringFromRef(sub)| == |stringFromRef(s)| - intFromRef(i)
+  v_ret_0 := stringLength(sub)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/string_substring_take_drop.kt: info: Generated Viper text for takeLength:
+function size(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method take(v_this_extension: Ref, n: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(v_this_extension), stringType())
+  requires isSubtype(typeOf(n), intType())
+  ensures isSubtype(typeOf(ret_1), stringType())
+
+
+method takeLength(s: Ref, n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(n), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var bound: Ref
+  var prefix: Ref
+  if (intFromRef(n) < 0) {
+    v_ret_0 := intToRef(-1)
+    goto lbl_ret_0
+  }
+  if (intFromRef(n) < |stringFromRef(s)|) {
+    bound := n
+  } else {
+    bound := stringLength(s)}
+  prefix := take(s, n)
+  assert |stringFromRef(prefix)| == intFromRef(bound)
+  v_ret_0 := stringLength(prefix)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/string_substring_take_drop.kt: info: Generated Viper text for dropLength:
+function size(v_this: Ref): Ref
+  requires isSubtype(typeOf(v_this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method drop(v_this_extension: Ref, n: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(v_this_extension), stringType())
+  requires isSubtype(typeOf(n), intType())
+  ensures isSubtype(typeOf(ret_1), stringType())
+
+
+method dropLength(s: Ref, n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), stringType())
+  requires isSubtype(typeOf(n), intType())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var bound: Ref
+  var rest: Ref
+  if (intFromRef(n) < 0) {
+    v_ret_0 := intToRef(-1)
+    goto lbl_ret_0
+  }
+  if (intFromRef(n) < |stringFromRef(s)|) {
+    bound := n
+  } else {
+    bound := stringLength(s)}
+  rest := drop(s, n)
+  assert |stringFromRef(rest)| == |stringFromRef(s)| - intFromRef(bound)
+  v_ret_0 := stringLength(rest)
+  goto lbl_ret_0
+  label lbl_ret_0
+}

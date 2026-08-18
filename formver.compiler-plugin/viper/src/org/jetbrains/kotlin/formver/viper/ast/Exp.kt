@@ -570,6 +570,31 @@ sealed interface Exp : WithSilverMetadata, IntoSilver<viper.silver.ast.Exp> {
         }
     }
 
+    data class SeqDrop(
+        val seq: Exp,
+        val idx: Exp,
+        override val pos: Position = Position.NoPosition,
+        override val info: Info = Info.NoInfo,
+    ) : Exp {
+        context(nameResolver: NameResolver)
+        override fun toSilver(): viper.silver.ast.SeqDrop =
+            viper.silver.ast.SeqDrop.apply(
+                seq.toSilver(),
+                idx.toSilver(),
+                pos.toSilver(),
+                info.toSilver(),
+                silverNoTrafos,
+            )
+
+        override val type = seq.type
+
+        context(nameResolver: NameResolver)
+        override fun registerNames() {
+            seq.registerNames()
+            idx.registerNames()
+        }
+    }
+
     data class SeqIndex(
         val seq: Exp,
         val idx: Exp,

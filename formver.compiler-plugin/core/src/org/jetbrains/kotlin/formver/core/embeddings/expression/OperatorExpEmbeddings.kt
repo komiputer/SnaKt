@@ -245,6 +245,71 @@ object OperatorExpEmbeddings {
         viperImplementation { Exp.SeqAppend(args[0], Exp.ExplicitSeq(listOf(args[1])), pos, info) }
     }
 
+    // Bounds match String.substring(startIndex): the start index must be within [0, length].
+    private fun startIndexPrecondition(seq: Exp, idx: Exp): Exp =
+        listOf(
+            intInjection.fromRef(idx) ge 0.toExp(),
+            intInjection.fromRef(idx) le Exp.SeqLength(seq)
+        ).toConjunction()
+
+    // Silicon doesn't derive |take|/|drop| from the Seq axioms on its own, so the
+    // clamped length (matching Kotlin's own take/drop, which never throw) is stated
+    // explicitly as a postcondition.
+    private fun clampedCount(seqLength: Exp, n: Exp): Exp =
+        Exp.TernaryExp(n lt seqLength, n, seqLength)
+
+    val StringSubstring = buildBinaryOperator {
+        setName("stringSubstring")
+        withSignature {
+            withParam { string() }
+            withParam { int() }
+            withReturnType { string() }
+        }
+        viperImplementation { Exp.SeqDrop(args[0], args[1], pos, info) }
+        additionalConditions {
+            precondition { startIndexPrecondition(stringInjection.fromRef(args[0]), args[1]) }
+            postcondition {
+                Exp.SeqLength(stringInjection.fromRef(result)) eq
+                    (Exp.SeqLength(stringInjection.fromRef(args[0])) - intInjection.fromRef(args[1]))
+            }
+        }
+    }
+
+    val StringTake = buildBinaryOperator {
+        setName("stringTake")
+        withSignature {
+            withParam { string() }
+            withParam { int() }
+            withReturnType { string() }
+        }
+        viperImplementation { Exp.SeqTake(args[0], args[1], pos, info) }
+        additionalConditions {
+            precondition { intInjection.fromRef(args[1]) ge 0.toExp() }
+            postcondition {
+                Exp.SeqLength(stringInjection.fromRef(result)) eq
+                    clampedCount(Exp.SeqLength(stringInjection.fromRef(args[0])), intInjection.fromRef(args[1]))
+            }
+        }
+    }
+
+    val StringDrop = buildBinaryOperator {
+        setName("stringDrop")
+        withSignature {
+            withParam { string() }
+            withParam { int() }
+            withReturnType { string() }
+        }
+        viperImplementation { Exp.SeqDrop(args[0], args[1], pos, info) }
+        additionalConditions {
+            precondition { intInjection.fromRef(args[1]) ge 0.toExp() }
+            postcondition {
+                Exp.SeqLength(stringInjection.fromRef(result)) eq
+                    (Exp.SeqLength(stringInjection.fromRef(args[0])) -
+                        clampedCount(Exp.SeqLength(stringInjection.fromRef(args[0])), intInjection.fromRef(args[1])))
+            }
+        }
+    }
+
     val allTemplates
         get() = listOf(
             AddIntInt, SubIntInt, MulIntInt, DivIntInt, RemIntInt, NegInt,
@@ -253,5 +318,6 @@ object OperatorExpEmbeddings {
             AddCharInt, SubCharChar, SubCharInt,
             LeCharChar, GeCharChar, LtCharChar, GtCharChar,
             StringLength, StringGet, AddStringString, AddStringChar,
+            StringSubstring, StringTake, StringDrop,
         )
 }

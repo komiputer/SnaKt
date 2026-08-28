@@ -53,6 +53,7 @@ interface ExpVisitor<R> {
     fun visitInhaleInvariants(e: InhaleInvariants): R
     fun visitNonDeterministically(e: NonDeterministically): R
     fun visitWhile(e: While): R
+    fun visitDoWhile(e: DoWhile): R
     fun visitFieldAccess(e: FieldAccess): R
     fun visitInvokeFunctionObject(e: InvokeFunctionObject): R
     fun visitAssign(e: Assign): R
@@ -114,6 +115,7 @@ interface DefaultingExpVisitor<R> : ExpVisitor<R> {
     override fun visitInhaleInvariants(e: InhaleInvariants): R = visitDefault(e)
     override fun visitNonDeterministically(e: NonDeterministically): R = visitDefault(e)
     override fun visitWhile(e: While): R = visitDefault(e)
+    override fun visitDoWhile(e: DoWhile): R = visitDefault(e)
     override fun visitFieldAccess(e: FieldAccess): R = visitDefault(e)
     override fun visitInvokeFunctionObject(e: InvokeFunctionObject): R = visitDefault(e)
     override fun visitAssign(e: Assign): R = visitDefault(e)

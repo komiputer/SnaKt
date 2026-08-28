@@ -74,6 +74,36 @@ The rules are as follows:
 - Loop invariant must hold when the loop is exited.
 - Code after the loop may assume the condition fails.
 
+### `do`/`while`
+
+```kotlin
+@AlwaysVerify
+fun sumUpTo(n: Int): Int {
+    preconditions { n > 0 }
+    var sum = 0
+    var i = 0
+    do {
+        loopInvariants {
+            i < n
+        }
+        sum += i
+        i++
+    } while (i < n)
+    return sum
+}
+```
+
+`loopInvariants { }` is the first statement of the `do` block, as for `while`,
+but the rules differ because the body runs before the condition is ever
+evaluated:
+- Loop invariant must hold before every body execution, including the first.
+- The loop body may **not** assume the condition holds — it has not been
+  evaluated yet on entry. State whatever is needed as an invariant instead.
+- Loop invariant must hold after each iteration.
+- Loop invariant is **not** checked when the loop is exited — the exit is
+  reached after body-then-condition, so nothing guarantees the invariant holds
+  there.
+
 ## Universal Quantification
 
 Use `forAll<T>` for quantified formulas:

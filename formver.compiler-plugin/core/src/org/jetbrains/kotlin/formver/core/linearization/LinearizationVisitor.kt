@@ -71,6 +71,25 @@ data class LinearizationVisitor(
         }
     }
 
+    override fun visitDoWhile(e: DoWhile): Linearizable = object : UnitResultLinearizable(e) {
+        override fun toViperUnusedResult(ctx: LinearizationContext) {
+            ctx.addLabel(e.bodyLabel.toViper(ctx))
+            e.body.linearize().toViperUnusedResult(ctx)
+            ctx.addLabel(e.continueLabel.toViper(ctx))
+            val condVar = ctx.freshAnonVar { boolean() }
+            e.condition.linearize().toViperStoringIn(condVar, ctx)
+            ctx.addStatement {
+                val bodyBlock = ctx.asBlock {
+                    addStatement { e.bodyLabel.toLink().toViperGoto(this) }
+                }
+                Stmt.If(condVar.linearize().toViperBuiltinType(ctx), bodyBlock, els = Stmt.Seqn(), ctx.source.asPosition)
+            }
+            // No trailing invariant assert: exit is reached only after body-then-condition,
+            // so the invariant already held at the last check inside the loop.
+            ctx.addLabel(e.breakLabel.toViper(ctx))
+        }
+    }
+
     override fun visitGoto(e: Goto): Linearizable = object : UnitResultLinearizable(e) {
         override fun toViperUnusedResult(ctx: LinearizationContext) {
             ctx.addStatement { e.target.toViperGoto(ctx) }

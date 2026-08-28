@@ -62,6 +62,25 @@ data class While(
     override fun <R> accept(v: ExpVisitor<R>): R = v.visitWhile(this)
 }
 
+data class DoWhile(
+    val condition: ExpEmbedding,
+    val body: ExpEmbedding,
+    val breakLabelName: SymbolicName,
+    val continueLabelName: SymbolicName,
+    val bodyLabelName: SymbolicName,
+    val invariants: List<ExpEmbedding>,
+) : ExpEmbedding {
+    override val type: TypeEmbedding = buildType { unit() }
+
+    val bodyLabel = LabelEmbedding(bodyLabelName, invariants)
+    val continueLabel = LabelEmbedding(continueLabelName)
+    val breakLabel = LabelEmbedding(breakLabelName)
+
+    // Matches While's child order for consistency; not the emission order, which is body then condition.
+    override fun children(): Sequence<ExpEmbedding> = sequenceOf(condition, body)
+    override fun <R> accept(v: ExpVisitor<R>): R = v.visitDoWhile(this)
+}
+
 data class Goto(val target: LabelLink) : ExpEmbedding {
     override val type: TypeEmbedding = buildType { nothing() }
 

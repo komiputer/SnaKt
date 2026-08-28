@@ -1,0 +1,99 @@
+/not_null_assertion.kt: info: Generated Viper text for notNullAssertion:
+method notNullAssertion(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(intType()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (x != nullValue()) {
+    v_ret_0 := x
+  } else {
+    inhale false}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/not_null_assertion.kt: info: Generated Viper text for notNullAssertionOfCall:
+method id(x: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(x), nullable(intType()))
+  ensures isSubtype(typeOf(ret_1), nullable(intType()))
+
+
+method notNullAssertionOfCall() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon: Ref
+  anon := id(intToRef(3))
+  if (anon != nullValue()) {
+    v_ret_0 := anon
+  } else {
+    inhale false}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/not_null_assertion.kt: info: Generated Viper text for notNullAssertionThenUse:
+method notNullAssertionThenUse(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(intType()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var y: Ref
+  if (x != nullValue()) {
+    y := x
+  } else {
+    inhale false}
+  v_ret_0 := plusInts(y, intToRef(1))
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/not_null_assertion.kt: info: Generated Viper text for notNullAssertionInTry:
+method cause(this: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_2), nullable(anyType()))
+
+
+method message(this: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), anyType())
+  ensures isSubtype(typeOf(ret_1), nullable(anyType()))
+
+
+method notNullAssertionInTry(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(intType()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var anon_0: Ref
+  var anon_1: Ref
+  var e: Ref
+  if (boolFromRef(anon_0)) {
+    goto catch
+  }
+  if (x != nullValue()) {
+    v_ret_0 := x
+  } else {
+    inhale false}
+  goto lbl_ret_0
+  if (boolFromRef(anon_1)) {
+    goto catch
+  }
+  goto tryExit
+  label catch
+  v_ret_0 := intToRef(0)
+  goto lbl_ret_0
+  goto tryExit
+  label tryExit
+  label lbl_ret_0
+}
+
+/not_null_assertion.kt: info: Generated Viper text for notNullAssertionOfTypeParameter:
+method notNullAssertionOfTypeParameter(par_t: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(par_t), nullable(anyType()))
+  ensures isSubtype(typeOf(v_ret_0), nullable(anyType()))
+{
+  var anon: Ref
+  if (par_t != nullValue()) {
+    anon := par_t
+  } else {
+    inhale false}
+  v_ret_0 := anon
+  goto lbl_ret_0
+  label lbl_ret_0
+}

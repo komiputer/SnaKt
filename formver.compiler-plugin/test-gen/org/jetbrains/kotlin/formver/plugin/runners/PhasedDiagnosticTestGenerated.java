@@ -706,6 +706,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       }
 
       @Test
+      @TestMetadata("not_null_assertion.kt")
+      public void testNot_null_assertion() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/negative/not_null_assertion.kt");
+      }
+
+      @Test
       @TestMetadata("try_catch.kt")
       public void testTry_catch() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/negative/try_catch.kt");
@@ -737,6 +743,12 @@ public class PhasedDiagnosticTestGenerated extends AbstractPhasedDiagnosticTest 
       @TestMetadata("identity_equality.kt")
       public void testIdentity_equality() {
         runTest("formver.compiler-plugin/testData/diagnostics/verification/operators/identity_equality.kt");
+      }
+
+      @Test
+      @TestMetadata("not_null_assertion.kt")
+      public void testNot_null_assertion() {
+        runTest("formver.compiler-plugin/testData/diagnostics/verification/operators/not_null_assertion.kt");
       }
 
       @Test

@@ -134,12 +134,26 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         data: StmtConversionContext,
     ): ExpEmbedding = data.whenSubject!!
 
+    /** Whether this branch's condition is a `null ->` match on the `when` subject. */
+    private val FirWhenBranch.matchesNullSubject: Boolean
+        get() {
+            val cond = condition
+            if (cond !is FirEqualityOperatorCall || cond.operation != FirOperation.EQ) return false
+            return cond.arguments.any { it is FirWhenSubjectExpression } &&
+                    cond.arguments.any { it is FirLiteralExpression && it.kind == ConstantValueKind.Null }
+        }
+
     private fun convertWhenBranches(
         whenBranches: Iterator<FirWhenBranch>,
         type: TypeEmbedding,
+        fallthroughUnreachable: Boolean,
         data: StmtConversionContext,
     ): ExpEmbedding {
-        if (!whenBranches.hasNext()) return UnitLit
+        // When Kotlin proves the `when` exhaustive but there is no syntactic `else`, the missing
+        // fallthrough is unreachable. We trust that determination (as we trust smart-casts, see
+        // `visitSmartCastExpression`) and emit `ErrorExp` (`inhale false`) rather than fabricating a
+        // `UnitLit` of the wrong type.
+        if (!whenBranches.hasNext()) return if (fallthroughUnreachable) ErrorExp else UnitLit
 
         val branch = whenBranches.next()
 
@@ -149,7 +163,7 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
         } else {
             val cond = data.convert(branch.condition).withType { boolean() }
             val thenExp = data.withNewScope { convert(branch.result) }
-            val elseExp = convertWhenBranches(whenBranches, type, data)
+            val elseExp = convertWhenBranches(whenBranches, type, fallthroughUnreachable, data)
             If(cond, thenExp.withType(type), elseExp.withType(type), type)
         }
     }
@@ -164,8 +178,19 @@ object StmtConversionVisitor : FirVisitor<ExpEmbedding, StmtConversionContext>()
                 else
                     declareLocalVariable(firSubjVar.symbol, subjExp)
             }
+            // Every `ExhaustivenessStatus` other than `NotExhaustive` means there is no fallthrough.
+            //
+            // FIR's exhaustiveness check treats platform types (Java interop, `Foo!`) as non-null, so
+            // an exhaustive verdict alone does not rule out a null subject reaching no branch at
+            // runtime (KT-84106). Trust the verdict only when the null case cannot arise: either
+            // SnaKt's own derived type for the subject says it can't be null, or some branch matches
+            // `null` explicitly.
+            val subjectMayBeNull =
+                subj?.variable?.type?.isNullable == true && whenExpression.branches.none { it.matchesNullSubject }
+            val fallthroughUnreachable =
+                whenExpression.exhaustivenessStatus !is ExhaustivenessStatus.NotExhaustive && !subjectMayBeNull
             val body = withWhenSubject(subj?.variable) {
-                convertWhenBranches(whenExpression.branches.iterator(), type, this)
+                convertWhenBranches(whenExpression.branches.iterator(), type, fallthroughUnreachable, this)
             }
             subj?.let { blockOf(it, body) } ?: body
         }

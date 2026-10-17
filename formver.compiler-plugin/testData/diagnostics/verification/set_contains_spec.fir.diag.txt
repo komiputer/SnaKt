@@ -1,0 +1,53 @@
+/set_contains_spec.kt: info: Generated Viper text for contains_preserves_size:
+field p_size: Ref
+
+function g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method con(par_size: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(par_size), intType())
+  ensures isSubtype(typeOf(ret_2), IntArray())
+  ensures acc(IntArray_unique(ret_2), write)
+
+
+method contains(this: Ref, element: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), Set())
+  requires acc(this.p_size, write)
+  requires intFromRef(this.p_size) >= 0
+  requires isSubtype(typeOf(element), intType())
+  ensures acc(this.p_size, write)
+  ensures intFromRef(this.p_size) >= 0
+  ensures isSubtype(typeOf(ret_1), boolType())
+  ensures intFromRef(this.p_size) == old(intFromRef(this.p_size))
+
+
+method contains_preserves_size(s: Ref, x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), Set())
+  requires acc(s.p_size, write)
+  requires intFromRef(s.p_size) >= 0
+  requires isSubtype(typeOf(x), intType())
+  ensures acc(s.p_size, write)
+  ensures intFromRef(s.p_size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var before: Ref
+  var anon_0: Ref
+  var arr: Ref
+  var anon_1: Ref
+  before := s.p_size
+  inhale isSubtype(typeOf(before), intType())
+  anon_0 := contains(s, x)
+  anon_1 := s.p_size
+  inhale isSubtype(typeOf(anon_1), intType())
+  arr := con(plusInts(minusInts(anon_1, before), intToRef(1)))
+  v_ret_0 := get(arr, intToRef(0))
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+method get(this: Ref, index: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(this), IntArray())
+  requires isSubtype(typeOf(index), intType())
+  ensures isSubtype(typeOf(ret_3), intType())

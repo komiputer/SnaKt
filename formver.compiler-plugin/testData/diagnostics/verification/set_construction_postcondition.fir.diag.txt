@@ -1,0 +1,83 @@
+/set_construction_postcondition.kt: info: Generated Viper text for set_of_is_empty:
+field p_size: Ref
+
+function g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method con(par_size: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(par_size), intType())
+  ensures isSubtype(typeOf(ret_2), IntArray())
+  ensures acc(IntArray_unique(ret_2), write)
+
+
+method get(this: Ref, index: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(this), IntArray())
+  requires isSubtype(typeOf(index), intType())
+  ensures isSubtype(typeOf(ret_3), intType())
+
+
+method setOf() returns (ret_1: Ref)
+  ensures isSubtype(typeOf(ret_1), Set())
+  ensures acc(ret_1.p_size, write)
+  ensures intFromRef(ret_1.p_size) >= 0
+  ensures intFromRef(ret_1.p_size) == 0
+
+
+method set_of_is_empty() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var s: Ref
+  var arr: Ref
+  var anon: Ref
+  s := setOf()
+  anon := s.p_size
+  inhale isSubtype(typeOf(anon), intType())
+  arr := con(minusInts(intToRef(1), anon))
+  v_ret_0 := get(arr, intToRef(0))
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/set_construction_postcondition.kt: info: Generated Viper text for mutable_set_of_is_empty:
+field p_size: Ref
+
+function g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method con(par_size: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(par_size), intType())
+  ensures isSubtype(typeOf(ret_2), IntArray())
+  ensures acc(IntArray_unique(ret_2), write)
+
+
+method get(this: Ref, index: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(this), IntArray())
+  requires isSubtype(typeOf(index), intType())
+  ensures isSubtype(typeOf(ret_3), intType())
+
+
+method mutableSetOf() returns (ret_1: Ref)
+  ensures isSubtype(typeOf(ret_1), MutableSet())
+  ensures acc(ret_1.p_size, write)
+  ensures intFromRef(ret_1.p_size) >= 0
+  ensures intFromRef(ret_1.p_size) == 0
+
+
+method mutable_set_of_is_empty() returns (v_ret_0: Ref)
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var s: Ref
+  var arr: Ref
+  var anon: Ref
+  s := mutableSetOf()
+  anon := s.p_size
+  inhale isSubtype(typeOf(anon), intType())
+  arr := con(minusInts(intToRef(1), anon))
+  v_ret_0 := get(arr, intToRef(0))
+  goto lbl_ret_0
+  label lbl_ret_0
+}

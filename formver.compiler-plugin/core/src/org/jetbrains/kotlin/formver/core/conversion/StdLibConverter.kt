@@ -25,6 +25,12 @@ private fun VariableEmbedding.increasedSize(amount: Int): ExpEmbedding =
         OperatorExpEmbeddings.AddIntInt(Old(FieldAccess(this, CollectionSizeFieldEmbedding)), IntLit(amount)),
     )
 
+private fun VariableEmbedding.decreasedSize(amount: Int): ExpEmbedding =
+    EqCmp(
+        FieldAccess(this, CollectionSizeFieldEmbedding),
+        OperatorExpEmbeddings.SubIntInt(Old(FieldAccess(this, CollectionSizeFieldEmbedding)), IntLit(amount)),
+    )
+
 sealed interface StdLibReceiverInterface {
     fun match(function: NamedFunctionSignature, ctx: TypeResolver): Boolean
 }
@@ -51,6 +57,10 @@ data object ListInterface : PresentInterface {
 
 data object MutableListInterface : PresentInterface {
     override val interfaceName = "MutableList"
+}
+
+data object MutableSetInterface : PresentInterface {
+    override val interfaceName = "MutableSet"
 }
 
 data object NoInterface : StdLibReceiverInterface {
@@ -94,7 +104,8 @@ sealed interface StdLibPostcondition : StdLibCondition {
             IsEmptyPostcondition,
             GetPostcondition,
             SubListPostcondition,
-            AddPostcondition
+            AddPostcondition,
+            SetRemovePostcondition
         )
     }
 
@@ -209,6 +220,22 @@ data object AddPostcondition : StdLibPostcondition {
 
     override val stdLibInterface = MutableListInterface
     override val functionName = "add"
+}
+
+data object SetRemovePostcondition : StdLibPostcondition {
+    override fun getEmbeddings(
+        returnVariable: VariableEmbedding,
+        function: NamedFunctionSignature
+    ): List<ExpEmbedding> {
+        val receiver = function.dispatchReceiver!!
+        return listOf(
+            Implies(returnVariable, receiver.decreasedSize(1)),
+            Implies(Not(returnVariable), receiver.sameSize()),
+        )
+    }
+
+    override val stdLibInterface = MutableSetInterface
+    override val functionName = "remove"
 }
 
 fun NamedFunctionSignature.stdLibPreconditions(ctx: TypeResolver): List<ExpEmbedding> {

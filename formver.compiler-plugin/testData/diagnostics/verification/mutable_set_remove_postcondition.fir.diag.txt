@@ -1,0 +1,60 @@
+/mutable_set_remove_postcondition.kt: info: Generated Viper text for remove_then_index_shrink:
+field p_size: Ref
+
+function g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method con(par_size: Ref) returns (ret_2: Ref)
+  requires isSubtype(typeOf(par_size), intType())
+  ensures isSubtype(typeOf(ret_2), IntArray())
+  ensures acc(IntArray_unique(ret_2), write)
+
+
+method get(this: Ref, index: Ref) returns (ret_3: Ref)
+  requires isSubtype(typeOf(this), IntArray())
+  requires isSubtype(typeOf(index), intType())
+  ensures isSubtype(typeOf(ret_3), intType())
+
+
+method remove(this: Ref, element: Ref) returns (ret_1: Ref)
+  requires isSubtype(typeOf(this), MutableSet())
+  requires acc(this.p_size, write)
+  requires intFromRef(this.p_size) >= 0
+  requires isSubtype(typeOf(element), intType())
+  ensures acc(this.p_size, write)
+  ensures intFromRef(this.p_size) >= 0
+  ensures isSubtype(typeOf(ret_1), boolType())
+  ensures boolFromRef(ret_1) ==>
+    intFromRef(this.p_size) == old(intFromRef(this.p_size)) - 1
+  ensures !boolFromRef(ret_1) ==>
+    intFromRef(this.p_size) == old(intFromRef(this.p_size))
+
+
+method remove_then_index_shrink(s: Ref, x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(s), MutableSet())
+  requires acc(s.p_size, write)
+  requires intFromRef(s.p_size) >= 0
+  requires isSubtype(typeOf(x), intType())
+  ensures acc(s.p_size, write)
+  ensures intFromRef(s.p_size) >= 0
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var before: Ref
+  var removed: Ref
+  var arr: Ref
+  var anon: Ref
+  before := s.p_size
+  inhale isSubtype(typeOf(before), intType())
+  removed := remove(s, x)
+  anon := s.p_size
+  inhale isSubtype(typeOf(anon), intType())
+  arr := con(minusInts(before, anon))
+  if (boolFromRef(removed)) {
+    v_ret_0 := get(arr, intToRef(0))
+  } else {
+    v_ret_0 := intToRef(0)}
+  goto lbl_ret_0
+  label lbl_ret_0
+}

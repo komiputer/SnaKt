@@ -1,0 +1,27 @@
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (l[0] = 42)
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (l[i] = 0)
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (l[i] = l[j])
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (l[lo] = l[hi])
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (l[i] = v)
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (l[i] = l[minIdx])
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_write.kt: error: An internal error has occurred.
+Details: Not yet implemented for FirUnitExpression (result[i] = sum)
+Please report this at https://github.com/jesyspa/kotlin

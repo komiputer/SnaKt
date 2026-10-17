@@ -1,0 +1,1 @@
+/not_null_assertion.kt: warning: Viper verification error: Assert might fail. Assertion !(x == nullValue()) might not hold.

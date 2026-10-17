@@ -1,0 +1,18 @@
+/not_null_assertion.kt: info: Generated Viper text for assumptionDoesNotLeakBackwards:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method assumptionDoesNotLeakBackwards(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(intType()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  assert !(x == nullValue())
+  if (x != nullValue()) {
+    v_ret_0 := x
+  } else {
+    inhale false}
+  goto lbl_ret_0
+  label lbl_ret_0
+}

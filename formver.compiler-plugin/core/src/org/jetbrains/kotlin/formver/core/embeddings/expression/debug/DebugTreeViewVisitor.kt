@@ -71,6 +71,18 @@ class DebugTreeViewVisitor(private val nameResolver: NameResolver) : DefaultingE
         )
     }
 
+    override fun visitDoWhile(e: DoWhile): TreeView = with(nameResolver) {
+        defaultTree(
+            "DoWhile",
+            listOf(e.condition, e.body),
+            extraSubtrees = listOf(
+                e.breakLabel.debugTreeView.withDesignation("break"),
+                e.continueLabel.debugTreeView.withDesignation("continue"),
+                e.bodyLabel.debugTreeView.withDesignation("body"),
+            ),
+        )
+    }
+
     override fun visitGoto(e: Goto): TreeView = with(nameResolver) {
         defaultTree("Goto", extraSubtrees = listOf(e.target.debugTreeView))
     }

@@ -54,6 +54,8 @@ interface StmtConversionContext : MethodConversionContext {
 
     fun continueLabelName(targetName: String? = null): SymbolicName
     fun breakLabelName(targetName: String? = null): SymbolicName
+    // No targetName: only the loop's own back edge (from a do/while's condition) can jump here.
+    fun loopBodyLabelName(): SymbolicName
     fun addLoopName(targetName: String)
     fun convert(stmt: FirStatement): ExpEmbedding
 

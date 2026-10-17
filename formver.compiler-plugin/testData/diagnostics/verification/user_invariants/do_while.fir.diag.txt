@@ -1,0 +1,131 @@
+/do_while.kt: info: Generated Viper text for doWhileVerifies:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method doWhileVerifies(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) > 0
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var it: Ref
+  var anon: Ref
+  it := intToRef(0)
+  label body
+    invariant isSubtype(typeOf(it), intType())
+    invariant isSubtype(typeOf(n), intType())
+    invariant intFromRef(it) < intFromRef(n)
+  it := plusInts(it, intToRef(1))
+  label cont
+  anon := ltInts(it, n)
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  assert intFromRef(it) == intFromRef(n)
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileInvariantBroken:
+method doWhileInvariantBroken(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) > 0
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var it: Ref
+  var anon: Ref
+  it := intToRef(0)
+  label body
+    invariant isSubtype(typeOf(it), intType())
+    invariant isSubtype(typeOf(n), intType())
+    invariant intFromRef(it) == 0
+  it := plusInts(it, intToRef(1))
+  label cont
+  anon := ltInts(it, n)
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileBodyCannotAssumeCondition:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method doWhileBodyCannotAssumeCondition(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) > 0
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var it: Ref
+  var anon: Ref
+  it := n
+  label body
+    invariant isSubtype(typeOf(it), intType())
+    invariant isSubtype(typeOf(n), intType())
+  assert intFromRef(it) < intFromRef(n)
+  it := plusInts(it, intToRef(1))
+  label cont
+  anon := ltInts(it, n)
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileInvariantNotCheckedOnExit:
+method doWhileInvariantNotCheckedOnExit(n: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) > 0
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var it: Ref
+  var anon: Ref
+  it := intToRef(0)
+  label body
+    invariant isSubtype(typeOf(it), intType())
+    invariant isSubtype(typeOf(n), intType())
+    invariant intFromRef(it) < intFromRef(n)
+  it := plusInts(it, intToRef(1))
+  label cont
+  anon := ltInts(it, n)
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}
+
+/do_while.kt: info: Generated Viper text for doWhileInvariantCheckedBeforeFirstIteration:
+method doWhileInvariantCheckedBeforeFirstIteration(n: Ref)
+  returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(n), intType())
+  requires intFromRef(n) > 0
+  ensures isSubtype(typeOf(v_ret_0), unitType())
+{
+  var it: Ref
+  var anon: Ref
+  it := intToRef(0)
+  label body
+    invariant isSubtype(typeOf(it), intType())
+    invariant isSubtype(typeOf(n), intType())
+    invariant intFromRef(it) > 0
+  it := plusInts(it, intToRef(1))
+  label cont
+  anon := ltInts(it, n)
+  if (boolFromRef(anon)) {
+    goto body
+  }
+  label break
+  label lbl_ret_0
+  inhale isSubtype(typeOf(v_ret_0), unitType())
+}

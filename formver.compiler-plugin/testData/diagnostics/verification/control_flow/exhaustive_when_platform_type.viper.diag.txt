@@ -1,0 +1,1 @@
+/exhaustive_when_platform_type.kt: warning: Viper verification error: Postcondition of describe might not hold. Assertion isSubtype(typeOf(v_ret_0), intType()) might not hold.

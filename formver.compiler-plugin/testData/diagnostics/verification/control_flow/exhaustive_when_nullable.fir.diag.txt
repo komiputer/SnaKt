@@ -1,0 +1,66 @@
+/exhaustive_when_nullable.kt: info: Generated Viper text for narrowed:
+function Absent_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Absent())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function Present_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Present())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method narrowed(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(Opt()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  if (x == nullValue()) {
+    v_ret_0 := intToRef(0)
+    goto lbl_ret_0
+  } else {
+    var anon: Ref
+    anon := x
+    if (isSubtype(typeOf(anon), Present())) {
+      v_ret_0 := Present_g_v(x)
+    } elseif (isSubtype(typeOf(anon), Absent())) {
+      v_ret_0 := Absent_g_v(x)
+    } else {
+      inhale false
+      v_ret_0 := unitValue()
+    }
+    goto lbl_ret_0
+  }
+  label lbl_ret_0
+}
+
+/exhaustive_when_nullable.kt: info: Generated Viper text for narrowedSubjectVal:
+function Absent_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Absent())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function Present_g_v(this: Ref): Ref
+  requires isSubtype(typeOf(this), Present())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method narrowedSubjectVal(x: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(x), nullable(Opt()))
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var y: Ref
+  if (x == nullValue()) {
+    v_ret_0 := intToRef(0)
+    goto lbl_ret_0
+  }
+  y := x
+  if (isSubtype(typeOf(y), Present())) {
+    v_ret_0 := Present_g_v(y)
+  } elseif (isSubtype(typeOf(y), Absent())) {
+    v_ret_0 := Absent_g_v(y)
+  } else {
+    v_ret_0 := unitValue()}
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/exhaustive_when_nullable.kt: error: 'when' expression must be exhaustive. Add the 'null' branch or an 'else' branch.

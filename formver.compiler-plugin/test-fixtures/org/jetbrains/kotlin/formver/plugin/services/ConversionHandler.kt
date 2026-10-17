@@ -25,7 +25,8 @@ class AfterConversionHandler(testServices: TestServices) : FirAnalysisHandler(te
             FirDiagnosticCollectorService(testServices).getFrontendDiagnosticsForModule(info)
 
         module.files.forEach { file ->
-            val testFile = info.allFirFiles[file]!!
+            // Java files in a test module have no FIR file of their own.
+            val testFile = info.allFirFiles[file] ?: return@forEach
             val diagnostics = frontendDiagnosticsPerFile[testFile]
             val simpleDiagnostics = diagnostics.map { it.diagnostic }
             testServices.conversionTagCollector.reportDiagnostics(file, simpleDiagnostics)

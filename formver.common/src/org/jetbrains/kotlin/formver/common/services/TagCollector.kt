@@ -71,7 +71,9 @@ abstract class TagCollector(
             .sortedBy { (_, file) -> file.startLineNumberInOriginalFile }
         for ((module, file) in filesInOriginalOrder) {
             if (!file.isAdditional) {
-                val codeMetaInfos = metaInfo.getValue(file)
+                // Files the plugin never reports on, such as Java sources, contribute no tags but
+                // still have to be rendered so the reconstructed text matches the golden file.
+                val codeMetaInfos = metaInfo[file].orEmpty()
                 val fileBuilder = StringBuilder()
                 val source = sourceText(file)
                 CodeMetaInfoRenderer.renderTagsToText(

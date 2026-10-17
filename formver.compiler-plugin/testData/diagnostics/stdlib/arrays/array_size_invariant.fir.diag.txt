@@ -1,0 +1,98 @@
+/array_size_invariant.kt: error: An internal error has occurred.
+Details: PureLinearizer used to convert non-pure ExpEmbedding; operation freshAnonVar is not supported in a pure context.
+Embedding debug view:
+(Var(l0$i), InhaleInvariants(Var(par$l).Field(p$size), type = Int))
+Please report this at https://github.com/jesyspa/kotlin
+
+/array_size_invariant.kt: info: Generated Viper text for intArrayLinearScan:
+function BooleanArray_g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function IntArray_g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method intArrayLinearScan(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), IntArray())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  var i: Ref
+  var anon_1: Ref
+  assert intFromRef(IntArray_g_size(a)) >= 0
+  i := intToRef(0)
+  label cont
+    invariant isSubtype(typeOf(i), intType())
+    invariant isSubtype(typeOf(a), IntArray())
+    invariant 0 <= intFromRef(i)
+    invariant intFromRef(i) <= intFromRef(IntArray_g_size(a))
+  anon_1 := ltInts(i, IntArray_g_size(a))
+  if (boolFromRef(anon_1)) {
+    var anon_0: Ref
+    anon_0 := i
+    i := plusInts(anon_0, intToRef(1))
+    goto cont
+  }
+  label break
+  assert isSubtype(typeOf(i), intType())
+  assert isSubtype(typeOf(a), IntArray())
+  assert 0 <= intFromRef(i)
+  assert intFromRef(i) <= intFromRef(IntArray_g_size(a))
+  v_ret_0 := i
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/array_size_invariant.kt: info: Generated Viper text for arrayOfTSize:
+function Array_g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), Array())
+  ensures isSubtype(typeOf(result), intType())
+
+
+function BooleanArray_g_size(this: Ref): Ref
+  requires isSubtype(typeOf(this), BooleanArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method arrayOfTSize(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), Array())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  assert intFromRef(Array_g_size(a)) >= 0
+  v_ret_0 := Array_g_size(a)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/array_size_invariant.kt: info: Generated Viper text for intArraySizeRead:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method intArraySizeRead(a: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), IntArray())
+  ensures isSubtype(typeOf(v_ret_0), intType())
+{
+  v_ret_0 := size(a)
+  goto lbl_ret_0
+  label lbl_ret_0
+}
+
+/array_size_invariant.kt: info: Generated Viper text for sameLength:
+function size(this: Ref): Ref
+  requires isSubtype(typeOf(this), IntArray())
+  ensures isSubtype(typeOf(result), intType())
+
+
+method sameLength(a: Ref, b: Ref) returns (v_ret_0: Ref)
+  requires isSubtype(typeOf(a), IntArray())
+  requires isSubtype(typeOf(b), IntArray())
+  ensures isSubtype(typeOf(v_ret_0), boolType())
+{
+  v_ret_0 := boolToRef(intFromRef(size(a)) == intFromRef(size(b)))
+  goto lbl_ret_0
+  label lbl_ret_0
+}
